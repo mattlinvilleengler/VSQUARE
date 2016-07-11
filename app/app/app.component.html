@@ -1,0 +1,146 @@
+    <div class=" mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header mdl-layout__header--waterfall" [hidden]="!loggedIn">
+            <!-- Top row, always visible -->
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">FitSocial</span>
+                <div class="mdl-layout-spacer"></div>
+                <div>
+                    <div style="float:left; min-width:200px">
+                        <i class="material-icons" style="float:left; margin-right:8px; margin-top:4px;">account_circle</i>
+                        <span class="mdl-layout-title accentColor" *ngIf="loggedIn" style="margin-right: 20px; margin-top:10px; font-size:14px; opacity:.95;">{{displayName}}</span>
+                    </div>
+                    <!-- Right aligned menu below button -->
+                    <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+                        <i class="material-icons">more_vert</i>
+                    </button>
+
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+                        <li class="mdl-menu__item " onclick="openComponent('dataTracker', dataTracker)" [hidden]="!loggedIn" >Add Data</li>
+                        <li class="mdl-menu__item " [routerLink]="['Login']" [hidden]="loggedIn"  >Sign In</li>
+                        <li class="mdl-menu__item " [routerLink]="['Register']" [hidden]="loggedIn" >Register</li>
+                        <li class="mdl-menu__item " (click)="signOut()" [hidden]="!loggedIn" >Logout</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Bottom row, not visible on scroll -->
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation -->
+                <nav class="mdl-navigation">
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect navE"  [routerLink]="['Account']" style="height:auto">
+                        Account
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect navE" [routerLink]="['Dashboard']" style="height:auto">
+                        Dashboard
+                    </button>
+                    <button [routerLink]="['Settings']" class="mdl-button mdl-js-button mdl-js-ripple-effect navE" style="height:auto" >
+                        Settings
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect navE" [routerLink]="['AddData']" style="height:auto">
+                        Add Data
+                    </button>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer" [hidden]="!loggedIn">
+            <span class="mdl-layout-title">VSQUARE</span>
+            <nav class="mdl-navigation">
+               <a class="mdl-navigation__link" [routerLink]="['Account']" onclick="
+$('.mdl-layout__obfuscator').click();">Account</a>
+                <a class="mdl-navigation__link "  [routerLink]="['Dashboard']" onclick="
+$('.mdl-layout__obfuscator').click();" >Dashboard</a>
+                <a class="mdl-navigation__link "  [routerLink]="['Settings']" onclick="
+$('.mdl-layout__obfuscator').click();" >Data Configuration</a>
+                <a class="mdl-navigation__link "  [routerLink]="['AddData']" onclick="
+$('.mdl-layout__obfuscator').click();">Add Data</a>
+            </nav>
+        </div>
+    <!----------------------------------------------------------------------------main------------------------------------->
+    <main class="mdl-layout__content" [hidden]="!loggedIn" >
+        <div id="mainContent" class="page-content" style="min-height:1000px; margin:55px;">
+             <router-outlet></router-outlet>
+    
+        </div>
+    </main>
+
+    <footer class="mdl-mega-footer" style="position:absolute; width:100%;" [hidden]="!loggedIn">
+  <div class="mdl-mega-footer__middle-section">
+
+    <div class="mdl-mega-footer__drop-down-section">
+      <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+      <h1 class="mdl-mega-footer__heading">Features</h1>
+      <ul class="mdl-mega-footer__link-list">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Partners</a></li>
+        <li><a href="#">Updates</a></li>
+      </ul>
+    </div>
+
+    <div class="mdl-mega-footer__drop-down-section">
+      <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+      <h1 class="mdl-mega-footer__heading">Details</h1>
+      <ul class="mdl-mega-footer__link-list">
+        <li><a href="#">Specs</a></li>
+        <li><a href="#">Tools</a></li>
+        <li><a href="#">Resources</a></li>
+      </ul>
+    </div>
+
+    <div class="mdl-mega-footer__drop-down-section">
+      <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+      <h1 class="mdl-mega-footer__heading">Technology</h1>
+      <ul class="mdl-mega-footer__link-list">
+        <li><a href="#">How it works</a></li>
+        <li><a href="#">Patterns</a></li>
+        <li><a href="#">Usage</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Contracts</a></li>
+      </ul>
+    </div>
+
+    <div class="mdl-mega-footer__drop-down-section">
+      <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+      <h1 class="mdl-mega-footer__heading">FAQ</h1>
+      <ul class="mdl-mega-footer__link-list">
+        <li><a href="#">Questions</a></li>
+        <li><a href="#">Answers</a></li>
+        <li><a href="#">Contact us</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="mdl-mega-footer__bottom-section">
+    <div class="mdl-logo">FitSocial</div>
+    <ul class="mdl-mega-footer__link-list">
+      <li><a href="#">Help</a></li>
+      <li><a href="#">Privacy & Terms</a></li>
+    </ul>
+  </div>
+
+</footer>
+
+    <center style="margin-top:200px;" [hidden]="loggedIn" >       
+      <div class="mdl-card mdl-shadow--2dp" style="width:350px; Padding:15px 40px 40px 40px;" [hidden]="(login || signUp) ">
+                <div class="mdl-card__supporting-text" style=" Padding:0px;">
+<div  >
+    <h1>FitSocial</h1>
+    <h5>Personal Aggregate <br>Data Visualization</h5>
+
+     <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="login = true;" style="margin:7px;">
+Login
+</a>
+ <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="signUp = true;" style="margin:7px;">
+Sign Up
+</a>
+    </div>     
+    </div>
+               
+            </div>
+            <my-login [hidden]="!login"></my-login>
+            <my-register [hidden]="!signUp"></my-register>
+              </center>
+
+              

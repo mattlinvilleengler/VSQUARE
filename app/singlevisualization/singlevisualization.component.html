@@ -1,0 +1,24 @@
+<div class="dem-card-wide mdl-card mdl-shadow--2dp" style="height:auto; width:auto; float:left; margin:25px; padding:0px">
+    <div class="mdl-card__title" style="padding:0px;">
+        <div class='circleGraph'>
+            <div id="cont" [attr.data-pct]="exercisePctV">
+                <svg id="svg" width="170" height="170" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <circle r="60" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                    <circle  id="bar" r="60" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0" 
+                    [style.stroke-dashoffset.px]="exercisePct"></circle>
+                </svg>
+            </div>
+        </div>
+    </div>
+   
+    <div class="mdl-card__actions mdl-card--border">
+ <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="toggleGraph(1)">
+           {{measurement}}
+        </button>
+    </div>
+       <div class="mdl-card__menu" style="top:10px; right:10px;">
+                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons">data_usage</i>
+                    </button>
+                </div>
+    </div>
