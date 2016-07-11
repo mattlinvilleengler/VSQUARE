@@ -6,7 +6,7 @@ declare var firebase: any;
 @Component({
   moduleId: module.id,
   selector: 'my-account',
-  templateUrl: 'app/account/account.component.html'
+  templateUrl: 'account.component.html'
 })
 export class AccountComponent implements AfterViewInit, OnInit {
   fullName: string = " ";

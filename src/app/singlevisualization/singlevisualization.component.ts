@@ -14,7 +14,5 @@ export class SingleVisualizationComponent implements AfterViewInit {
   @Input('measurement') measurement: string;
   @Input('percent') exercisePct: number;
   @Input('percentV') exercisePctV: number;
-
-
-    }
+ }
 
