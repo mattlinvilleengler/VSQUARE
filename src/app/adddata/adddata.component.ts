@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 declare var componentHandler: any;
 declare var database: any;
 declare var firebase: any;
@@ -17,6 +17,8 @@ export class AddDataComponent implements AfterViewInit, OnInit {
   alcohol: number = 0;
   loggedIn: boolean = false;
   userID: number;
+  lastData: number;
+  
 
   financeSet: boolean = false;
   happinessSet: boolean = false;
@@ -24,6 +26,8 @@ export class AddDataComponent implements AfterViewInit, OnInit {
   nutritionSet: boolean = false;
   sleepSet: boolean = false;
   alcoholSet: boolean = false;
+
+  @ViewChild('errorDialog') dialog: any;
   
 
   ngAfterViewInit():any {
@@ -36,6 +40,7 @@ export class AddDataComponent implements AfterViewInit, OnInit {
       me.loggedIn = true;
       me.userID = user.uid;
       me.getSettings();
+      me.getData();
     } else {
       me.loggedIn = false;
     }
@@ -60,10 +65,36 @@ export class AddDataComponent implements AfterViewInit, OnInit {
     if(this.loggedIn){
       var d = new Date();
       var date = d.getTime();
+      var lastDate = new Date(this.lastData);
+      if( (d.getDate() != lastDate.getDate()) || (d.getMonth() != lastDate.getMonth()) || (d.getFullYear() != lastDate.getFullYear()) ){
     database.ref("data/" + this.userID + "/").push(
       {"time": date, "finance": this.finance, "happiness": this.happiness,
       "exercise": this.exercise, "nutrition": this.nutrition, "sleep": this.sleep, "alcohol": this.alcohol } 
     );
+      } else{
+        this.dialog.nativeElement.showModal();
+      }
     }
   }
+     getData(){
+  var me = this;
+  database.ref('data/' + this.userID ).limitToLast(1).on('value', function(snapshot:any) {
+  me.updateData(snapshot.val());
+  });
+   }
+    updateData(data:any){
+        if(data){
+          for(var d in data){
+              this.lastData = data[d].time ? data[d].time : false;
+          }
+       
+        }
+    }
+       closeDialog(){
+          this.dialog.nativeElement.close();
+        }
+         dashboard(){
+          this.dialog.nativeElement.close();
+          window.location.pathname = "dashboard";
+        }
 }
