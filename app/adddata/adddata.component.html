@@ -1,82 +1,108 @@
-  <div class="demo-card-wide mdl-card mdl-shadow--2dp" style="float:left;  width:400px;">
-                <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">Daily Data</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                    <div class="demo-list-action mdl-list">
+<div class="demo-card-wide mdl-card mdl-shadow--2dp" style="float:left;  width:400px; margin:5%;">
+    <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Daily Data</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+        <div class="demo-list-action mdl-list">
 
-                        <div class="mdl-list__item" [hidden]="!financeSet">
-                            <i class="material-icons accent">attach_money</i>
-                            <span class="mdl-list__item-primary-content">
+            <div class="mdl-list__item" [hidden]="!financeSet">
+                <i class="material-icons accent">attach_money</i>
+                <span class="mdl-list__item-primary-content">
 <span>Finance</span>
-                            </span>
-                            <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{finance}} tabindex="0" #fin (change)="finance = fin.value">
-                        </div>
-
-                        <div class="mdl-list__item" [hidden]="!happinessSet">
-                            <i class="material-icons accent ">mood</i>
-                            <span class="mdl-list__item-primary-content">
-<span>Happiness</span>
-                            </span>
-                            <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{happiness}} tabindex="0" #hap (change)="happiness = hap.value">
-                        </div>
-
-                        <div class="mdl-list__item" [hidden]="!exerciseSet">
-                            <i class="material-icons accent ">directions_run</i>
-                            <span class="mdl-list__item-primary-content">
-<span>Exercise</span>
-                            </span>
-                            <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{exercise}} tabindex="0" #exe (change)="exercise = exe.value">
-                        </div>
-
-                        <div class="mdl-list__item" [hidden]="!nutritionSet">
-                            <i class="material-icons accent">local_pizza</i>
-                            <span class="mdl-list__item-primary-content">
-<span>Nutrition</span>
-                            </span>
-                            <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{nutrition}} tabindex="0" #nut (change)="nutrition = nut.value">
-                        </div>
-
-                        <div class="mdl-list__item" [hidden]="!sleepSet">
-                            <i class="material-icons accent">snooze</i>
-                            <span class="mdl-list__item-primary-content">
-<span>Sleep</span>
-                            </span>
-                            <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{sleep}} tabindex="0" #sle (change)="sleep = sle.value">
-                        </div>
-
-                        <div class="mdl-list__item" [hidden]="!alcoholSet">
-                            <i class="material-icons accent">local_drink</i>
-                            <span class="mdl-list__item-primary-content">
-<span>Alcohol</span>
-                            </span>
-                            <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{alcohol}} tabindex="0" #alc (change)="alcohol = alc.value">
-                        </div>
-                    </div>
-                </div>
-                <div class="mdl-card__actions mdl-card--border" (click)="console.log(finVal)">
-                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)= "saveData()" style="float:right">
-Save
-</a>
-                </div>
-                <div class="mdl-card__menu">
-                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" >
-                        <i class="material-icons">multiline_chart</i>
-                    </button>
-                </div>
+                </span>
+                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{finance}} tabindex="0" #fin (change)="finance = fin.value">
             </div>
 
+            <div class="mdl-list__item" [hidden]="!happinessSet">
+                <i class="material-icons accent ">mood</i>
+                <span class="mdl-list__item-primary-content">
+<span>Happiness</span>
+                </span>
+                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{happiness}} tabindex="0" #hap (change)="happiness = hap.value">
+            </div>
 
-             <dialog #errorDialog class="mdl-dialog">
+            <div class="mdl-list__item" [hidden]="!exerciseSet">
+                <i class="material-icons accent ">directions_run</i>
+                <span class="mdl-list__item-primary-content">
+<span>Exercise</span>
+                </span>
+                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{exercise}} tabindex="0" #exe (change)="exercise = exe.value">
+            </div>
+
+            <div class="mdl-list__item" [hidden]="!nutritionSet">
+                <i class="material-icons accent">local_pizza</i>
+                <span class="mdl-list__item-primary-content">
+<span>Nutrition</span>
+                </span>
+                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{nutrition}} tabindex="0" #nut (change)="nutrition = nut.value">
+            </div>
+
+            <div class="mdl-list__item" [hidden]="!sleepSet">
+                <i class="material-icons accent">snooze</i>
+                <span class="mdl-list__item-primary-content">
+<span>Sleep</span>
+                </span>
+                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{sleep}} tabindex="0" #sle (change)="sleep = sle.value">
+            </div>
+
+            <div class="mdl-list__item" [hidden]="!alcoholSet">
+                <i class="material-icons accent">local_drink</i>
+                <span class="mdl-list__item-primary-content">
+<span>Alcohol</span>
+                </span>
+                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{alcohol}} tabindex="0" #alc (change)="alcohol = alc.value">
+            </div>
+        </div>
+    </div>
+    <div class="mdl-card__actions mdl-card--border" (click)="console.log(finVal)">
+        <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="saveData()" style="float:right">
+Save
+</a>
+    </div>
+    <div class="mdl-card__menu">
+        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons">multiline_chart</i>
+                    </button>
+    </div>
+</div>
+
+
+<dialog #errorDialog class="mdl-dialog">
     <h4 class="mdl-dialog__title">Error</h4>
     <div class="mdl-dialog__content">
-      <p>
-        You have already saved data for today. You May edit this data by selecting it on your dashboard
-      </p>
+        <p>
+            You have already saved data for today. You may edit this data by selecting it on your dashboard
+        </p>
     </div>
     <div class="mdl-dialog__actions">
-      <button type="button" class="mdl-button" (click)="closeDialog()">Close</button>
-      <button type="button" class="mdl-button" (click)="dashboard()">Go To Dashboard</button>
-      
+        <button type="button" class="mdl-button" (click)="dashboard()">Go To Dashboard</button>
+        <button type="button" class="mdl-button" (click)="closeDialog()">Close</button>
     </div>
-  </dialog>
+</dialog>
+
+<dialog #successDialog class="mdl-dialog">
+    <h4 class="mdl-dialog__title">Success</h4>
+    <div class="mdl-dialog__content">
+        <p>
+            Your data for today have been succesfully saved. Keep up the good work.
+            <span [hidden]="!newUser"> Now let's see where we can view our data anlytics</span>
+        </p>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button" (click)="dashboardSuccess()" [hidden]="newUser">Go To Dashboard</button>
+        <button type="button" class="mdl-button" (click)="closeSuccessDialog()" [hidden]="newUser">Close</button>
+        <button type="button" class="mdl-button" (click)="closeSuccessDialogNewUser()" [hidden]="!newUser">Continue</button>
+    </div>
+</dialog>
+
+<dialog #newDialog class="mdl-dialog">
+    <h4 class="mdl-dialog__title">Add Data</h4>
+    <div class="mdl-dialog__content">
+        <p>
+            This is where you can save and update your daily metrics.
+        </p>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button" (click)="closeNewDialog()">Close</button>
+    </div>
+</dialog>

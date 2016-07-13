@@ -4,7 +4,7 @@
 }
 
 .mdl-layout__header--waterfall {
-    overflow: visible !important;
+    /overflow: visible !important;
 }
 .accent {
     color: rgb(100,255,218);
@@ -135,6 +135,12 @@
     min-height:27px !important;
     padding:0 55px 0 16px !important;
 }
+.rotate{
+   -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
 
 
 
