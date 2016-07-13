@@ -7,7 +7,7 @@ declare var componentHandler: any;
   templateUrl: 'datacard.component.html'
 })
 export class DataCardComponent implements AfterViewInit {
-  ngAfterViewInit():any {
+  ngAfterViewInit(): any {
     componentHandler.upgradeDom();
   }
 }

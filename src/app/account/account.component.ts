@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 declare var componentHandler: any;
 declare var database: any;
 declare var firebase: any;
@@ -21,51 +21,78 @@ export class AccountComponent implements AfterViewInit, OnInit {
 
   loggedIn: boolean = false;
   userID: number;
-  
+  newUser: boolean = false;
 
-  ngAfterViewInit():any {
+  @ViewChild('newDialog') newDialog: any;
+  @ViewChild('successDialog') successDialog: any;
+
+
+  ngAfterViewInit(): any {
     componentHandler.upgradeDom();
   }
-  ngOnInit():any{
+  ngOnInit(): any {
     var me = this;
-    firebase.auth().onAuthStateChanged(function(user:any) {
-    if (user) {
-      me.userID = user.uid;
-      me.fullName = user.displayName ? user.displayName : "" ;
-      me.loggedIn = true;
-      me.getAccount();
-    } else {
-      me.loggedIn = false;
-    }
+    this.newUser = window.localStorage.getItem('newAccount') == "true" ? true : false;
+    firebase.auth().onAuthStateChanged(function (user: any) {
+      if (user) {
+        me.userID = user.uid;
+        me.fullName = user.displayName ? user.displayName : "";
+        me.loggedIn = true;
+        me.newUser ? me.openDialog(me.newDialog) : me.getAccount();
+      } else {
+        me.loggedIn = false;
+      }
     });
   }
 
-  getAccount(){
-  var me = this;
-  database.ref('account/' + this.userID ).on('value', function(snapshot:any) {
-  me.updateAccount(snapshot.val());
-  });
+  getAccount() {
+    var me = this;
+    database.ref('account/' + this.userID).on('value', function (snapshot: any) {
+      me.updateAccount(snapshot.val());
+    });
   }
-  updateAccount(account:any){
-    if(account){
-  this.fullName = account.fullName ? account.fullName : "";
-  this.address1 = account.address1 ? account.address1 : "";
-  this.address2 = account.address2 ? account.address2 : "";
-  this.city = account.city ? account.city : "";
-  this.state = account.state ? account.state : "";
-  this.country = account.country ? account.country : "";  
-  this.postalCode = account.postalCode ? account.postalCode : null;
-  this.shareDataPriv = account.shareDataPriv ? account.shareDataPriv : true;
-  
+  updateAccount(account: any) {
+    if (account) {
+      this.fullName = account.fullName ? account.fullName : "";
+      this.address1 = account.address1 ? account.address1 : "";
+      this.address2 = account.address2 ? account.address2 : "";
+      this.city = account.city ? account.city : "";
+      this.state = account.state ? account.state : "";
+      this.country = account.country ? account.country : "";
+      this.postalCode = account.postalCode ? account.postalCode : null;
+      this.shareDataPriv = account.shareDataPriv ? account.shareDataPriv : true;
+
     }
   }
-  saveAccount(){
-    if(this.loggedIn){
-    database.ref("account/" + this.userID + "/").set(
-      {"fullName": this.fullName, "address1": this.address1, "address2": this.address2,
-      "city": this.city, "state": this.state, "country": this.country, "postalCode": this.postalCode,
-       "shareDataPriv": this.shareDataPriv } 
-    );
+  saveAccount() {
+    if (this.loggedIn) {
+      database.ref("account/" + this.userID + "/").set(
+        {
+          "fullName": this.fullName, "address1": this.address1, "address2": this.address2,
+          "city": this.city, "state": this.state, "country": this.country, "postalCode": this.postalCode,
+          "shareDataPriv": this.shareDataPriv
+        }
+      );
+      this.successDialog.nativeElement.showModal()
     }
+  }
+  closeNewDialog() {
+    this.newDialog.nativeElement.close();
+    window.localStorage.setItem('newAccount', "false");
+  }
+  closeSuccessDialogNewUser() {
+    this.successDialog.nativeElement.close();
+    window.location.pathname = "settings";
+    window.localStorage.setItem('newSettings', "true");
+  }
+  closeSuccessDialog() {
+    this.successDialog.nativeElement.close();
+  }
+  dashboardSuccess() {
+    this.successDialog.nativeElement.close();
+    window.location.pathname = "dashboard";
+  }
+  openDialog(d) {
+    setTimeout(function () { d.nativeElement.showModal(); }, 1500);
   }
 }

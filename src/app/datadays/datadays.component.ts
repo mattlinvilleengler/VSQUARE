@@ -9,7 +9,7 @@ declare var firebase: any;
   moduleId: module.id,
   selector: 'my-datadays',
   templateUrl: 'datadays.component.html',
-    directives: [ DataCardComponent]
+  directives: [DataCardComponent]
 
 })
 export class DataDaysComponent implements AfterViewInit, OnInit {
@@ -30,51 +30,55 @@ export class DataDaysComponent implements AfterViewInit, OnInit {
   alcoholSet: boolean = false;
 
   data: any = [];
-  
 
-  ngAfterViewInit():any {
+
+  ngAfterViewInit(): any {
     componentHandler.upgradeDom();
   }
-  ngOnInit():any{
+  ngOnInit(): any {
     var me = this;
-    firebase.auth().onAuthStateChanged(function(user:any) {
-    if (user) {
-      me.loggedIn = true;
-      me.userID = user.uid;
-      me.getSettings();
-      me.getData();
-    } else {
-      me.loggedIn = false;
-    }
+    firebase.auth().onAuthStateChanged(function (user: any) {
+      if (user) {
+        me.loggedIn = true;
+        me.userID = user.uid;
+        me.getSettings();
+        me.getData();
+      } else {
+        me.loggedIn = false;
+      }
     });
   }
 
-  getSettings(){
-  var me = this;
-  database.ref('settings/' + this.userID ).on('value', function(snapshot:any) {
-  me.updateSettings(snapshot.val());
-  });
+  getSettings() {
+    var me = this;
+    database.ref('settings/' + this.userID).on('value', function (snapshot: any) {
+      me.updateSettings(snapshot.val());
+    });
   }
-   getData(){
-  var me = this;
-  database.ref('data/' + this.userID ).on('value', function(snapshot:any) {
-  me.updateData(snapshot.val());
-  });
-   }
-    updateData(data:any){
-        for(var d in data){
-            data[d].time = (new Date(data[d].time)).toLocaleDateString();
-           this.data.push(data[d]);
-        }
+  getData() {
+    var me = this;
+    database.ref('data/' + this.userID).on('value', function (snapshot: any) {
+      me.updateData(snapshot.val());
+    });
+  }
+  updateData(data: any) {
+    if (data) {
+      for (var d in data) {
+        data[d].time = (new Date(data[d].time)).toLocaleDateString();
+        this.data.push(data[d]);
+      }
+    }
 
   }
-  updateSettings(settings:any){
-  this.financeSet = settings.finance;
-  this.happinessSet = settings.happiness;
-  this.exerciseSet = settings.exercise;
-  this.nutritionSet = settings.nutrition;
-  this.sleepSet = settings.sleep;
-  this.alcoholSet = settings.alcohol;
+  updateSettings(settings: any) {
+    if (settings) {
+      this.financeSet = settings.finance;
+      this.happinessSet = settings.happiness;
+      this.exerciseSet = settings.exercise;
+      this.nutritionSet = settings.nutrition;
+      this.sleepSet = settings.sleep;
+      this.alcoholSet = settings.alcohol;
+    }
   }
 
 }

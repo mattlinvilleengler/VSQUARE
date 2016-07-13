@@ -43,8 +43,6 @@ firebase.auth().getRedirectResult().then(function(result:any) {
   }
   // The signed-in user info.
   var user = result.user;
-  console.log(user);
-  alert("successfully signed in as " + user.displayName);
 }).catch(function(error:any) {
   // Handle Errors here.
   var errorCode = error.code;

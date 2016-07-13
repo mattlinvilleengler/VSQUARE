@@ -7,12 +7,12 @@ declare var componentHandler: any;
   templateUrl: 'singlevisualization.component.html'
 })
 export class SingleVisualizationComponent implements AfterViewInit {
- // exercisePct: number = 330;
-  ngAfterViewInit():any {
+  // exercisePct: number = 330;
+  ngAfterViewInit(): any {
     componentHandler.upgradeDom();
   }
   @Input('measurement') measurement: string;
   @Input('percent') exercisePct: number;
   @Input('percentV') exercisePctV: number;
- }
+}
 
