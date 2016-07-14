@@ -48,18 +48,18 @@
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" [routerLink]="['Account']" onclick="
 $('.mdl-layout__obfuscator').click();">Account</a>
-            <a class="mdl-navigation__link " [routerLink]="['Dashboard']" onclick="
+            <a #dashboard class="mdl-navigation__link " [routerLink]="['Dashboard']" onclick="
 $('.mdl-layout__obfuscator').click();">Dashboard</a>
             <a class="mdl-navigation__link " [routerLink]="['Settings']" onclick="
 $('.mdl-layout__obfuscator').click();">Settings</a>
             <a class="mdl-navigation__link " [routerLink]="['AddData']" onclick="
 $('.mdl-layout__obfuscator').click();">Add Data</a>
-            <a [hidden]="!loggedIn" class="mdl-navigation__link " (click)="signOut();">Logout</a>
+            <a [hidden]="!loggedIn" class="mdl-navigation__link" (click)="signOut();" style="cursor:pointer;">Logout</a>
         </nav>
     </div>
     <!----------------------------------------------------------------------------main------------------------------------->
     <main class="mdl-layout__content" style="padding-bottom:100px;">
-        <div id="mainContent" class="page-content" style="min-height:1000px;  ">
+        <div id="mainContent" class="page-content">
 
             <div [hidden]="!loggedIn" style=padding:0%;>
                 <router-outlet></router-outlet>

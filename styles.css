@@ -182,6 +182,9 @@ margin-top:75px !important;
 .navRow{
     padding-left:10px !important;
 }
+.mdl-layout__drawer-button{
+    color: rgb(66,66,66) !important;
+}
 
 }
 ._dialog_overlay{
