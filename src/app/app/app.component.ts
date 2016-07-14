@@ -53,6 +53,8 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('refresh') refresh: any;
   @ViewChild('successDialog') successDialog: any;
   @ViewChild('account') account: any;
+  @ViewChild('dashboard') dashboard: any;
+  
 
   successMessage: string = " ";
 
@@ -79,6 +81,7 @@ export class AppComponent implements AfterViewInit {
     });
   }
   signOut() {
+    this.dashboard.nativeElement.click();
     firebase.auth().signOut().then(function () {
       // Sign-out successful.
       //alert("successfuly signed out");
