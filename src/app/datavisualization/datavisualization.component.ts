@@ -119,7 +119,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
             WIDTH = width,
             HEIGHT = height,
             MARGINS = {
-                top: 20,
+                top: 40,
                 right: 40,
                 bottom: 50,
                 left: 40

@@ -140,6 +140,53 @@
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
 }
+@media (max-width: 800px){
+.landingI{
+right:75px !important;
+}
+.dataTitle{
+    display:block !important;
+}
+
+}
+
+@media (max-width: 400px){
+.landingI{
+right:50px !important;
+}
+.landingHead{
+    font-size: 45px !important;
+}
+
+}
+.dataTitle button{
+    margin-top:-12px;
+}
+.dataTitle{
+    padding:12px 5px 0 5px !important;
+}
+@media (max-width: 560px){
+   .accountCard{
+    width:100% !important;
+    margin-left: 0px !important;
+    float:left !important;
+}
+   .ma{
+margin-top:75px !important;
+}
+}
+@media screen and (min-width: 425px){
+.mdl-layout__header {
+    display: block !important;
+}
+.navRow{
+    padding-left:10px !important;
+}
+
+}
+._dialog_overlay{
+    z-index: -1 !important;
+}
 
 
 
