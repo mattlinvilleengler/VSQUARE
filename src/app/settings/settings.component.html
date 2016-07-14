@@ -66,13 +66,12 @@ Save Settings
     <h4 class="mdl-dialog__title">Success</h4>
     <div class="mdl-dialog__content">
         <p>
-            Your seetings have been successfully saved. <span [hidden]="!newUser">Now let's see how we can add and track metrics</span>
+            Your seetings have been successfully saved. 
         </p>
     </div>
     <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="dashboardSuccess()" [hidden]="newUser">Go To Dashboard</button>
-        <button type="button" class="mdl-button" (click)="closeSuccessDialog()" [hidden]="newUser">Close</button>
-        <button type="button" class="mdl-button" (click)="closeSuccessDialogNewUser()" [hidden]="!newUser">Continue</button>
+        <button type="button" class="mdl-button" (click)="dashboardSuccess()" >Go To Dashboard</button>
+        <button type="button" class="mdl-button" (click)="closeSuccessDialog()" >Close</button>
     </div>
 </dialog>
 
@@ -81,9 +80,10 @@ Save Settings
     <div class="mdl-dialog__content">
         <p>
             Welcome to the settings page. This is where you can configure your data and select metrics to track.
+            Now let's see how we can add and track metrics
         </p>
     </div>
     <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="closeNewDialog()">Close</button>
+        <button type="button" class="mdl-button" (click)="closeNewDialog()">Continue</button>
     </div>
 </dialog>

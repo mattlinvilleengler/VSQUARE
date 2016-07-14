@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 declare var componentHandler: any;
 declare var database: any;
 declare var firebase: any;
+declare var dialogPolyfill: any;
 
 @Component({
   moduleId: module.id,
@@ -26,9 +27,10 @@ export class AccountComponent implements AfterViewInit, OnInit {
   @ViewChild('newDialog') newDialog: any;
   @ViewChild('successDialog') successDialog: any;
 
-
   ngAfterViewInit(): any {
     componentHandler.upgradeDom();
+    dialogPolyfill.registerDialog(this.newDialog.nativeElement);
+    dialogPolyfill.registerDialog(this.successDialog.nativeElement);    
   }
   ngOnInit(): any {
     var me = this;
@@ -79,18 +81,15 @@ export class AccountComponent implements AfterViewInit, OnInit {
   closeNewDialog() {
     this.newDialog.nativeElement.close();
     window.localStorage.setItem('newAccount', "false");
-  }
-  closeSuccessDialogNewUser() {
-    this.successDialog.nativeElement.close();
-    window.location.pathname = "settings";
     window.localStorage.setItem('newSettings', "true");
+    window.location.pathname = "my-app/settings";
   }
   closeSuccessDialog() {
     this.successDialog.nativeElement.close();
   }
   dashboardSuccess() {
     this.successDialog.nativeElement.close();
-    window.location.pathname = "dashboard";
+    window.location.pathname = "my-app/dashboard";
   }
   openDialog(d) {
     setTimeout(function () { d.nativeElement.showModal(); }, 1500);

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
 declare var componentHandler: any;
 declare var firebase: any;
+declare var dialogPolyfill: any;
 
 @Component({
   moduleId: module.id,
@@ -27,6 +28,8 @@ signInRe(){
  ngAfterViewInit():any {
      var me = this;
    componentHandler.upgradeDom();
+     dialogPolyfill.registerDialog(this.loginDialog.nativeElement);    
+     dialogPolyfill.registerDialog(this.registerDialog.nativeElement);
 firebase.auth().getRedirectResult().then(function(result:any) {
   if (result.credential) {
     // This gives you a Google Access Token. You can use it to access the Google API.

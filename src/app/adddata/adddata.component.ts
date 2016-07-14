@@ -3,6 +3,7 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 declare var componentHandler: any;
 declare var database: any;
 declare var firebase: any;
+declare var dialogPolyfill: any;
 
 @Component({
   moduleId: module.id,
@@ -38,6 +39,9 @@ export class AddDataComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): any {
     componentHandler.upgradeDom();
+     dialogPolyfill.registerDialog(this.dialog.nativeElement);    
+     dialogPolyfill.registerDialog(this.newDialog.nativeElement);
+    dialogPolyfill.registerDialog(this.successDialog.nativeElement);  
   }
   ngOnInit(): any {
     var me = this;
@@ -114,23 +118,20 @@ export class AddDataComponent implements AfterViewInit, OnInit {
   }
   dashboard() {
     this.dialog.nativeElement.close();
-    window.location.pathname = "dashboard";
+    window.location.pathname = "my-app/dashboard";
   }
   closeSuccessDialog() {
     this.successDialog.nativeElement.close();
   }
   dashboardSuccess() {
     this.successDialog.nativeElement.close();
-    window.location.pathname = "dashboard";
+    window.location.pathname = "my-app/dashboard";
   }
   closeNewDialog() {
     this.newDialog.nativeElement.close();
     window.localStorage.setItem('newAddData', "false");
-  }
-  closeSuccessDialogNewUser() {
-    this.successDialog.nativeElement.close();
-    window.location.pathname = "dashboard";
     window.localStorage.setItem('newDashboard', "true");
+    window.location.pathname = "my-app/dashboard";
   }
   openDialog(d) {
     setTimeout(function () { d.nativeElement.showModal(); }, 1500);

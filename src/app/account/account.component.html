@@ -70,10 +70,11 @@
     <div class="mdl-dialog__content">
         <p>
             Welcome to the account page. This is where you can update basic information and account settings.
+            Now let's see where we can set up our data configuration.
         </p>
     </div>
     <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="closeNewDialog()">Close</button>
+        <button type="button" class="mdl-button" (click)="closeNewDialog()">Continue</button>
     </div>
 </dialog>
 
@@ -81,12 +82,11 @@
     <h4 class="mdl-dialog__title">Success</h4>
     <div class="mdl-dialog__content">
         <p>
-            Account information has been saved succesfully. <span [hidden]="!newUser"> Now let's set up our data configuration.</span>
+            Account information has been saved succesfully. 
         </p>
     </div>
     <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="dashboardSuccess()" [hidden]="newUser">Go To Dashboard</button>
-        <button type="button" class="mdl-button" (click)="closeSuccessDialog()" [hidden]="newUser">Close</button>
-        <button type="button" class="mdl-button" (click)="closeSuccessDialogNewUser()" [hidden]="!newUser">Continue</button>
+        <button type="button" class="mdl-button" (click)="dashboardSuccess()" >Go To Dashboard</button>
+        <button type="button" class="mdl-button" (click)="closeSuccessDialog()" >Close</button>
     </div>
 </dialog>

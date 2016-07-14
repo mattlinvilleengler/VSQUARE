@@ -85,13 +85,11 @@ Save
     <div class="mdl-dialog__content">
         <p>
             Your data for today have been succesfully saved. Keep up the good work.
-            <span [hidden]="!newUser"> Now let's see where we can view our data anlytics</span>
         </p>
     </div>
     <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="dashboardSuccess()" [hidden]="newUser">Go To Dashboard</button>
-        <button type="button" class="mdl-button" (click)="closeSuccessDialog()" [hidden]="newUser">Close</button>
-        <button type="button" class="mdl-button" (click)="closeSuccessDialogNewUser()" [hidden]="!newUser">Continue</button>
+        <button type="button" class="mdl-button" (click)="dashboardSuccess()" >Go To Dashboard</button>
+        <button type="button" class="mdl-button" (click)="closeSuccessDialog()" >Close</button>
     </div>
 </dialog>
 
@@ -100,9 +98,10 @@ Save
     <div class="mdl-dialog__content">
         <p>
             This is where you can save and update your daily metrics.
+            Now let's see where you can view your data anlytics.
         </p>
     </div>
     <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="closeNewDialog()">Close</button>
+        <button type="button" class="mdl-button" (click)="closeNewDialog()">Continue</button>
     </div>
 </dialog>

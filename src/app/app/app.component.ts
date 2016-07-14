@@ -14,6 +14,7 @@ import { LandingComponent }     from '../landing/landing.component';
 declare var database: any;
 declare var componentHandler: any;
 declare var firebase: any;
+declare var dialogPolyfill: any;
 
 @Component({
   moduleId: module.id,
@@ -58,6 +59,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): any {
     var me = this;
     componentHandler.upgradeDom();
+    dialogPolyfill.registerDialog(this.successDialog.nativeElement);  
     firebase.auth().onAuthStateChanged(function (user: any) {
       if (user) {
         me.loginMethod = window.localStorage.getItem('loginMethod');
@@ -110,8 +112,8 @@ export class AppComponent implements AfterViewInit {
     window.localStorage.setItem('loggingIn', "false");
     this.successDialog.nativeElement.close();
     //this.account.nativeElement.click();
-    window.location.pathname = "account";
     window.localStorage.setItem('newAccount', "true");
+    window.location.pathname = "my-app/account";
     this.loggedIn = true;
   }
 }

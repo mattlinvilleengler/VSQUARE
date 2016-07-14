@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { SingleVisualizationComponent } from '../singlevisualization/singlevisualization.component';
 declare var componentHandler: any;
 declare var d3: any;
 declare var database: any;
@@ -9,8 +8,7 @@ declare var firebase: any;
     moduleId: module.id,
     selector: 'my-datavisualization',
     templateUrl: 'datavisualization.component.html',
-    styleUrls: ['datavisualization.component.css'],
-    directives: [SingleVisualizationComponent]
+    styleUrls: ['datavisualization.component.css']
 })
 export class DataVisualizationComponent implements OnInit, AfterViewInit {
     finance: number = 0;
@@ -36,9 +34,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     currentMin: number = 1;
     currentMax: number = 7;
     data: any[] = [];
-    measurements: any[] = ["Exercise", "Sleep", "Happiness", "Nutrition", "Finance",];
     group: any[] = [];
-    measurementsAvg: any[] = [];
     gColor: any[] = [];
     firstMili: number = 0;
     dataForTime: any[] = [];
@@ -103,22 +99,6 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         var opacity = active ? 0 : 1;
         d3.select("#line_" + x).style("opacity", opacity);
         d.active = active;
-    }
-    createData() {
-        var d: any[] = [];
-        this.measurements.forEach(function (x) {
-            var day = 0;
-            while (day < 366) {
-                var dataPoint = Math.floor(Math.random() * (100 - 20 + 1)) + 20;
-                d.push({
-                    Measurement: x,
-                    Day: day,
-                    Value: dataPoint
-                });
-                day++;
-            }
-        });
-        this.data = d;
     }
     createGraph(dataX: any[], xMin: any, xMax: any) {
         var me = this;
@@ -245,7 +225,6 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
                 day++;
             }
             this.changeSet("week");
-            this.calculateAvg();
         }
     }
     updateSettings(settings: any) {
@@ -258,23 +237,5 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
             this.alcoholSet = settings.alcohol;
         }
     }
-    calculateAvg() {
-        var measGroup: any = {};
-        this.data.forEach(function (x) {
-            measGroup[x.Measurement] ? false : measGroup[x.Measurement] = [];
-            measGroup[x.Measurement].push(x.Value);
-        });
-        for (var m in measGroup) {
-            var total = 0;
-            measGroup[m].forEach(function (x: any) {
-                total += +x;
-            })
-            var val = 565 - ((565 - 180) * ((total / measGroup[m].length) * .01));
-            this.measurementsAvg.push({ name: m, value: val, valueV: (total / measGroup[m].length).toFixed(0) })
-        }
-        console.log(this.measurementsAvg);
-    }
-
-
 }
 
