@@ -1,4 +1,4 @@
-<div class=" mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<div class=" mdl-layout mdl-js-layout ">
     <header class="mdl-layout__header mdl-layout__header--waterfall" style="background-color: black">
         <!-- Top row, always visible -->
         <div class="mdl-layout__header-row">
@@ -24,10 +24,10 @@
             </div>
         </div>
         <!-- Bottom row, not visible on scroll -->
-        <div class="mdl-layout__header-row">
+        <div class="mdl-layout__header-row navRow">
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation -->
-            <nav class="mdl-navigation">
+            <nav class="mdl-navigation" style="max-width:100%;" >
                 <button #account class="mdl-button mdl-js-button mdl-js-ripple-effect navE" [routerLink]="['Account']" style="height:auto">
                         Account
                     </button>
@@ -54,6 +54,7 @@ $('.mdl-layout__obfuscator').click();">Dashboard</a>
 $('.mdl-layout__obfuscator').click();">Settings</a>
             <a class="mdl-navigation__link " [routerLink]="['AddData']" onclick="
 $('.mdl-layout__obfuscator').click();">Add Data</a>
+            <a [hidden]="!loggedIn" class="mdl-navigation__link " (click)="signOut();">Logout</a>
         </nav>
     </div>
     <!----------------------------------------------------------------------------main------------------------------------->

@@ -17,12 +17,16 @@
     </section>
     <section class="mdl-layout__tab-panel" id="fixed-tab-2">
       <div class="page-content">
+          
           <my-singlevisualization *ngFor="let measure of measurementsAvg" [measurement]="measure.name" 
           [percentV]=measure.valueV [percent]=measure.value></my-singlevisualization>
+         
       </div>
     </section>
     <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-      <div class="page-content"><my-datadays></my-datadays></div>
+      <div class="page-content">
+          <my-datadays></my-datadays>
+          </div>
     </section>
   </main>
 </div>
