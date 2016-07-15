@@ -140,12 +140,27 @@
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
 }
+#graph-menu-lower-right{
+    display:none;
+}
 @media (max-width: 800px){
 .landingI{
 right:75px !important;
 }
 .dataTitle{
     display:block !important;
+}
+.mdl-layout__tab{
+    margin:0 25px !important;
+}
+.mdl-layout__tab-bar-container {
+    height: auto !important;
+}
+#graph-menu-lower-right{
+    display:block !important;
+}
+#graphButtons{
+    display: none;
 }
 
 }
@@ -163,7 +178,7 @@ right:50px !important;
     margin-top:-12px;
 }
 .dataTitle{
-    padding:12px 5px 0 5px !important;
+    padding-bottom:0 !important;
 }
 @media (max-width: 560px){
    .accountCard{
@@ -194,5 +209,9 @@ margin-top:75px !important;
 
 
 
-
+.circleCard{
+    display: flex;
+    justify-content: center;
+        flex-wrap: wrap;
+}
 

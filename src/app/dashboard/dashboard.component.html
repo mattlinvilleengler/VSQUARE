@@ -3,7 +3,8 @@
             mdl-layout--fixed-tabs">
   <header class="mdl-layout__header" style="min-height:49px; ">
     <!-- Tabs -->
-    <div class="mdl-layout__tab-bar mdl-js-ripple-effect" style="background-color: rgba(0,0,0,.9)">
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect" 
+    style="background-color: rgba(0,0,0,.9); flex-wrap: wrap; height: auto; overflow:visible;">
       <a href="#fixed-tab-1" class="mdl-layout__tab is-active" style="color: rgba(250,250,250,.65)">Aggregate Data Graph</a>
       <a href="#fixed-tab-2" class="mdl-layout__tab" style="color: rgba(250,250,250,.65)">Data Averages</a>
       <a href="#fixed-tab-3" class="mdl-layout__tab" style="color: rgba(250,250,250,.65)">Historical Data</a>
@@ -11,12 +12,12 @@
   </header>
   <main class="mdl-layout__content" style="padding: 35px 0;">
     <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
-      <div class="page-content">
+      <div class="page-content circleCard">
 <my-datavisualization></my-datavisualization>
 </div>
     </section>
     <section class="mdl-layout__tab-panel" id="fixed-tab-2">
-      <div class="page-content">
+      <div class="page-content circleCard">
           
           <my-singlevisualization *ngFor="let measure of measurementsAvg" [measurement]="measure.name" 
           [percentV]=measure.valueV [percent]=measure.value></my-singlevisualization>
@@ -24,8 +25,8 @@
       </div>
     </section>
     <section class="mdl-layout__tab-panel" id="fixed-tab-3">
-      <div class="page-content">
-          <my-datadays></my-datadays>
+      <div class="page-content ">
+          <my-datadays class="circleCard"></my-datadays>
           </div>
     </section>
   </main>

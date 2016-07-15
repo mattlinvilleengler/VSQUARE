@@ -26,9 +26,12 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     nutritionSet: boolean = false;
     sleepSet: boolean = false;
     alcoholSet: boolean = false;
+    currentGraphTime: string = "week";
 
     ngAfterViewInit(): any {
+        var me = this;
         componentHandler.upgradeDom();
+        window.onresize = function(){ me.setTime(me.currentGraphTime);};
     }
     mapping: any[] = [1, 1, 1]
     currentMin: number = 1;
@@ -44,6 +47,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
             max = 7,
             step = 7,
             t = 0;
+        this.currentGraphTime = x;
 
         x == 'week' ? (step = 7, t = 0) : false;
         x == 'month' ? (step = 30, t = 1) : false;
@@ -62,6 +66,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     setTime(x: string) {
         var step: number;
         var min: number;
+        this.currentGraphTime = x;
         x == 'week' ? (step = 7) : false;
         x == 'month' ? (step = 30) : false;
         x == 'year' ? (step = 365) : false;
@@ -103,7 +108,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     createGraph(dataX: any[], xMin: any, xMax: any) {
         var me = this;
         me.gColor = [];
-        var width = window.innerWidth * .75;
+        var width = window.innerWidth < 800 ? window.innerWidth * .9 : window.innerWidth * .75; 
         var height = window.innerHeight * .55;
         var svgLine = '<svg id="visualisation" height=' + height + ' width=' + width + ' ></svg>';
         d3.select("#graphBox").html(svgLine);

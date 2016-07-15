@@ -77,8 +77,9 @@ export class AppComponent implements AfterViewInit {
       } else {
         me.loggedIn = false;
       }
-      setInterval(function () { me.refreshPage() }, 100)
     });
+    this.refresh.nativeElement.onmouseover= function(){};
+      setInterval(function () { me.refreshPage() }, 200)
   }
   signOut() {
     this.dashboard.nativeElement.click();
@@ -102,7 +103,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
   refreshPage() {
-    //this.refresh.nativeElement.click();
+    this.refresh.nativeElement.onmouseover();
   }
   closeSuccess() {
     window.localStorage.setItem('loginMethod', "current");
