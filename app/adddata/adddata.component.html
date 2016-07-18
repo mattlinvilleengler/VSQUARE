@@ -1,61 +1,39 @@
-<div class="demo-card-wide mdl-card mdl-shadow--2dp ma" style="float:left; max-width:90%; width:400px; margin:5%;">
+<div class="circleCard">
+<div  class="demo-card-wide mdl-card mdl-shadow--2dp ma"  style="float:left; margin:1%; margin-top:5%; max-width:90%; width: 725px; overflow:visible;">
     <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">Daily Data</h2>
+       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp" 
+       style="margin-top:-40px; width:100%; height:75px; text-align:left; background-color: rgb(51, 51, 51); color:rgba(250,250,250, .5)">
+            <h4 style="margin:0">Add Data</h4>
+       </button>
     </div>
-    <div class="mdl-card__supporting-text">
-        <div class="demo-list-action mdl-list">
+    <div class="mdl-card__supporting-text" style="padding: 0px 0px 16px 16px; margin-top: -7px;">
+        <div class="demo-list-action mdl-list" *ngFor="let settingGroup of settingsOrganized" 
+        style="display:inline-block; vertical-align: top; margin : 0 10px; width:305px;">
+            <h5>{{settingGroup[0] ? settingGroup[0].category : "Custom Metrics"}}</h5>
+            <hr>
+            <div *ngFor="let settings of settingGroup">
+                <div class="mdl-list__item" [hidden]="!settings.selected">
+                    <i class="material-icons accent">{{settings.icon}}</i>
+                    <span class="mdl-list__item-primary-content">
+<span>{{settings.measurement}}</span>
+                    </span>
+                    <input *ngIf="settings.valueType == 'range'" class="mdl-slider mdl-js-slider" type="range" min="0" max="100" 
+                    value={{settings.value}} tabindex="0" id={{settings.measurement}} 
+                    (change)="settings.value = document.getElementById(settings.measurement).value">
 
-            <div class="mdl-list__item" [hidden]="!financeSet">
-                <i class="material-icons accent">attach_money</i>
-                <span class="mdl-list__item-primary-content">
-<span>Finance</span>
-                </span>
-                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{finance}} tabindex="0" #fin (change)="finance = fin.value">
+                    <div *ngIf="settings.valueType == 'number'" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" [class.negativeMT]="settings.valueType == 'number'"
+                        style="width:auto;">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="settings.measurement" [(ngModel)]="settings.value">
+                        <label class="mdl-textfield__label" for="settings.measurement">Number...</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="mdl-list__item" [hidden]="!happinessSet">
-                <i class="material-icons accent ">mood</i>
-                <span class="mdl-list__item-primary-content">
-<span>Happiness</span>
-                </span>
-                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{happiness}} tabindex="0" #hap (change)="happiness = hap.value">
-            </div>
-
-            <div class="mdl-list__item" [hidden]="!exerciseSet">
-                <i class="material-icons accent ">directions_run</i>
-                <span class="mdl-list__item-primary-content">
-<span>Exercise</span>
-                </span>
-                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{exercise}} tabindex="0" #exe (change)="exercise = exe.value">
-            </div>
-
-            <div class="mdl-list__item" [hidden]="!nutritionSet">
-                <i class="material-icons accent">local_pizza</i>
-                <span class="mdl-list__item-primary-content">
-<span>Nutrition</span>
-                </span>
-                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{nutrition}} tabindex="0" #nut (change)="nutrition = nut.value">
-            </div>
-
-            <div class="mdl-list__item" [hidden]="!sleepSet">
-                <i class="material-icons accent">snooze</i>
-                <span class="mdl-list__item-primary-content">
-<span>Sleep</span>
-                </span>
-                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{sleep}} tabindex="0" #sle (change)="sleep = sle.value">
-            </div>
-
-            <div class="mdl-list__item" [hidden]="!alcoholSet">
-                <i class="material-icons accent">local_drink</i>
-                <span class="mdl-list__item-primary-content">
-<span>Alcohol</span>
-                </span>
-                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value={{alcohol}} tabindex="0" #alc (change)="alcohol = alc.value">
-            </div>
         </div>
     </div>
     <div class="mdl-card__actions mdl-card--border" (click)="console.log(finVal)">
-        <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="saveData()" style="float:right">
+        <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent extend" (click)="saveData()" style="float:right">
 Save
 </a>
     </div>
@@ -65,6 +43,12 @@ Save
                     </button>
     </div>
 </div>
+</div>
+
+<button id="saveSettings" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent extend"
+ (click)="createFakeData()" style="background-color: rgba(0,0,0,.9); position: fixed; right: 100px; top:177px; z-index:999;">
+  Create Fake Data
+</button>
 
 
 <dialog #errorDialog class="mdl-dialog">
@@ -88,8 +72,8 @@ Save
         </p>
     </div>
     <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="dashboardSuccess()" >Go To Dashboard</button>
-        <button type="button" class="mdl-button" (click)="closeSuccessDialog()" >Close</button>
+        <button type="button" class="mdl-button" (click)="dashboardSuccess()">Go To Dashboard</button>
+        <button type="button" class="mdl-button" (click)="closeSuccessDialog()">Close</button>
     </div>
 </dialog>
 
@@ -97,8 +81,7 @@ Save
     <h4 class="mdl-dialog__title">Add Data</h4>
     <div class="mdl-dialog__content">
         <p>
-            This is where you can save and update your daily metrics.
-            Now let's see where you can view your data anlytics.
+            This is where you can save and update your daily metrics. Now let's see where you can view your data anlytics.
         </p>
     </div>
     <div class="mdl-dialog__actions">
