@@ -1,6 +1,6 @@
 <div class=" mainCard" [class.loggedInCard]="loggedIn">
 <div class=" mdl-layout mdl-js-layout ">
-    <header class="mdl-layout__header mdl-layout__header--waterfall" 
+    <header class="mdl-layout__header mdl-layout__header" 
     style="background-color: black; border-radius: 10px 10px 0 0;" [hidden]="!loggedIn">
         <!-- Top row, always visible -->
         <div class="mdl-layout__header-row">
@@ -26,9 +26,9 @@
             </div>
         </div>
         <!-- Bottom row, not visible on scroll -->
-        <div class="mdl-layout__header-row navRow" [hidden]="!loggedIn">
+        <!--<div class="mdl-layout__header-row navRow" [hidden]="!loggedIn">
             <div class="mdl-layout-spacer"></div>
-            <!-- Navigation -->
+            
             <nav class="mdl-navigation" style="max-width:100%;" >
                 <button #account class="mdl-button mdl-js-button mdl-js-ripple-effect navE" [routerLink]="['Account']" style="height:auto">
                         Account
@@ -43,7 +43,7 @@
                         Add Data
                     </button>
             </nav>
-        </div>
+        </div> -->
     </header>
     <div class="mdl-layout__drawer" [hidden]="!loggedIn">
         <span class="mdl-layout-title">VSQUARE</span>
@@ -63,9 +63,9 @@ $('.mdl-layout__obfuscator').click();" style="display: none;"></a>
     </div>
     <!----------------------------------------------------------------------------main------------------------------------->
     <main class="mdl-layout__content loggedIn" >
-        <div id="mainContent" class="page-content" style="padding-bottom:100px;">
+        <div id="mainContent" class="page-content" style="">
 
-            <div [hidden]="!loggedIn" style=padding:0%;>
+            <div [hidden]="!loggedIn" style=min-height:1000px;>
                 <router-outlet></router-outlet>
             </div>
 
