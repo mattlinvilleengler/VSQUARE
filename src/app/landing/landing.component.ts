@@ -8,7 +8,7 @@ declare var dialogPolyfill: any;
   selector: 'my-landing',
   templateUrl: 'landing.component.html'
 })
-export class LandingComponent implements AfterViewInit {
+export class LandingComponent implements AfterViewInit, OnInit {
     provider = new firebase.auth.GoogleAuthProvider();
     email: string;
     password: string;
@@ -17,8 +17,12 @@ export class LandingComponent implements AfterViewInit {
 
   @ViewChild('loginDialog') loginDialog: any;
   @ViewChild('registerDialog') registerDialog: any;
-  
+  @ViewChild('mainBox') mainBox: any;
 
+ngOnInit(){
+  var height = window.innerHeight;
+  this.mainBox.nativeElement.style.height = height + "px";
+}
 signInRe(){
   window.localStorage.setItem('loginMethod','current');
   window.localStorage.setItem('loggingIn','true');

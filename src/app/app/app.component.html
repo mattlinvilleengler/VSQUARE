@@ -1,5 +1,7 @@
+<div class=" mainCard" [class.loggedInCard]="loggedIn">
 <div class=" mdl-layout mdl-js-layout ">
-    <header class="mdl-layout__header mdl-layout__header--waterfall" style="background-color: black">
+    <header class="mdl-layout__header mdl-layout__header--waterfall" 
+    style="background-color: black; border-radius: 10px 10px 0 0;" [hidden]="!loggedIn">
         <!-- Top row, always visible -->
         <div class="mdl-layout__header-row">
             <!-- Title -->
@@ -7,7 +9,7 @@
             <div class="mdl-layout-spacer"></div>
             <div>
                 <div style="float:left; min-width:200px">
-                    <span [hidden]="loggedIn" style="color:black">M</span>
+                    <span [hidden]="loggedIn" style="color:rgba(0,0,0,.0)">M</span>
                     <i class="material-icons" style="float:left; margin-right:8px; margin-top:4px;" [hidden]="!loggedIn">account_circle</i>
                     <span class="mdl-layout-title accentColor" *ngIf="loggedIn" style="margin-right: 20px; margin-top:10px; font-size:14px; opacity:.95;">{{displayName}}</span>
                 </div>
@@ -24,7 +26,7 @@
             </div>
         </div>
         <!-- Bottom row, not visible on scroll -->
-        <div class="mdl-layout__header-row navRow">
+        <div class="mdl-layout__header-row navRow" [hidden]="!loggedIn">
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation -->
             <nav class="mdl-navigation" style="max-width:100%;" >
@@ -43,7 +45,7 @@
             </nav>
         </div>
     </header>
-    <div class="mdl-layout__drawer">
+    <div class="mdl-layout__drawer" [hidden]="!loggedIn">
         <span class="mdl-layout-title">VSQUARE</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link" [routerLink]="['Account']" onclick="
@@ -55,11 +57,13 @@ $('.mdl-layout__obfuscator').click();">Settings</a>
             <a class="mdl-navigation__link " [routerLink]="['AddData']" onclick="
 $('.mdl-layout__obfuscator').click();">Add Data</a>
             <a [hidden]="!loggedIn" class="mdl-navigation__link" (click)="signOut();" style="cursor:pointer;">Logout</a>
+            <a #hiddenLink class="mdl-navigation__link " onclick="
+$('.mdl-layout__obfuscator').click();" style="display: none;"></a>
         </nav>
     </div>
     <!----------------------------------------------------------------------------main------------------------------------->
-    <main class="mdl-layout__content" style="padding-bottom:100px;">
-        <div id="mainContent" class="page-content">
+    <main class="mdl-layout__content loggedIn" >
+        <div id="mainContent" class="page-content" style="padding-bottom:100px;">
 
             <div [hidden]="!loggedIn" style=padding:0%;>
                 <router-outlet></router-outlet>
@@ -67,22 +71,10 @@ $('.mdl-layout__obfuscator').click();">Add Data</a>
 
             <my-landing [hidden]="loggedIn"></my-landing>
             <button #refresh style="display: none;"></button>
-            <dialog #successDialog class="mdl-dialog">
-                <h4 class="mdl-dialog__title">Success</h4>
-                <div class="mdl-dialog__content">
-                    <p>
-                        {{successMessage}}
-                    </p>
-                </div>
-                <div class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button" (click)="newUser ? closeSuccessNewUser(): closeSuccess();">Continue</button>
-                </div>
-            </dialog>
-
-        </div>
-    </main>
-
-    <footer class="mdl-mega-footer" style="position:absolute; width:100%;">
+            </div>
+             </main>
+  
+    <footer class="mdl-mega-footer navFooter" style="position:absolute; width:100%;" >
         <div class="mdl-mega-footer__middle-section">
 
             <div class="mdl-mega-footer__drop-down-section">
@@ -139,3 +131,17 @@ $('.mdl-layout__obfuscator').click();">Add Data</a>
         </div>
 
     </footer>
+    
+</div></div>
+
+<dialog #successDialog class="mdl-dialog">
+                <h4 class="mdl-dialog__title">Success</h4>
+                <div class="mdl-dialog__content">
+                    <p>
+                        {{successMessage}}
+                    </p>
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button" (click)="newUser ? closeSuccessNewUser(): closeSuccess();">Continue</button>
+                </div>
+            </dialog>

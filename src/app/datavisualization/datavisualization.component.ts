@@ -41,6 +41,8 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     gColor: any[] = [];
     firstMili: number = 0;
     dataForTime: any[] = [];
+    settingsOrganized: any[]= [];
+    settingsSelected: any[]=[];
 
     changeSet(x: string, d?: number) {
         var min = 1,
@@ -213,17 +215,17 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         if (data) {
             var day = 1;
             for (var d in data) {
-                if (this.firstMili > data[d].time || this.firstMili == 0) {
-                    this.firstMili = data[d].time;
+                if (this.firstMili > data[d].data.time || this.firstMili == 0) {
+                    this.firstMili = data[d].data.time;
                 }
-                this.dataForTime.push(data[d]);
-                for (var x in data[d]) {
-                    if (x != "time" && this[x + "Set"]) {
+                this.dataForTime.push(data[d].data);
+                for (var x in data[d].data) {
+                    if (x != "time" && this.settingsSelected[x.toLowerCase()]) {
                         this.data.push({
                             Measurement: x,
-                            Day: (new Date(data[d].time)),
-                            Mili: data[d].time,
-                            Value: data[d][x]
+                            Day: (new Date(data[d].data.time)),
+                            Mili: data[d].data.time,
+                            Value: data[d].data[x]
                         })
                     }
                 }
@@ -233,14 +235,21 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         }
     }
     updateSettings(settings: any) {
-        if (settings) {
-            this.financeSet = settings.finance;
-            this.happinessSet = settings.happiness;
-            this.exerciseSet = settings.exercise;
-            this.nutritionSet = settings.nutrition;
-            this.sleepSet = settings.sleep;
-            this.alcoholSet = settings.alcohol;
-        }
+  if (settings) {
+             var me = this;
+    me.settingsOrganized = [];
+    var settings = settings.settings ? settings.settings : [];
+    settings.forEach(function(x){
+      var yes = false;
+      x.forEach(function(a){
+        a.selected ? yes = true : false;
+        yes ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
+      });
+      yes ? me.settingsOrganized.push(x) : false;
+    });
     }
+    setTimeout(function(){componentHandler.upgradeDom();}, 500)
+  }
 }
+
 

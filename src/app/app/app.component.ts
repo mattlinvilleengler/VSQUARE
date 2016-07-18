@@ -27,7 +27,7 @@ declare var dialogPolyfill: any;
   ]
 })
 @RouteConfig([
-  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true },
+  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, },
   { path: '/settings', name: 'Settings', component: SettingsComponent },
   //{ path: '/datavisualization',     name: 'DataVisualization',     component: DataVisualizationComponent },
   { path: '/login', name: 'Login', component: LoginComponent },
@@ -35,7 +35,6 @@ declare var dialogPolyfill: any;
   { path: '/adddata', name: 'AddData', component: AddDataComponent },
   { path: '/account', name: 'Account', component: AccountComponent }
   //{ path: '/profile',     name: 'Profile',     component: ProfileComponent }
-
 
 
 ])
@@ -54,7 +53,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('successDialog') successDialog: any;
   @ViewChild('account') account: any;
   @ViewChild('dashboard') dashboard: any;
-  
+  @ViewChild('hiddenLink') hiddenLink: any;
 
   successMessage: string = " ";
 
@@ -82,7 +81,7 @@ export class AppComponent implements AfterViewInit {
       setInterval(function () { me.refreshPage() }, 200)
   }
   signOut() {
-    this.dashboard.nativeElement.click();
+    this.hiddenLink.nativeElement.click();
     firebase.auth().signOut().then(function () {
       // Sign-out successful.
       //alert("successfuly signed out");

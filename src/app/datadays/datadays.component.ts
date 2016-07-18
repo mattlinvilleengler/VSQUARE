@@ -30,7 +30,8 @@ export class DataDaysComponent implements AfterViewInit, OnInit {
   alcoholSet: boolean = false;
 
   data: any = [];
-
+  settingsOrganized: any[] = [];
+  settingsSelected: any[] = [];
 
   ngAfterViewInit(): any {
     componentHandler.upgradeDom();
@@ -64,21 +65,35 @@ export class DataDaysComponent implements AfterViewInit, OnInit {
   updateData(data: any) {
     if (data) {
       for (var d in data) {
-        data[d].time = (new Date(data[d].time)).toLocaleDateString();
-        this.data.push(data[d]);
+        data[d].data.time = (new Date(data[d].data.time)).toLocaleDateString();
+        data[d].data.measurements = [];
+        for (var x in data[d].data) {
+                    if (x != "time" && this.settingsSelected[x.toLowerCase()]) {
+                        data[d].data.measurements.push({
+                            name: x,
+                            value: data[d].data[x]
+                        });
+                    }
+                }
+        this.data.push(data[d].data);
       }
     }
-
   }
   updateSettings(settings: any) {
-    if (settings) {
-      this.financeSet = settings.finance;
-      this.happinessSet = settings.happiness;
-      this.exerciseSet = settings.exercise;
-      this.nutritionSet = settings.nutrition;
-      this.sleepSet = settings.sleep;
-      this.alcoholSet = settings.alcohol;
+if (settings) {
+             var me = this;
+    me.settingsOrganized = [];
+    var settings = settings.settings ? settings.settings : [];
+    settings.forEach(function(x){
+      var yes = false;
+      x.forEach(function(a){
+        a.selected ? yes = true : false;
+        yes ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
+      });
+      yes ? me.settingsOrganized.push(x) : false;
+    });
     }
+    setTimeout(function(){componentHandler.upgradeDom();}, 500)
   }
 
 }

@@ -21,6 +21,7 @@ export class AddDataComponent implements AfterViewInit, OnInit {
   loggedIn: boolean = false;
   userID: number;
   lastData: number;
+  document: any = document;
 
 
   financeSet: boolean = false;
@@ -29,6 +30,7 @@ export class AddDataComponent implements AfterViewInit, OnInit {
   nutritionSet: boolean = false;
   sleepSet: boolean = false;
   alcoholSet: boolean = false;
+  settingsOrganized: any = [];
 
   newUser: boolean = false;
 
@@ -65,12 +67,20 @@ export class AddDataComponent implements AfterViewInit, OnInit {
     });
   }
   updateSettings(settings: any) {
-    this.financeSet = settings.finance;
-    this.happinessSet = settings.happiness;
-    this.exerciseSet = settings.exercise;
-    this.nutritionSet = settings.nutrition;
-    this.sleepSet = settings.sleep;
-    this.alcoholSet = settings.alcohol;
+    if(settings){
+    var me = this;
+    me.settingsOrganized = [];
+    var settings = settings.settings ? settings.settings : [];
+    settings.forEach(function(x){
+      var yes = false;
+      var selectedArray = [];
+      x.forEach(function(a){
+        a.selected ? (yes = true, selectedArray.push(a) ) : false;
+      });
+      yes ? me.settingsOrganized.push(selectedArray) : false;
+    });
+    }
+    setTimeout(function(){componentHandler.upgradeDom();}, 500)
   }
   saveData() {
     if (this.loggedIn) {
@@ -89,15 +99,37 @@ export class AddDataComponent implements AfterViewInit, OnInit {
 
     }
   }
-  saveD(date) {
-    database.ref("data/" + this.userID + "/").push(
-      {
-        "time": date, "finance": this.finance, "happiness": this.happiness,
-        "exercise": this.exercise, "nutrition": this.nutrition, "sleep": this.sleep, "alcohol": this.alcohol
-      }
-    );
-    this.successDialog.nativeElement.showModal();
-
+  createFakeData(){
+    var time = 86400000 * 100;
+    for (var i = 0; i < 100; i++){
+    this.settingsOrganized.forEach(function(x){ 
+      x.forEach(function(a){
+        if(a.valueType == "range"){
+          a.value = Math.floor(Math.random() * a.max);
+        } else {
+          a.value = Math.floor(Math.random() * a.max);
+        }
+        
+      });
+    });
+    var d = new Date();
+        var date = d.getTime();
+        date = date - time;
+        this.saveD(date, true);
+        time -= 86400000;
+    }
+  }
+  saveD(date, flag?) {
+    var data = {
+      "time": date
+    };
+    this.settingsOrganized.forEach(function(x){ 
+      x.forEach(function(a){
+        data[a.measurement] = a.value;
+      });
+    });
+    database.ref("data/" + this.userID + "/").push({"data": data});
+    flag ? false : this.successDialog.nativeElement.showModal();
   }
   getData() {
     var me = this;
@@ -108,7 +140,7 @@ export class AddDataComponent implements AfterViewInit, OnInit {
   updateData(data: any) {
     if (data) {
       for (var d in data) {
-        this.lastData = data[d].time ? data[d].time : false;
+        this.lastData = data[d].data.time ? data[d].data.time : false;
       }
 
     }

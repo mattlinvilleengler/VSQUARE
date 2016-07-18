@@ -4,41 +4,11 @@
     </div>
     <div class="mdl-card__supporting-text" style="padding:10px 16px">
         <div class="demo-list-action mdl-list">
-            <div class="mdl-list__item  meas" [hidden]="!financeSet">
+            <div class="mdl-list__item  meas" *ngFor="let metric of d.measurements">
                 <span class="mdl-list__item-primary-content">
-<span class="smFont">Finance</span>
+<span class="smFont">{{metric.name}}</span>
                 </span>
-                <a class="mdl-list__item-secondary-action">{{d.finance}}</a>
-            </div>
-            <div class="mdl-list__item  meas" [hidden]="!happinessSet">
-                <span class="mdl-list__item-primary-content">
-<span class="smFont">Happiness</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"> {{d.happiness}}</a>
-            </div>
-            <div class="mdl-list__item  meas" [hidden]="!exerciseSet">
-                <span class="mdl-list__item-primary-content">
-<span class="smFont">Exercise</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"> {{d.exercise}}</a>
-            </div>
-            <div class="mdl-list__item  meas" [hidden]="!nutritionSet">
-                <span class="mdl-list__item-primary-content">
-<span class="smFont">Nutrition</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"> {{d.nutrition}}</a>
-            </div>
-            <div class="mdl-list__item  meas" [hidden]="!sleepSet">
-                <span class="mdl-list__item-primary-content">
-<span class="smFont">Sleep</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"> {{d.sleep}}</a>
-            </div>
-            <div class="mdl-list__item  meas" [hidden]="!alcoholSet">
-                <span class="mdl-list__item-primary-content">
-<span class="smFont">Alcohol</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"> {{d.alcohol}}</a>
+                <a class="mdl-list__item-secondary-action">{{metric.value}}</a>
             </div>
         </div>
     </div>

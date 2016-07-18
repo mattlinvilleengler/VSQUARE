@@ -10,13 +10,13 @@ declare var dialogPolyfill: any;
   templateUrl: 'account.component.html'
 })
 export class AccountComponent implements AfterViewInit, OnInit {
-  fullName: string = " ";
-  address1: string = " ";
-  address2: string = " ";
-  city: string = " ";
-  state: string = " ";
-  country: string = " ";
-  postalCode: number = 0;
+  fullName: string = "";
+  address1: string = "";
+  address2: string = "";
+  city: string = "";
+  state: string = "";
+  country: string = "";
+  postalCode: number;
   shareDataPub: boolean = true;
   shareDataPriv: boolean = true;
 
@@ -61,10 +61,10 @@ export class AccountComponent implements AfterViewInit, OnInit {
       this.city = account.city ? account.city : "";
       this.state = account.state ? account.state : "";
       this.country = account.country ? account.country : "";
-      this.postalCode = account.postalCode ? account.postalCode : null;
+      this.postalCode = account.postalCode ? account.postalCode : "";
       this.shareDataPriv = account.shareDataPriv ? account.shareDataPriv : true;
-
     }
+    setTimeout(function(){componentHandler.upgradeDom();}, 500)
   }
   saveAccount() {
     if (this.loggedIn) {

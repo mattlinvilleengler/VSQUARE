@@ -30,6 +30,9 @@ export class DashboardComponent implements AfterViewInit {
   data: any[] = [];
   group: any[] = [];
   measurementsAvg: any[] = [];
+  settingsOrganized: any[]= [];
+
+  settingsSelected: any = {};
 
   @ViewChild('newDialog') newDialog: any;
   @ViewChild('noData') noData: any;
@@ -86,15 +89,15 @@ export class DashboardComponent implements AfterViewInit {
       var day = 1;
       var count = 0;
       for (var d in data) {
-        for (var x in data[d]) {
-          if (x != "time" && this[x + "Set"]) {
+        for (var x in data[d].data) {
+          if (x != "time" && this.settingsSelected[x.toLowerCase()]) {
             count = 0;
             this.data.push({
               Measurement: x,
-              Day: (new Date(data[d].time)),
-              Mili: data[d].time,
-              Value: data[d][x]
-            })
+              Day: (new Date(data[d].data.time)),
+              Mili: data[d].data.time,
+              Value: data[d].data[x]
+            });
             count++;
           }
         }
@@ -107,16 +110,22 @@ export class DashboardComponent implements AfterViewInit {
       !this.newUser ? this.openDialog(this.noData) : false;
       }
     }
-  updateSettings(settings: any) {
-    if (settings) {
-      this.financeSet = settings.finance;
-      this.happinessSet = settings.happiness;
-      this.exerciseSet = settings.exercise;
-      this.nutritionSet = settings.nutrition;
-      this.sleepSet = settings.sleep;
-      this.alcoholSet = settings.alcohol;
+     updateSettings(settings: any) {
+        if (settings) {
+             var me = this;
+    me.settingsOrganized = [];
+    var settings = settings.settings ? settings.settings : [];
+    settings.forEach(function(x){
+      var yes = false;
+      x.forEach(function(a){
+        a.selected ? yes = true : false;
+        yes ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
+      });
+      yes ? me.settingsOrganized.push(x) : false;
+    });
     }
-  }
+    setTimeout(function(){componentHandler.upgradeDom();}, 500)
+}
   calculateAvg() {
     this.measurementsAvg = [];
     var measGroup: any = {};
