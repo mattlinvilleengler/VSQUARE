@@ -77,6 +77,7 @@ export class DataDaysComponent implements AfterViewInit, OnInit {
                 }
         this.data.push(data[d].data);
       }
+      this.data.reverse();
     }
   }
   updateSettings(settings: any) {

@@ -14,14 +14,21 @@ export class LandingComponent implements AfterViewInit, OnInit {
     password: string;
     emailRegister: string;
     passwordRegister: string;
+    one: boolean = true;
+    two: boolean = false;
+    three: boolean = false;
+    
 
   @ViewChild('loginDialog') loginDialog: any;
   @ViewChild('registerDialog') registerDialog: any;
   @ViewChild('mainBox') mainBox: any;
 
-ngOnInit(){
+resizeMain(){
   var height = window.innerHeight;
   this.mainBox.nativeElement.style.height = height + "px";
+}
+ngOnInit(){
+  this.resizeMain();
 }
 signInRe(){
   window.localStorage.setItem('loginMethod','current');
@@ -31,6 +38,7 @@ signInRe(){
 }
  ngAfterViewInit():any {
      var me = this;
+     window.onresize = function(){me.resizeMain()};
    componentHandler.upgradeDom();
      dialogPolyfill.registerDialog(this.loginDialog.nativeElement);    
      dialogPolyfill.registerDialog(this.registerDialog.nativeElement);

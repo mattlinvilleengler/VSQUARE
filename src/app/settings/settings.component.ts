@@ -11,6 +11,9 @@ declare var dialogPolyfill: any;
   styleUrls: ['settings.component.css']
 })
 export class SettingsComponent implements AfterViewInit, OnInit {
+   one: boolean = true;
+    two: boolean = false;
+    three: boolean = false;
   finance: boolean = false;
   happiness: boolean = false;
   exercise: boolean = false;

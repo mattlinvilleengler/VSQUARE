@@ -1,72 +1,48 @@
-<!--
-<div class="demo-card-wide mdl-card mdl-shadow--2dp ma" style="float:left; margin:2%; max-width:90%;">
+
+<div class="" style="margin:0px 20px 25px 0; float:left;">
+    <div class="">
+        <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp" 
+        [class.landingNavSelected]="one" [class.landingNav]="!one" style="line-height:20px!important; text-align:left; margin:0 !important"
+        (click)="one = !one; addCustomMetricOpen();">
+<i class="material-icons" style="margin-bottom:8px;">add</i>Add METRIC
+</button>
+ <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp " 
+ [class.landingNavSelected]="two" [class.landingNav]="!two"  style="line-height:20px!important; text-align:left; display:block; margin:0 !important"
+ (click)="two = !two;saveSettings();">
+<i class="material-icons" style="margin-bottom:8px;"> save</i>SAVE SETTINGS
+</button>
+    </div></div>
+
+
+<div class="circleCard" style="margin:5%;" >
+
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp ma"
+ style="display:inline; vertical-align:top; margin:2%; margin-top:3%; max-width:90%; width: 275px; overflow:visible;">
     <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">Simple Data Settings</h2>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp" 
+       style="margin-top:-40px; width:100%; height:55px; text-align:left; 
+       background-color: rgb(51,51,51); color:rgba(250,250,250, .5)">
+            <h4 style="margin:0">Settings</h4>
+       </button>
     </div>
-    <div class="mdl-card__supporting-text">
-        <div class="demo-list-action mdl-list">
-            <div (click)="finance = !finance" class="mdl-list__item measurementSelection" [class.measurementSelected]="finance">
-                <span class="mdl-list__item-primary-content">
-<i class="material-icons mdl-list__item-avatar">attach_money</i>
-<span>Finance</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"><i class="material-icons">star</i></a>
-            </div>
-            <div (click)="happiness = !happiness" class="mdl-list__item measurementSelection" [class.measurementSelected]="happiness">
-                <span class="mdl-list__item-primary-content">
-<i class="material-icons mdl-list__item-avatar">mood</i>
-<span>Happiness</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"><i class="material-icons">star</i></a>
-            </div>
-            <div (click)="exercise = !exercise" class="mdl-list__item measurementSelection" [class.measurementSelected]="exercise">
-                <span class="mdl-list__item-primary-content">
-<i class="material-icons mdl-list__item-avatar">directions_run</i>
-<span>Exercise</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"><i class="material-icons">star</i></a>
-            </div>
-            <div (click)="nutrition = !nutrition" class="mdl-list__item measurementSelection" [class.measurementSelected]="nutrition">
-                <span class="mdl-list__item-primary-content">
-<i class="material-icons mdl-list__item-avatar">local_pizza</i>
-<span>Nutrition</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"><i class="material-icons">star</i></a>
-            </div>
-            <div (click)="sleep = !sleep" class="mdl-list__item measurementSelection" [class.measurementSelected]="sleep">
-                <span class="mdl-list__item-primary-content">
-<i class="material-icons mdl-list__item-avatar">snooze</i>
-<span>Sleep</span>
-                </span>
-                <a class="mdl-list__item-secondary-action"><i class="material-icons">star</i></a>
-            </div>
-            <div (click)="alcohol = !alcohol" class="mdl-list__item measurementSelection" [class.measurementSelected]="alcohol">
-                <span class="mdl-list__item-primary-content">
-<i class="material-icons mdl-list__item-avatar">local_drink</i>
-<span>Alcohol</span>
-                </span>
-                <span class="mdl-list__item-secondary-content">
-<a class="mdl-list__item-secondary-action"><i class="material-icons">star</i></a>
-</span>
-            </div>
-       
+    <div class="mdl-card__supporting-text" style="margin-top:-40px; padding-left:25px;">
+        <div class="demo-list-action mdl-list" style="padding-right:20px;">
+            <h6>Select metrics to track by clicking on a selection. A metric is selected if the adjacent star is lit up.
+                To add a custom metric click the add metric button at the top left of this page. 
+                Save settings when finished by clicking the save settings button at the top left of this page.
+            </h6>
         </div>
-    </div>
-    <div class="mdl-card__actions mdl-card--border">
-        <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="float:right;" (click)="saveSettings();">
-Save Settings
-</a>
     </div>
     <div class="mdl-card__menu">
         <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
                         <i class="material-icons">settings</i>
                     </button>
     </div>
-</div> -->
+</div>
 
-<div class="circleCard" >
+
 <div class="demo-card-wide mdl-card mdl-shadow--2dp ma" *ngFor="let settingCategory of settingsOrganized"
- style="display:inline; vertical-align:top; margin:1%; margin-top:3%; max-width:90%; width: 555px; overflow:visible;">
+ style="display:inline; vertical-align:top; margin:2%; margin-top:3%; max-width:90%; width: 275px; overflow:visible;">
     <div class="mdl-card__title">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp" 
        style="margin-top:-40px; width:100%; height:55px; text-align:left; 
@@ -96,7 +72,7 @@ Save Settings
     </div>
 </div>
 </div>
-        <button (click)="addCustomMetricOpen()" id="addMetric" 
+       <!-- <button (click)="addCustomMetricOpen()" id="addMetric" 
         class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--fab mdl-button--mini-fab mdl-button--colored extend"
          style=" position: fixed; right: 40px; top:175px; z-index:999;">
   <i class="material-icons">add</i>
@@ -110,7 +86,7 @@ Add Custom Metric
 <button id="saveSettings" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent extend"
  (click)="saveSettings()" style=" position: fixed; right: 100px; top:177px; z-index:999;">
   Save Settings
-</button>
+</button>-->
 
 <dialog #successDialog class="mdl-dialog">
     <h4 class="mdl-dialog__title">Success</h4>

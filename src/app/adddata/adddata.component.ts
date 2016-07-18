@@ -22,6 +22,7 @@ export class AddDataComponent implements AfterViewInit, OnInit {
   userID: number;
   lastData: number;
   document: any = document;
+  one: boolean = true;
 
 
   financeSet: boolean = false;
@@ -38,12 +39,17 @@ export class AddDataComponent implements AfterViewInit, OnInit {
   @ViewChild('errorDialog') dialog: any;
   @ViewChild('successDialog') successDialog: any;
   @ViewChild('newDialog') newDialog: any;
+  @ViewChild('fakeDialog') fakeDialog: any; 
+  @ViewChild('fakeDialogSuccess') fakeDialogSuccess: any; 
 
   ngAfterViewInit(): any {
     componentHandler.upgradeDom();
      dialogPolyfill.registerDialog(this.dialog.nativeElement);    
      dialogPolyfill.registerDialog(this.newDialog.nativeElement);
-    dialogPolyfill.registerDialog(this.successDialog.nativeElement);  
+    dialogPolyfill.registerDialog(this.successDialog.nativeElement);
+    dialogPolyfill.registerDialog(this.fakeDialog.nativeElement);  
+    dialogPolyfill.registerDialog(this.fakeDialogSuccess.nativeElement); 
+    this.document = document; 
   }
   ngOnInit(): any {
     var me = this;
@@ -59,7 +65,6 @@ export class AddDataComponent implements AfterViewInit, OnInit {
       }
     });
   }
-
   getSettings() {
     var me = this;
     database.ref('settings/' + this.userID).on('value', function (snapshot: any) {
@@ -96,10 +101,14 @@ export class AddDataComponent implements AfterViewInit, OnInit {
       } else {
         this.saveD(date);
       }
-
     }
   }
   createFakeData(){
+    this.fakeDialog.nativeElement.showModal();
+  }
+  createFakeDataProceed(){
+    this.fakeDialog.nativeElement.close();
+    database.ref("data/" + this.userID).remove();
     var time = 86400000 * 100;
     for (var i = 0; i < 100; i++){
     this.settingsOrganized.forEach(function(x){ 
@@ -109,7 +118,6 @@ export class AddDataComponent implements AfterViewInit, OnInit {
         } else {
           a.value = Math.floor(Math.random() * a.max);
         }
-        
       });
     });
     var d = new Date();
@@ -118,6 +126,7 @@ export class AddDataComponent implements AfterViewInit, OnInit {
         this.saveD(date, true);
         time -= 86400000;
     }
+    this.fakeDialogSuccess.nativeElement.showModal();
   }
   saveD(date, flag?) {
     var data = {
@@ -142,11 +151,16 @@ export class AddDataComponent implements AfterViewInit, OnInit {
       for (var d in data) {
         this.lastData = data[d].data.time ? data[d].data.time : false;
       }
-
     }
   }
   closeDialog() {
     this.dialog.nativeElement.close();
+  }
+  closeFakeSuccessDialog(){
+    this.fakeDialogSuccess.nativeElement.close();
+  }
+  closeFakeDialog(){
+    this.fakeDialog.nativeElement.close();
   }
   dashboard() {
     this.dialog.nativeElement.close();

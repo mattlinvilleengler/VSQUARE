@@ -1,16 +1,35 @@
 <!-- Simple header with fixed tabs. -->
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
-            mdl-layout--fixed-tabs navButton">
-  <header class="mdl-layout__header" style="min-height:49px; ">
+<div class="mdl-layout mdl-js-layout  navButton">
+  <header class="mdl-layout__header" style="min-height:49px; display:none!important;">
     <!-- Tabs -->
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect" 
     style="background-color: rgba(0,0,0,.9); flex-wrap: wrap; height: auto; overflow:visible;">
-      <a href="#fixed-tab-1" class="mdl-layout__tab is-active" style="color: rgba(250,250,250,.65)">Aggregate Data Graph</a>
-      <a href="#fixed-tab-2" class="mdl-layout__tab" style="color: rgba(250,250,250,.65)">Data Averages</a>
-      <a href="#fixed-tab-3" class="mdl-layout__tab" style="color: rgba(250,250,250,.65)">Historical Data</a>
+      <a #oneRef href="#fixed-tab-1" class="mdl-layout__tab is-active" style="color: rgba(250,250,250,.65)">Aggregate Data Graph</a>
+      <a #twoRef href="#fixed-tab-2" class="mdl-layout__tab" style="color: rgba(250,250,250,.65)">Data Averages</a>
+      <a #threeRef href="#fixed-tab-3" class="mdl-layout__tab" style="color: rgba(250,250,250,.65)">Historical Data</a>
     </div>
   </header>
-  <main class="mdl-layout__content" style="padding: 35px 0;">
+<main class="mdl-layout__content" style="padding: 25px 0 85px 0;">
+
+<div class="" style="margin:5px 20px 25px 0; float:left;">
+    <div class="">
+        <a class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp" 
+        [class.landingNavSelected]="one" [class.landingNav]="!one"
+        (click)="one = !one; oneRef.click();">
+<i class="material-icons"> multiline_chart</i>Graph
+</a>
+ <a class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp " 
+ [class.landingNavSelected]="two" [class.landingNav]="!two" 
+ (click)="two = !two; twoRef.click();">
+<i class="material-icons"> data_usage</i>Averages
+</a>
+ <a class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp " 
+ [class.landingNavSelected]="three" [class.landingNav]="!three" 
+ (click)="three = !three; threeRef.click();">
+<i class="material-icons"> history</i>History
+</a>
+    </div></div>
+<div style=" float:left;">
     <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
       <div class="page-content circleCard">
 <my-datavisualization></my-datavisualization>
@@ -29,6 +48,7 @@
           <my-datadays class="circleCard"></my-datadays>
           </div>
     </section>
+</div>
   </main>
 </div>
 

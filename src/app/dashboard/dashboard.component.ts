@@ -34,6 +34,10 @@ export class DashboardComponent implements AfterViewInit {
 
   settingsSelected: any = {};
 
+     one: boolean = true;
+    two: boolean = false;
+    three: boolean = false;
+
   @ViewChild('newDialog') newDialog: any;
   @ViewChild('noData') noData: any;
 
