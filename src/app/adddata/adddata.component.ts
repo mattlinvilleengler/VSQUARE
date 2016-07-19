@@ -173,6 +173,10 @@ export class AddDataComponent implements AfterViewInit, OnInit {
     this.successDialog.nativeElement.close();
     window.location.pathname = "my-app/dashboard";
   }
+  dashboardFake() {
+    this.fakeDialogSuccess.nativeElement.close();
+    window.location.pathname = "my-app/dashboard";
+  }
   closeNewDialog() {
     this.newDialog.nativeElement.close();
     window.localStorage.setItem('newAddData', "false");

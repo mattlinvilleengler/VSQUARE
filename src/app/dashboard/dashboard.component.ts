@@ -31,7 +31,6 @@ export class DashboardComponent implements AfterViewInit {
   group: any[] = [];
   measurementsAvg: any[] = [];
   settingsOrganized: any[]= [];
-
   settingsSelected: any = {};
 
      one: boolean = true;
@@ -131,6 +130,7 @@ export class DashboardComponent implements AfterViewInit {
     setTimeout(function(){componentHandler.upgradeDom();}, 500)
 }
   calculateAvg() {
+    var me = this;
     this.measurementsAvg = [];
     var measGroup: any = {};
     this.data.forEach(function (x) {
@@ -139,11 +139,23 @@ export class DashboardComponent implements AfterViewInit {
     });
     for (var m in measGroup) {
       var total = 0;
+      var mesArray = [];
       measGroup[m].forEach(function (x: any) {
         total += +x;
+        mesArray.push(+x);
       })
+      var highest = Math.max.apply(Math, mesArray);
+      var lowest = Math.min.apply(Math, mesArray);
       var val = 565 - ((565 - 180) * ((total / measGroup[m].length) * .01));
-      this.measurementsAvg.push({ name: m, value: val, valueV: (total / measGroup[m].length).toFixed(0) })
+      this.measurementsAvg.push({ 
+        name: m, value: val, 
+        valueV: (total / measGroup[m].length).toFixed(0),
+        isRange: me.settingsSelected[m.toLowerCase()].valueType == "number" ? false : true,
+        height:  (+(total / measGroup[m].length).toFixed(0) / +me.settingsSelected[m.toLowerCase()].max) *100,
+        avg: +(total / measGroup[m].length).toFixed(0),
+        low: lowest,
+        high: highest
+     })
     }
   }
 

@@ -11,21 +11,21 @@
   </header>
 <main class="mdl-layout__content" style="padding: 0px 0 85px 0;">
 
-<div class="dashBox" style="margin:10px 20px 15px 0;">
+<div class="dashBox" style="margin:10px 20px 15px 0; margin-left: 0!important;">
     <div class="">
         <a class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp" 
         [class.landingNavSelected]="one" [class.landingNav]="!one"
-        (click)="one = !one; oneRef.click();">
+        (click)="one = true; oneRef.click();two = false; three = false;">
 <i class="material-icons"> multiline_chart</i>Graph
 </a>
  <a class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp " 
  [class.landingNavSelected]="two" [class.landingNav]="!two" 
- (click)="two = !two; twoRef.click();">
+ (click)="two = true; twoRef.click(); one = false; three = false;">
 <i class="material-icons"> data_usage</i>Averages
 </a>
  <a class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp " 
  [class.landingNavSelected]="three" [class.landingNav]="!three" 
- (click)="three = !three; threeRef.click();">
+ (click)="three = true; threeRef.click(); one = false; two = false;">
 <i class="material-icons"> history</i>History
 </a>
     </div></div>
@@ -39,7 +39,8 @@
       <div class="page-content circleCard">
           
           <my-singlevisualization *ngFor="let measure of measurementsAvg" [measurement]="measure.name" 
-          [percentV]=measure.valueV [percent]=measure.value></my-singlevisualization>
+          [percentV]=measure.valueV [percent]=measure.value [avg]=measure.avg [high]=measure.high [low]=measure.low
+          [isRange]=measure.isRange [height]=measure.height ></my-singlevisualization>
          
       </div>
     </section>

@@ -12,7 +12,7 @@ declare var dialogPolyfill: any;
 })
 export class SettingsComponent implements AfterViewInit, OnInit {
    one: boolean = true;
-    two: boolean = false;
+    two: boolean = true;
     three: boolean = false;
   finance: boolean = false;
   happiness: boolean = false;
@@ -29,8 +29,8 @@ export class SettingsComponent implements AfterViewInit, OnInit {
   settingsOrganized: any[] = [
     [
     //basic
-    { measurement: "Steps Taken", max: "25,000", category: "Movement", valueType: "number", selected: false, value: "", icon: "directions_walk" },
-    { measurement: "Miles Walked / Ran", max: "25", category: "Movement", valueType: "number", selected: false, icon: "directions_walk", value: "" },
+    { measurement: "Steps Taken", max: "25000", category: "Movement", valueType: "number", selected: false, value: "", icon: "directions_walk" },
+    { measurement: "Miles Walked", max: "25", category: "Movement", valueType: "number", selected: false, icon: "directions_walk", value: "" },
     ],
     [
     //finance
@@ -59,7 +59,7 @@ export class SettingsComponent implements AfterViewInit, OnInit {
     [
     //nutrition
     { measurement: "Nutrition Overall", max: "100", category: "Nutrition", valueType: "range", selected: false, icon: "local_pizza", value: "0" },
-    { measurement: "Nutrition Calories", max: "5,000", category: "Nutrition", valueType: "number", selected: false, icon: "local_pizza", value: "" },
+    { measurement: "Nutrition Calories", max: "5000", category: "Nutrition", valueType: "number", selected: false, icon: "local_pizza", value: "" },
     { measurement: "Nutrition Quality", max: "100", category: "Nutrition", valueType: "range", selected: false, icon: "local_pizza", value: "0" },
     ],
     [
@@ -78,11 +78,12 @@ export class SettingsComponent implements AfterViewInit, OnInit {
     ]
 
   ];
-
   @ViewChild('successDialog') successDialog: any;
   @ViewChild('newDialog') newDialog: any;
   @ViewChild('addDialog') addDialog: any;
-
+  @ViewChild('vid') vid: any;
+  @ViewChild('innerVid') innerVid: any;
+  
   ngAfterViewInit(): any {
     componentHandler.upgradeDom();
     dialogPolyfill.registerDialog(this.successDialog.nativeElement);
