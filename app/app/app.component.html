@@ -1,9 +1,9 @@
 <div class=" mainCard" [class.loggedInCard]="loggedIn">
 <div class=" mdl-layout mdl-js-layout ">
     <header class="mdl-layout__header mdl-layout__header" 
-    style="background-color: black; border-radius: 10px 10px 0 0;" [hidden]="!loggedIn">
+    style="background-color: black; border-radius: 10px 10px 0 0; flex-wrap: wrap; height:auto; min-height:56px;" [hidden]="!loggedIn">
         <!-- Top row, always visible -->
-        <div class="mdl-layout__header-row">
+        <div class="mdl-layout__header-row" style="flex-wrap: wrap; height:auto; min-height:56px;">
             <!-- Title -->
             <span class="mdl-layout-title">VSQUARE</span>
             <div class="mdl-layout-spacer"></div>
@@ -24,6 +24,20 @@
                     
                 </ul>
             </div>
+                              <nav class="mdl-navigation" style= "margin-right:25px;" >
+                <button #account class="mdl-button mdl-js-button mdl-js-ripple-effect navE" [routerLink]="['Account']" style="height:auto">
+                        Account
+                    </button>
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect navE" [routerLink]="['Dashboard']" style="height:auto">
+                        Dashboard
+                    </button>
+                <button [routerLink]="['Settings']" class="mdl-button mdl-js-button mdl-js-ripple-effect navE" style="height:auto">
+                        Settings
+                    </button>
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect navE" [routerLink]="['AddData']" style="height:auto">
+                        Add Data
+                    </button>
+            </nav>
         </div>
         <!-- Bottom row, not visible on scroll -->
         <!--<div class="mdl-layout__header-row navRow" [hidden]="!loggedIn">
