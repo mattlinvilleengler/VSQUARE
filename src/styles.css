@@ -165,6 +165,12 @@ right:75px !important;
 #graphButtons{
     display: none;
 }
+.dashBox{
+    float:none !important;
+}
+.buttonInline{
+    display:inline!important;
+}
 
 }
 @media (max-width: 975px){
@@ -175,6 +181,9 @@ right:75px !important;
 #saveSettings{
     top:142px !important;
     right:100px !important;
+}
+   .ma{
+margin-top:75px !important;
 }
 
 }
@@ -205,17 +214,16 @@ right:50px !important;
 .dataTitle{
     padding-bottom:0 !important;
 }
+
 @media (max-width: 560px){
    .accountCard{
     width:100% !important;
     margin-left: 0px !important;
     float:left !important;
 }
+
 .mainCard{
     margin:5% 2% 0 2% !important;
-}
-   .ma{
-margin-top:75px !important;
 }
 }
 @media screen and (min-width: 425px){
@@ -339,4 +347,7 @@ margin-top:75px !important;
 }
 .landingNav:hover{
     background-color:white!important;
+}
+.dashBox{
+    float:left;
 }
