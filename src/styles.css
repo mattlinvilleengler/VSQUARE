@@ -20,8 +20,13 @@
 .axis path,
 .axis line {
     fill: none;
-    stroke: #000;
+    stroke: rgba(0,0,0, .8);
+    stroke-width: .75px;
     shape-rendering: crispEdges;
+}
+.axis text{
+     stroke: rgba(0,0,0, .4);
+    stroke-width: .75px;
 }
 .x.axis path {
     display: none;

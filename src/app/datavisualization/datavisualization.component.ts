@@ -27,6 +27,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     sleepSet: boolean = false;
     alcoholSet: boolean = false;
     currentGraphTime: string = "week";
+    mtGraph:number = 0;
 
     ngAfterViewInit(): any {
         var me = this;
@@ -37,7 +38,9 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     currentMin: number = 1;
     currentMax: number = 7;
     data: any[] = [];
+    dataNumbers: any[] = [];    
     group: any[] = [];
+    groupNumbers: any[] = [];
     gColor: any[] = [];
     firstMili: number = 0;
     dataForTime: any[] = [];
@@ -64,6 +67,11 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
 
         //var data = this.snagData(min, max);
         this.createGraph(this.data, minData, maxData);
+
+        var dataArray =[];
+        this.dataNumbers.forEach(function(x){ dataArray.push(x.Value)});
+        var yMax = Math.max.apply(Math, dataArray);
+        this.createGraphNumbers(this.dataNumbers, minData, maxData, yMax);
     }
     setTime(x: string) {
         var step: number;
@@ -81,6 +89,12 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         var maxData: number = this.dataForTime[max - 1] ? this.dataForTime[max - 1].time : this.dataForTime[(this.dataForTime.length - 1)].time;
         var minData: number = this.dataForTime[min - 1] ? this.dataForTime[min - 1].time : this.dataForTime[0].time;
         this.createGraph(this.data, minData, maxData);
+
+        var dataArray =[];
+        this.dataNumbers.forEach(function(x){ dataArray.push(x.Value)});
+        var yMax = Math.max.apply(Math, dataArray);
+        this.createGraphNumbers(this.dataNumbers, minData, maxData, yMax);
+
         this.selectTimeButton(x);
     }
     selectTimeButton(x: string) {
@@ -102,9 +116,10 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
 
     toggleGraph(x: string) {
         var d = this.group.find(function (m) { return m.key == x });
+        var d = d ? d : this.groupNumbers.find(function (m) { return m.key == x });
         var active = d.active ? false : true;
         var opacity = active ? 0 : 1;
-        d3.select("#line_" + x).style("opacity", opacity);
+        d3.select("#line_" + x.replace(" ","")).style("opacity", opacity);
         d.active = active;
     }
     createGraph(dataX: any[], xMin: any, xMax: any) {
@@ -112,6 +127,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         me.gColor = [];
         var width = window.innerWidth < 800 ? window.innerWidth * .9 : window.innerWidth * .75; 
         var height = window.innerHeight * .55;
+        me.mtGraph = -10 - height;
         var svgLine = '<svg id="visualisation" height=' + height + ' width=' + width + ' ></svg>';
         d3.select("#graphBox").html(svgLine);
         var dataGroup = d3.nest()
@@ -127,8 +143,8 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
             HEIGHT = height,
             MARGINS = {
                 top: 40,
-                right: 40,
-                bottom: 50,
+                right: 10,
+                bottom: 40,
                 left: 40
             },
             xScale = d3.time.scale().range([MARGINS.left, WIDTH - MARGINS.right]).domain([xMin, xMax]),
@@ -169,11 +185,86 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
             vis.append('svg:path')
                 .attr('d', lineGen(d.values))
                 .attr('stroke', function (d: any, j: any) {
-                    lineColor = "hsl(" + Math.random() * 360 + ",100%,50%)";
+                    lineColor = "hsl(" + Math.random() * 360 + ",85%,50%)";
                     return lineColor;
                 })
                 .attr('stroke-width', 2)
-                .attr('id', 'line_' + d.key)
+                .attr('id', 'line_' + d.key.replace(" ",""))
+                .attr('fill', 'none');
+            d ? me.gColor.push({
+                mes: d.key,
+                col: lineColor,
+                active: true
+            }) : false;
+        });
+        setTimeout(function () { componentHandler.upgradeDom() }, 400);
+
+    };
+     createGraphNumbers(dataX: any[], xMin: any, xMax: any, yMax: any) {
+        var me = this;
+        var mt = window.innerWidth < 800 ? 5 : 35;
+        var width = window.innerWidth < 800 ? window.innerWidth * .9 : (window.innerWidth * .75); 
+        var height = window.innerHeight * .55;
+
+        var svgLine = '<svg id="visualisationNumbers" height=' + height + ' width=' + width + ' ></svg>'
+        +'<svg id="visualisationAxis" height=' + height + ' width=' + 45 + ' style="position:absolute;right:0;top:'+ mt +'px;" ></svg>';
+
+        d3.select("#graphBox2").html(svgLine);
+        var dataGroup = d3.nest()
+            .key(function (d: any) {
+                return d.Measurement;
+            })
+            .entries(dataX);
+
+        this.groupNumbers = dataGroup;
+
+        var vis = d3.select("#visualisationNumbers"),
+            WIDTH = width,
+            HEIGHT = height,
+            MARGINS = {
+                top: 40,
+                right: 10,
+                bottom: 50,
+                left: 40
+            },
+            xScale = d3.time.scale().range([MARGINS.left, WIDTH - MARGINS.right]).domain([xMin, xMax]),
+            yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([0, yMax]),
+
+            xAxis = d3.svg.axis()
+                .scale(xScale)
+                .ticks(d3.time.days, 1)
+                .tickFormat(d3.time.format('%m/%e')),
+
+            yAxis = d3.svg.axis()
+                .scale(yScale)
+                .ticks(4)
+                .orient("right");
+
+        d3.select("#visualisationAxis").html("svg:g")
+            .attr("class", "axis")
+            .call(yAxis);
+
+        var lineGen = d3.svg.line()
+            .x(function (d: any) {
+                return xScale(d.Day);
+            })
+            .y(function (d: any) {
+                return yScale(d.Value);
+            })
+            .interpolate("basis");
+
+        var lSpace = HEIGHT / dataGroup.length;
+        var lineColor = "";
+
+        dataGroup.forEach(function (d: any, i: any) {
+            vis.append('svg:path')
+                .attr('d', lineGen(d.values))
+                .attr('stroke', function (d: any, j: any) {
+                    lineColor = "hsl(" + Math.random() * 360 + ",75%,35%)";
+                    return lineColor;
+                })
+                .attr('stroke-width', 2)
+                .attr('id', 'line_' + d.key.replace(" ",""))
                 .attr('fill', 'none');
             d ? me.gColor.push({
                 mes: d.key,
@@ -221,31 +312,41 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
                 this.dataForTime.push(data[d].data);
                 for (var x in data[d].data) {
                     if (x != "time" && this.settingsSelected[x.toLowerCase()]) {
+                        if(this.settingsSelected[x.toLowerCase()].valueType == "range"){
                         this.data.push({
                             Measurement: x,
                             Day: (new Date(data[d].data.time)),
                             Mili: data[d].data.time,
                             Value: data[d].data[x]
                         })
+                        } else {
+                            this.dataNumbers.push({
+                            Measurement: x,
+                            Day: (new Date(data[d].data.time)),
+                            Mili: data[d].data.time,
+                            Value: data[d].data[x]
+                        })
+                        }
+                        }
                     }
                 }
                 day++;
             }
             this.changeSet("week");
         }
-    }
     updateSettings(settings: any) {
   if (settings) {
              var me = this;
     me.settingsOrganized = [];
     var settings = settings.settings ? settings.settings : [];
     settings.forEach(function(x){
-      var yes = false;
+      var selectedArray = false;
       x.forEach(function(a){
-        a.selected ? yes = true : false;
-        yes ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
+        var selected = false;
+        a.selected ? selected = true : false;
+        selected ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
       });
-      yes ? me.settingsOrganized.push(x) : false;
+      selectedArray ? me.settingsOrganized.push(x) : false;
     });
     }
     setTimeout(function(){componentHandler.upgradeDom();}, 500)

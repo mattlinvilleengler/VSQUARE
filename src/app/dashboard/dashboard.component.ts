@@ -119,12 +119,13 @@ export class DashboardComponent implements AfterViewInit {
     me.settingsOrganized = [];
     var settings = settings.settings ? settings.settings : [];
     settings.forEach(function(x){
-      var yes = false;
+       var selectedArray = false;
       x.forEach(function(a){
-        a.selected ? yes = true : false;
-        yes ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
+        var selected = false;
+        a.selected ? selected = true : false;
+        selected ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
       });
-      yes ? me.settingsOrganized.push(x) : false;
+      selectedArray ? me.settingsOrganized.push(x) : false;
     });
     }
     setTimeout(function(){componentHandler.upgradeDom();}, 500)

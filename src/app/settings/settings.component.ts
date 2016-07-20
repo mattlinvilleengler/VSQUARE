@@ -25,6 +25,7 @@ export class SettingsComponent implements AfterViewInit, OnInit {
   newUser: boolean = false;
   addInputRange: boolean = false;
   addInputNumber: boolean = false;
+  customMax: string = "";
   addMetricName: string = "";
   settingsOrganized: any[] = [
     [
@@ -136,7 +137,7 @@ export class SettingsComponent implements AfterViewInit, OnInit {
     if (valueType) {
       if(this.addMetricName.length > 0){
       var metric = { measurement: this.addMetricName, category: "Custom Metrics", valueType: valueType, 
-        selected: false, icon: "all_inclusive", value: valueType == "number" ? "" : "0"};
+        selected: true, icon: "all_inclusive", value: valueType == "number" ? "" : "0", max: valueType == "range" ? "100" : this.customMax};
       this.settingsOrganized[this.settingsOrganized.length-1].push(metric);
       }
     }
