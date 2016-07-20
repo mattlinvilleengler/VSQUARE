@@ -138,6 +138,11 @@ Add Custom Metric
         </span>
         <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" tabindex="0">
 </div>
+<p [hidden]="!addInputNumber" style="margin:5px 0 0 0;" >What is the estimated max value for this metric?</p>
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" [hidden]="!addInputNumber">
+            <input class="mdl-textfield__input" type="text" id="sample3" [(ngModel)]="customMax">
+            <label class="mdl-textfield__label" for="sample3">Max Value...</label>
+        </div>
     </div>
     <div class="mdl-dialog__actions">
         <button type="button" class="mdl-button" (click)="addCustomMetricClose()">Close</button>

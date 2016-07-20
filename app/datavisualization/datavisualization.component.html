@@ -21,8 +21,9 @@
         </div>
         </div>
     </div>
-    <div id="graphBox" class="mdl-card__supporting-text" style="padding:5px; margin-top: -15px;">
-
+    <div class="mdl-card__supporting-text" style="padding:5px; margin-top: -15px;">
+        <div id="graphBox" style=""></div>
+        <div id="graphBox2" [style.margin-top.px]="mtGraph"></div>
     </div>
     <div class="mdl-card__actions mdl-card--border">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect selectedTime" *ngFor="let g of gColor" (click)="toggleGraph(g.mes)"
