@@ -1,6 +1,6 @@
 import { Component, Inject, ElementRef, OnInit, Injectable, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import { DashboardComponent }  from '../dashboard/dashboard.component';
+import { DashboardComponent }  from '../dashboard/dashboard.component' ;
 import { SettingsComponent }     from '../settings/settings.component';
 import { DataVisualizationComponent }     from '../datavisualization/datavisualization.component';
 import { LoginComponent }     from '../login/login.component';
@@ -27,7 +27,7 @@ declare var dialogPolyfill: any;
   ]
 })
 @RouteConfig([
-  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, },
+  { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true },
   { path: '/settings', name: 'Settings', component: SettingsComponent },
   //{ path: '/datavisualization',     name: 'DataVisualization',     component: DataVisualizationComponent },
   { path: '/login', name: 'Login', component: LoginComponent },

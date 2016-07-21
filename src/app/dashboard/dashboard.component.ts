@@ -30,12 +30,12 @@ export class DashboardComponent implements AfterViewInit {
   data: any[] = [];
   group: any[] = [];
   measurementsAvg: any[] = [];
-  settingsOrganized: any[]= [];
+  settingsOrganized: any[] = [];
   settingsSelected: any = {};
 
-     one: boolean = true;
-    two: boolean = false;
-    three: boolean = false;
+  one: boolean = true;
+  two: boolean = false;
+  three: boolean = false;
 
   @ViewChild('newDialog') newDialog: any;
   @ViewChild('noData') noData: any;
@@ -45,8 +45,8 @@ export class DashboardComponent implements AfterViewInit {
     this.newUser ? this.openDialog(this.newDialog) : false;
     componentHandler.upgradeDom();
 
-     dialogPolyfill.registerDialog(this.noData.nativeElement);    
-     dialogPolyfill.registerDialog(this.newDialog.nativeElement);
+    dialogPolyfill.registerDialog(this.noData.nativeElement);
+    dialogPolyfill.registerDialog(this.newDialog.nativeElement);
   }
   gotoDetail() { /* not implemented yet */ }
 
@@ -111,25 +111,25 @@ export class DashboardComponent implements AfterViewInit {
     }
     else {
       !this.newUser ? this.openDialog(this.noData) : false;
-      }
     }
-     updateSettings(settings: any) {
-        if (settings) {
-             var me = this;
-    me.settingsOrganized = [];
-    var settings = settings.settings ? settings.settings : [];
-    settings.forEach(function(x){
-       var selectedArray = false;
-      x.forEach(function(a){
-        var selected = false;
-        a.selected ? selected = true : false;
-        selected ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
+  }
+  updateSettings(settings: any) {
+    if (settings) {
+      var me = this;
+      me.settingsOrganized = [];
+      var settings = settings.settings ? settings.settings : [];
+      settings.forEach(function (x) {
+        var selectedArray = false;
+        x.forEach(function (a) {
+          var selected = false;
+          a.selected ? selected = true : false;
+          selected ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
+        });
+        selectedArray ? me.settingsOrganized.push(x) : false;
       });
-      selectedArray ? me.settingsOrganized.push(x) : false;
-    });
     }
-    setTimeout(function(){componentHandler.upgradeDom();}, 500)
-}
+    setTimeout(function () { componentHandler.upgradeDom(); }, 500)
+  }
   calculateAvg() {
     var me = this;
     this.measurementsAvg = [];
@@ -148,15 +148,15 @@ export class DashboardComponent implements AfterViewInit {
       var highest = Math.max.apply(Math, mesArray);
       var lowest = Math.min.apply(Math, mesArray);
       var val = 565 - ((565 - 180) * ((total / measGroup[m].length) * .01));
-      this.measurementsAvg.push({ 
-        name: m, value: val, 
+      this.measurementsAvg.push({
+        name: m, value: val,
         valueV: (total / measGroup[m].length).toFixed(0),
         isRange: me.settingsSelected[m.toLowerCase()].valueType == "number" ? false : true,
-        height:  (+(total / measGroup[m].length).toFixed(0) / +me.settingsSelected[m.toLowerCase()].max) *100,
+        height: (+(total / measGroup[m].length).toFixed(0) / +me.settingsSelected[m.toLowerCase()].max) * 100,
         avg: +(total / measGroup[m].length).toFixed(0),
         low: lowest,
         high: highest
-     })
+      })
     }
   }
 
