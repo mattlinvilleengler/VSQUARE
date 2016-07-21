@@ -249,7 +249,7 @@ right:50px !important;
      box-shadow: 0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12),0 5px 5px -3px rgba(0,0,0,.2);
 }
 #mainBox{
-    background : url(app/background.JPG) no-repeat center center fixed;
+    background : url(app/background.JPG) no-repeat center center #666;
     background-size: cover;
     border-radius: 10px 10px 0 0!important;
 }
@@ -274,6 +274,12 @@ right:50px !important;
 .mainBodyColor{
     background-color: rgba(0,0,0, 0.05);
 }
+.c{
+transition-duration: .4s;
+}
+.c:hover{
+    box-shadow:0 10px 12px 2px rgba(0,0,0,.14),0 4px 15px 3px rgba(0,0,0,.12),0 6px 6px -3px rgba(0,0,0,.2) !important;
+}
 .card1{
     color: #fff; 
     background: url(app/graph.png) bottom right 15% no-repeat;
@@ -297,6 +303,11 @@ right:50px !important;
 .card5{
     color: #fff; 
     background: url(app/averages.png) bottom right 15% no-repeat;
+    background-size: cover;
+}
+.card6{
+    color: #fff; 
+    background: url(app/4.jpg) bottom right 15% no-repeat;
     background-size: cover;
 }
 .picText{
