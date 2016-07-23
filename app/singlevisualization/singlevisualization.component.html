@@ -14,7 +14,9 @@
             <div  
             style = "position:absolute; bottom:30%;left:45%; color: rgba(0,0,0,.25); font-weight:600;">
             High: {{high}}<span *ngIf="range">%</span><br>
-            Avg:<span style="color: rgba(0,18,58,.75)"> {{avg}}<span *ngIf="range">%</span></span><br>
+            Avg:<span style="color: rgba(0,18,58,.75)"> {{avg}}<span *ngIf="range">%</span>
+            <span *ngIf="!range">{{x}}</span>
+            </span><br>
             Low: {{low}}<span *ngIf="range">%</span>
             </div>
     </div>

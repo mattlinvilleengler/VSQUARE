@@ -158,3 +158,52 @@ $('.mdl-layout__obfuscator').click();" style="display: none;"></a>
                     <button type="button" class="mdl-button" (click)="newUser ? closeSuccessNewUser(): closeSuccess();">Continue</button>
                 </div>
             </dialog>
+
+            <div class="mdl-shadow--4dp" style="position:fixed; left:0; 
+            z-index: 5000; top:100px; max-width:200px; background-color:white; 
+            padding: 15px; trasnsition-duration:.4s" [hidden]="!loggedIn" 
+            [class.errorOpen]="!errorsOpen" [class.errorClosed]="errorsOpen" >
+            <div [hidden]="!errorsOpen">
+                <span>VSQUARE is in development. 
+                    Submit suggestions, questions, and errors here.</span>
+                    <div style="clear:both; margin-top:5px">
+           <div class="buttonsHover" (click)="openSubmit();" >
+            <span style="float:left; margin-top:4px; margin-right:2px; color:black;">Add</span>
+            <i class="material-icons" style="float:left; color:black;">add_circle</i>
+           </div>
+
+           <div class="buttonsHover" (click)="errorsOpen = false;" >
+             <span style="float:left; margin-top:4px; margin-right:2px; color:black;">Dismiss</span>
+            <i class="material-icons" style="float:left; color:black;">close</i>
+           </div>
+                    </div>
+            </div>
+            <div [hidden]="errorsOpen" style="margin-top:-2px;">
+            <i class="material-icons" (click)="errorsOpen = true;" style="cursor:pointer; 
+            margin-left:-7px; margin-top:-15px;">new_releases</i>
+            </div>
+           </div>
+
+               <dialog #submitErrorDialog class="mdl-dialog">
+        <h4 class="mdl-dialog__title">Feedback & Questions</h4>
+        <div class="mdl-dialog__content">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="email" id="sample3" [(ngModel)]="emailRegister">
+                <label class="mdl-textfield__label" for="sample3">Name...</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="password" id="sample3" [(ngModel)]="passwordRegister">
+                <label class="mdl-textfield__label" for="sample3">Email...</label>
+            </div>
+             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="password" id="sample3" [(ngModel)]="passwordRegister">
+                <label class="mdl-textfield__label" for="sample3">Message...</label>
+            </div>
+        </div>
+        <div class="mdl-dialog__actions mdl-dialog__actions">
+            <button type="button" class="mdl-button" (click)="closeSubmitDialog()">Close</button>
+            <button type="button" class="mdl-button" (click)="Submit()">Submit</button>
+        </div>
+    </dialog>
+
+           

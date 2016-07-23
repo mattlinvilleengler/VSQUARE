@@ -40,7 +40,7 @@
           
           <my-singlevisualization *ngFor="let measure of measurementsAvg" [measurement]="measure.name" 
           [percentV]=measure.valueV [percent]=measure.value [avg]=measure.avg [high]=measure.high [low]=measure.low
-          [isRange]=measure.isRange [height]=measure.height ></my-singlevisualization>
+          [isRange]=measure.isRange [height]=measure.height [x]='measure.x || ""'></my-singlevisualization>
          
       </div>
     </section>
