@@ -48,12 +48,17 @@ export class AppComponent implements AfterViewInit {
   newUser: boolean = false;
   loggingIn: boolean = false;
   router: any = Router;
+  errorsOpen: boolean = true;
 
   @ViewChild('refresh') refresh: any;
   @ViewChild('successDialog') successDialog: any;
   @ViewChild('account') account: any;
   @ViewChild('dashboard') dashboard: any;
   @ViewChild('hiddenLink') hiddenLink: any;
+  @ViewChild('submitErrorDialog') submitErrorDialog: any;
+  
+
+  
 
   successMessage: string = " ";
 
@@ -61,6 +66,7 @@ export class AppComponent implements AfterViewInit {
     var me = this;
     componentHandler.upgradeDom();
     dialogPolyfill.registerDialog(this.successDialog.nativeElement);  
+    dialogPolyfill.registerDialog(this.submitErrorDialog.nativeElement);  
     firebase.auth().onAuthStateChanged(function (user: any) {
       if (user) {
         me.loginMethod = window.localStorage.getItem('loginMethod');
@@ -118,5 +124,11 @@ export class AppComponent implements AfterViewInit {
     window.localStorage.setItem('newAccount', "true");
     window.location.pathname = "my-app/account";
     this.loggedIn = true;
+  }
+  openSubmit(){
+    this.submitErrorDialog.nativeElement.showModal();
+  }
+  closeSubmitDialog(){
+    this.submitErrorDialog.nativeElement.close();
   }
 }

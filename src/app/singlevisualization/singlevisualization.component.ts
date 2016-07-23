@@ -20,6 +20,7 @@ export class SingleVisualizationComponent implements AfterViewInit {
   @Input('high') high: number;
   @Input('low') low: number;
   @Input('isRange') range: boolean;
+   @Input('x') x: boolean;
   
   
 }

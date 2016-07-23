@@ -30,14 +30,14 @@ export class SettingsComponent implements AfterViewInit, OnInit {
   settingsOrganized: any[] = [
     [
     //basic
-    { measurement: "Steps Taken", max: "25000", category: "Movement", valueType: "number", selected: false, value: "", icon: "directions_walk" },
-    { measurement: "Miles Walked", max: "25", category: "Movement", valueType: "number", selected: false, icon: "directions_walk", value: "" },
+    { measurement: "Steps Taken", x: "steps", max: "25000", category: "Movement", valueType: "number", selected: false, value: "", icon: "directions_walk" },
+    { measurement: "Miles Walked", x: "miles", max: "25", category: "Movement", valueType: "number", selected: false, icon: "directions_walk", value: "" },
     ],
     [
     //finance
-    { measurement: "Money Spent", max: "1000", category: "Finance", valueType: "number", selected: false, icon: "attach_money", value: "" },
-    { measurement: "Money Saved", max: "1000", category: "Finance", valueType: "number", selected: false, icon: "attach_money", value: "" },
-    { measurement: "Money Earned", max: "1000", category: "Finance",valueType: "number", selected: false, icon: "attach_money", value: "" },
+    { measurement: "Money Spent", x: "dollars", max: "1000", category: "Finance", valueType: "number", selected: false, icon: "attach_money", value: "" },
+    { measurement: "Money Saved", x: "dollars", max: "1000", category: "Finance", valueType: "number", selected: false, icon: "attach_money", value: "" },
+    { measurement: "Money Earned", x: "dollars", max: "1000", category: "Finance",valueType: "number", selected: false, icon: "attach_money", value: "" },
     ],
     [
     //metnal health
@@ -49,30 +49,30 @@ export class SettingsComponent implements AfterViewInit, OnInit {
     [
     //physical
     { measurement: "Exercise Overall", max: "100", category: "Exercise", valueType: "range", selected: false, icon: "access_time", value: "0" },
-    { measurement: "Exercise Duration", max: "300", category: "Exercise", valueType: "number", selected: false, icon: "access_time", value: "" },
-    { measurement: "Exercise Intensity", max: "100", category: "Exercise", valueType: "range", selected: false, icon: "directions_run", value: "0" },
+    { measurement: "Exercise Duration", x: "minutes", max: "300", category: "Exercise", valueType: "number", selected: false, icon: "access_time", value: "" },
+    { measurement: "Exercise Intensity", x: "steps", max: "100", category: "Exercise", valueType: "range", selected: false, icon: "directions_run", value: "0" },
     ],
     [
     //
-    { measurement: "Weight", max: "400", category: "Body Composition",  valueType: "number", selected: false, icon: "line_weight", value: "" },
-    { measurement: "BMI", max: "35", category: "Body Composition", valueType: "number", selected: false, icon: "line_weight", value: "" },
+    { measurement: "Weight", max: "400", x: "lbs", category: "Body Composition",  valueType: "number", selected: false, icon: "line_weight", value: "" },
+    { measurement: "BMI", max: "35", x: "%", category: "Body Composition", valueType: "number", selected: false, icon: "line_weight", value: "" },
     ],
     [
     //nutrition
     { measurement: "Nutrition Overall", max: "100", category: "Nutrition", valueType: "range", selected: false, icon: "local_pizza", value: "0" },
-    { measurement: "Nutrition Calories", max: "5000", category: "Nutrition", valueType: "number", selected: false, icon: "local_pizza", value: "" },
+    { measurement: "Nutrition Calories", x: "cal", max: "5000", category: "Nutrition", valueType: "number", selected: false, icon: "local_pizza", value: "" },
     { measurement: "Nutrition Quality", max: "100", category: "Nutrition", valueType: "range", selected: false, icon: "local_pizza", value: "0" },
     ],
     [
     //sleep
-    { measurement: "Sleep Hours", max: "14", category: "Sleep", valueType: "number", selected: false, icon: "snooze", value: "" },
+    { measurement: "Sleep Hours", x: "hours", max: "14", category: "Sleep", valueType: "number", selected: false, icon: "snooze", value: "" },
     { measurement: "Sleep Quality", max: "100", category: "Sleep", valueType: "range", selected: false, icon: "snooze", value: "0" },
     ],
     [
     //drugs
-    { measurement: "Alcohol", max: "25", category: "Drugs", valueType: "number", selected: false, icon: "local_bar", value: "" },
-    { measurement: "Cigarettes", max: "35", category: "Drugs", valueType: "number", selected: false, icon: "smoking_rooms", value: "" },
-    { measurement: "Drugs", max: "100", category: "Drugs", valueType: "number", selected: false, icon: "smoke_free", value: "" },
+    { measurement: "Alcohol", x: "drinks", max: "25", category: "Drugs", valueType: "number", selected: false, icon: "local_bar", value: "" },
+    { measurement: "Cigarettes", x: "smokes", max: "35", category: "Drugs", valueType: "number", selected: false, icon: "smoking_rooms", value: "" },
+    { measurement: "Drugs", x: "drugs", max: "100", category: "Drugs", valueType: "number", selected: false, icon: "smoke_free", value: "" },
     ],
     [
      //custom 

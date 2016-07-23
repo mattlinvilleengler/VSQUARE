@@ -149,13 +149,15 @@ export class DashboardComponent implements AfterViewInit {
       var lowest = Math.min.apply(Math, mesArray);
       var val = 565 - ((565 - 180) * ((total / measGroup[m].length) * .01));
       this.measurementsAvg.push({
-        name: m, value: val,
+        name: m, 
+        value: val,
         valueV: (total / measGroup[m].length).toFixed(0),
         isRange: me.settingsSelected[m.toLowerCase()].valueType == "number" ? false : true,
         height: (+(total / measGroup[m].length).toFixed(0) / +me.settingsSelected[m.toLowerCase()].max) * 100,
         avg: +(total / measGroup[m].length).toFixed(0),
         low: lowest,
-        high: highest
+        high: highest,
+        x: ""
       })
     }
   }
