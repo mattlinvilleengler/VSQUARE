@@ -1,14 +1,13 @@
-<div class=" mainCard" [class.loggedInCard]="loggedIn">
 <div class=" mdl-layout mdl-js-layout ">
     <header class="mdl-layout__header " 
-    style="background-color: black; border-radius: 10px 10px 0 0; flex-wrap: wrap; height:auto; min-height:56px;" [hidden]="!loggedIn">
+    style="background-color: #333; flex-wrap: wrap; height:auto; min-height:56px;" [hidden]="!loggedIn">
         <!-- Top row, always visible -->
         <div class="mdl-layout__header-row" style="flex-wrap: wrap; height:auto; min-height:56px;">
             <!-- Title -->
-            <span class="mdl-layout-title">VSQUARE</span>
+            <span class="mdl-layout-title" style="color:rgba(250,250,250,.75);">VSQUARE</span>
             <div class="mdl-layout-spacer"></div>
             <div>
-                <div style="float:left; min-width:200px">
+                <div style="float:left; min-width:200px" class="mainNav">
                     <span [hidden]="loggedIn" style="color:rgba(0,0,0,.0)">M</span>
                     <i class="material-icons" style="float:left; margin-right:8px; margin-top:4px;" [hidden]="!loggedIn">account_circle</i>
                     <span class="mdl-layout-title accentColor" *ngIf="loggedIn" style="margin-right: 20px; margin-top:10px; font-size:14px; opacity:.95;">{{displayName}}</span>
@@ -23,7 +22,7 @@
                     <li class="mdl-menu__item " [hidden]="loggedIn">Login</li>
                 </ul>
             </div>
-                              <nav class="mdl-navigation" style= "margin-right:25px;" >
+                              <nav class="mdl-navigation mainNav" style= "margin-right:25px;" >
                 <button #account class="mdl-button mdl-js-button mdl-js-ripple-effect navE" [routerLink]="['Account']" style="height:auto">
                         Account
                     </button>
@@ -145,7 +144,7 @@ $('.mdl-layout__obfuscator').click();" style="display: none;"></a>
 
     </footer>
     
-</div></div>
+</div>
 
 <dialog #successDialog class="mdl-dialog">
                 <h4 class="mdl-dialog__title">Success</h4>
@@ -172,7 +171,7 @@ $('.mdl-layout__obfuscator').click();" style="display: none;"></a>
             <i class="material-icons" style="float:left; color:black;">add_circle</i>
            </div>
 
-           <div class="buttonsHover" (click)="errorsOpen = false;" >
+           <div class="buttonsHover" (click)="errorsOpen = false; dismiss();" >
              <span style="float:left; margin-top:4px; margin-right:2px; color:black;">Dismiss</span>
             <i class="material-icons" style="float:left; color:black;">close</i>
            </div>
@@ -186,24 +185,27 @@ $('.mdl-layout__obfuscator').click();" style="display: none;"></a>
 
                <dialog #submitErrorDialog class="mdl-dialog">
         <h4 class="mdl-dialog__title">Feedback & Questions</h4>
+        <form action="https://formspree.io/matt@tetonfresh.com" method="POST">
         <div class="mdl-dialog__content">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="email" id="sample3" [(ngModel)]="emailRegister">
+                <input name="name" class="mdl-textfield__input" type="text" id="sample3" >
                 <label class="mdl-textfield__label" for="sample3">Name...</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="password" id="sample3" [(ngModel)]="passwordRegister">
+                <input name="email" class="mdl-textfield__input" type="email" id="sample3" >
                 <label class="mdl-textfield__label" for="sample3">Email...</label>
             </div>
-             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="password" id="sample3" [(ngModel)]="passwordRegister">
-                <label class="mdl-textfield__label" for="sample3">Message...</label>
-            </div>
+              <div class="mdl-textfield mdl-js-textfield">
+    <textarea name="message" class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
+    <label class="mdl-textfield__label" for="sample5">Message...</label>
+  </div>
+  <!--<input type="hidden" name="_next" value="{{url}}">-->
         </div>
         <div class="mdl-dialog__actions mdl-dialog__actions">
             <button type="button" class="mdl-button" (click)="closeSubmitDialog()">Close</button>
-            <button type="button" class="mdl-button" (click)="Submit()">Submit</button>
+            <input type="submit" value="Submit" class="mdl-button">
         </div>
+            </form>
     </dialog>
 
            

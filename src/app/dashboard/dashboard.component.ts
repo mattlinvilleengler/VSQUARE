@@ -39,6 +39,8 @@ export class DashboardComponent implements AfterViewInit {
 
   @ViewChild('newDialog') newDialog: any;
   @ViewChild('noData') noData: any;
+  @ViewChild('twoRef') twoRef: any;
+  
 
   ngAfterViewInit(): any {
     this.newUser = window.localStorage.getItem('newDashboard') == "true" ? true : false;
@@ -160,6 +162,14 @@ export class DashboardComponent implements AfterViewInit {
         x: ""
       })
     }
+  }
+  average(){
+     var me = this;
+     var avg = this.measurementsAvg;
+     this.measurementsAvg = [];
+     setTimeout(function(){ me.measurementsAvg = avg }, 250);
+     this.two = true; 
+     this.twoRef.nativeElement.click();
   }
 
 }

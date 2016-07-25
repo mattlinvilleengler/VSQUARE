@@ -49,6 +49,7 @@ export class AppComponent implements AfterViewInit {
   loggingIn: boolean = false;
   router: any = Router;
   errorsOpen: boolean = true;
+  url: string = "";
 
   @ViewChild('refresh') refresh: any;
   @ViewChild('successDialog') successDialog: any;
@@ -56,15 +57,15 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('dashboard') dashboard: any;
   @ViewChild('hiddenLink') hiddenLink: any;
   @ViewChild('submitErrorDialog') submitErrorDialog: any;
-  
-
-  
+ 
 
   successMessage: string = " ";
 
   ngAfterViewInit(): any {
     var me = this;
+    this.url = window.location.href;
     componentHandler.upgradeDom();
+    this.errorsOpen = window.localStorage.getItem('errorsOpen') == "true" ? true : false;
     dialogPolyfill.registerDialog(this.successDialog.nativeElement);  
     dialogPolyfill.registerDialog(this.submitErrorDialog.nativeElement);  
     firebase.auth().onAuthStateChanged(function (user: any) {
@@ -130,5 +131,8 @@ export class AppComponent implements AfterViewInit {
   }
   closeSubmitDialog(){
     this.submitErrorDialog.nativeElement.close();
+  }
+  dismiss(){
+    window.localStorage.setItem('errorsOpen', 'false');
   }
 }

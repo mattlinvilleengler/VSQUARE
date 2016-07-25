@@ -119,7 +119,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         var d = d ? d : this.groupNumbers.find(function (m) { return m.key == x });
         var active = d.active ? false : true;
         var opacity = active ? 0 : 1;
-        d3.select("#line_" + x.replace(" ","")).style("opacity", opacity);
+        d3.select("#line_" + x.replace(" ","")).transition().style("opacity", opacity);
         d.active = active;
     }
     createGraph(dataX: any[], xMin: any, xMax: any) {
