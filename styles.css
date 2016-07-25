@@ -58,7 +58,7 @@
 
 .circleGraph #svg circle {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1s linear;
+  transition: stroke-dashoffset .3s linear;
   stroke: transparent;
   stroke-width: 1em;
 }
@@ -212,13 +212,19 @@ right:50px !important;
     width:100% !important;
     margin-left: 0px !important;
     float:left !important;
-}
+   }
 
+    .mainNav{
+    display: none!important;
+}
+.mdl-layout-title{
+    margin-top:-19px !important;
+}
 .mainCard{
     margin:5% 2% 0 2% !important;
 }
 }
-@media screen and (min-width: 425px){
+@media screen and (min-width: 0px){
 .mdl-layout__header {
     display: block !important;
 }
@@ -226,7 +232,7 @@ right:50px !important;
     padding-left:10px !important;
 }
 .mdl-layout__drawer-button{
-    color: rgb(66,66,66) !important;
+    color:rgba(250,250,250,.75) !important;
 }
 
 }
@@ -251,13 +257,12 @@ right:50px !important;
 #mainBox{
     background : url(app/background.JPG) no-repeat center center #666;
     background-size: cover;
-    border-radius: 10px 10px 0 0!important;
 }
 .navTransparent{
     background-color: rgba(0,0,0,.0) !important;
 }
 .navFooter{
-    background-color: rgba(0,0,0,.85) !important;
+    background-color: #333 !important;
 }
 .mainCard{
     position:relative;
@@ -379,4 +384,7 @@ transition-duration:.1s;
 width:7px;
 height:1px;
 transition-duration:.1s;
+}
+.mdl-layout__drawer{
+    z-index: 6500 !important;
 }
