@@ -51,12 +51,13 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         var min = 1,
             max = 7,
             step = 7,
-            t = 0;
+            t = 0,
+            xS = 1;
         this.currentGraphTime = x;
 
-        x == 'week' ? (step = 7, t = 0) : false;
-        x == 'month' ? (step = 30, t = 1) : false;
-        x == 'year' ? (step = 365, t = 2) : false;
+        x == 'week' ? (step = 7, t = 0, xS = 1) : false;
+        x == 'month' ? (step = 30, t = 1, xS = 5) : false;
+        x == 'year' ? (step = 365, t = 2, xS = 20) : false;
         d == 1 ? (this.mapping[t]-- , max = this.currentMax + step, min = this.currentMin + step) : false;
         d == 2 ? (this.mapping[t]++ , max = this.currentMax - step, min = this.currentMin - step) : false;
         this.currentMin = min;
@@ -66,20 +67,21 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         var minData: number = this.dataForTime[min - 1] ? this.dataForTime[min - 1].time : this.dataForTime[0].time;
 
         //var data = this.snagData(min, max);
-        this.createGraph(this.data, minData, maxData);
+        this.createGraph(this.data, minData, maxData, xS);
 
         var dataArray =[];
         this.dataNumbers.forEach(function(x){ dataArray.push(x.Value)});
         var yMax = Math.max.apply(Math, dataArray);
-        this.createGraphNumbers(this.dataNumbers, minData, maxData, yMax);
+        this.createGraphNumbers(this.dataNumbers, minData, maxData, yMax, xS);
     }
     setTime(x: string) {
         var step: number;
         var min: number;
+        var xS = 1;
         this.currentGraphTime = x;
-        x == 'week' ? (step = 7) : false;
-        x == 'month' ? (step = 30) : false;
-        x == 'year' ? (step = 365) : false;
+        x == 'week' ? (step = 7, xS = 1) : false;
+        x == 'month' ? (step = 30, xS = 5) : false;
+        x == 'year' ? (step = 365, xS = 20) : false;
         var max = (this.currentMin + step);
         this.currentMax = max;
         min = this.currentMin;
@@ -88,12 +90,12 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         // var data = this.snagData(min, max);
         var maxData: number = this.dataForTime[max - 1] ? this.dataForTime[max - 1].time : this.dataForTime[(this.dataForTime.length - 1)].time;
         var minData: number = this.dataForTime[min - 1] ? this.dataForTime[min - 1].time : this.dataForTime[0].time;
-        this.createGraph(this.data, minData, maxData);
+        this.createGraph(this.data, minData, maxData, xS);
 
         var dataArray =[];
         this.dataNumbers.forEach(function(x){ dataArray.push(x.Value)});
         var yMax = Math.max.apply(Math, dataArray);
-        this.createGraphNumbers(this.dataNumbers, minData, maxData, yMax);
+        this.createGraphNumbers(this.dataNumbers, minData, maxData, yMax, xS);
 
         this.selectTimeButton(x);
     }
@@ -122,7 +124,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         d3.select("#line_" + x.replace(" ","")).transition().style("opacity", opacity);
         d.active = active;
     }
-    createGraph(dataX: any[], xMin: any, xMax: any) {
+    createGraph(dataX: any[], xMin: any, xMax: any, xS:any) {
         var me = this;
         me.gColor = [];
         var width = window.innerWidth < 800 ? window.innerWidth * .9 : window.innerWidth * .75; 
@@ -152,11 +154,15 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
 
             xAxis = d3.svg.axis()
                 .scale(xScale)
-                .ticks(d3.time.days, 1)
-                .tickFormat(d3.time.format('%m/%e')),
+                .ticks(d3.time.days, xS)
+                .outerTickSize(0)
+                .innerTickSize(-HEIGHT +75)
+                .tickFormat(d3.time.format('%b %e')),
 
             yAxis = d3.svg.axis()
                 .scale(yScale)
+                .outerTickSize(0)
+                .innerTickSize(-WIDTH)
                 .orient("left");
 
         vis.append("svg:g")
@@ -200,14 +206,15 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         setTimeout(function () { componentHandler.upgradeDom() }, 400);
 
     };
-     createGraphNumbers(dataX: any[], xMin: any, xMax: any, yMax: any) {
+     createGraphNumbers(dataX: any[], xMin: any, xMax: any, yMax: any, xS:any) {
         var me = this;
         var mt = window.innerWidth < 800 ? 5 : 35;
+        var xT = window.innerWidth < 700 ? -15 : 19;
         var width = window.innerWidth < 800 ? window.innerWidth * .9 : (window.innerWidth * .75); 
         var height = window.innerHeight * .55;
 
         var svgLine = '<svg id="visualisationNumbers" height=' + height + ' width=' + width + ' ></svg>'
-        +'<svg id="visualisationAxis" height=' + height + ' width=' + 45 + ' style="position:absolute;right:0;top:'+ mt +'px;" ></svg>';
+        +'<svg id="visualisationAxis" height=' + height + ' width=' + 45 + ' style="position:absolute;right:'+ xT +'px;' +'top:'+ mt +'px;" ></svg>';
 
         d3.select("#graphBox2").html(svgLine);
         var dataGroup = d3.nest()
@@ -232,12 +239,16 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
 
             xAxis = d3.svg.axis()
                 .scale(xScale)
-                .ticks(d3.time.days, 1)
-                .tickFormat(d3.time.format('%m/%e')),
+                .ticks(d3.time.days, xS)
+                .outerTickSize(0)
+                .innerTickSize(-HEIGHT)
+                .tickFormat(d3.time.format('%b %e')),
 
             yAxis = d3.svg.axis()
                 .scale(yScale)
                 .ticks(4)
+                .innerTickSize(-WIDTH)
+                .outerTickSize(0)
                 .orient("right");
 
         d3.select("#visualisationAxis").html("svg:g")

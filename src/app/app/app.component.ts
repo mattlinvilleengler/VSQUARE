@@ -50,6 +50,11 @@ export class AppComponent implements AfterViewInit {
   router: any = Router;
   errorsOpen: boolean = true;
   url: string = "";
+  feedbackSuccess: boolean = false;
+  feedbackName: string = "";
+  feedbackEmail: string = "";
+  feedbackMessage: string = "";
+  
 
   @ViewChild('refresh') refresh: any;
   @ViewChild('successDialog') successDialog: any;
@@ -134,5 +139,16 @@ export class AppComponent implements AfterViewInit {
   }
   dismiss(){
     window.localStorage.setItem('errorsOpen', 'false');
+  }
+  addFeedback(){
+    var me = this;
+     database.ref("feedback/").push({
+       "name": this.feedbackName, "email": this.feedbackEmail, "message": this.feedbackMessage
+      });
+     this.feedbackSuccess = true;
+     setTimeout(function(){ me.closeSubmitDialog(); me.feedbackSuccess = false;  },2250);
+     this.feedbackName = "";
+     this.feedbackEmail = "";
+     this.feedbackMessage = "";
   }
 }

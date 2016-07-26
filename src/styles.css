@@ -24,9 +24,12 @@
     stroke-width: .75px;
     shape-rendering: crispEdges;
 }
+.tick line {
+    stroke: rgba(0,0,0, .1);
+}
 .axis text{
-     stroke: rgba(0,0,0, .4);
-    stroke-width: .75px;
+         fill: rgba(0,0,0,.65);
+    font-weight: 200;
 }
 .x.axis path {
     display: none;
@@ -213,6 +216,9 @@ right:50px !important;
     margin-left: 0px !important;
     float:left !important;
    }
+   .freeAxis{
+       right:27px!important;
+   }
 
     .mainNav{
     display: none!important;
@@ -388,3 +394,6 @@ transition-duration:.1s;
 .mdl-layout__drawer{
     z-index: 6500 !important;
 }
+  .freeAxis{
+       right:5px!important;
+   }
