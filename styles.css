@@ -217,7 +217,7 @@ right:50px !important;
     float:left !important;
    }
    .freeAxis{
-       right:27px!important;
+       right:0px!important;
    }
 
     .mainNav{
@@ -395,5 +395,22 @@ transition-duration:.1s;
     z-index: 6500 !important;
 }
   .freeAxis{
-       right:5px!important;
+       right:0px!important;
+   }
+   .mainFlip{
+    position: absolute!important;
+    right: 25px!important;
+    top: -67px!important;
+    z-index:2000;
+    transition-duration:.7s;
+      -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+    width:320px!important;
+   }
+   .mainFlip h1{
+       font-size:25px!important;
+   }
+  .mainFlip i{
+font-size:25px!important;
    }
