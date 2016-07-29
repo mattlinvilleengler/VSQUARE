@@ -46,6 +46,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     dataForTime: any[] = [];
     settingsOrganized: any[]= [];
     settingsSelected: any[]=[];
+    mainWidth: number = 200;
 
     changeSet(x: string, d?: number) {
         var min = 1,
@@ -127,8 +128,9 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     createGraph(dataX: any[], xMin: any, xMax: any, xS:any) {
         var me = this;
         me.gColor = [];
-        var width = window.innerWidth < 800 ? window.innerWidth * .9 : window.innerWidth * .75; 
-        var height = window.innerHeight * .55;
+        var width = window.innerWidth < 800 ? window.innerWidth * .9 : (window.innerWidth * .55); 
+        var height = window.innerWidth < 800 ? window.innerHeight * .55 : (window.innerHeight * .50); 
+        this.mainWidth = width + 5;
         me.mtGraph = -10 - height;
         var svgLine = '<svg id="visualisation" height=' + height + ' width=' + width + ' ></svg>';
         d3.select("#graphBox").html(svgLine);
@@ -209,9 +211,9 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
      createGraphNumbers(dataX: any[], xMin: any, xMax: any, yMax: any, xS:any) {
         var me = this;
         var mt = window.innerWidth < 800 ? 5 : 35;
-        var xT = window.innerWidth < 700 ? -15 : 19;
-        var width = window.innerWidth < 800 ? window.innerWidth * .9 : (window.innerWidth * .75); 
-        var height = window.innerHeight * .55;
+        var xT = window.innerWidth < 900 ? -10 : 5;
+        var width = window.innerWidth < 800 ? window.innerWidth * .9 : (window.innerWidth * .55); 
+        var height = window.innerWidth < 800 ? window.innerHeight * .55 : (window.innerHeight * .50);  
 
         var svgLine = '<svg id="visualisationNumbers" height=' + height + ' width=' + width + ' ></svg>'
         +'<svg id="visualisationAxis" height=' + height + ' width=' + 45 + ' style="position:absolute;right:'+ xT +'px;' +'top:'+ mt +'px;" ></svg>';

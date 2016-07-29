@@ -1,10 +1,10 @@
-<div [hidden]="loggedIn">
-    <center id="mainBox" #mainBox style="display: flex;
-    align-items: center;
-    justify-content: center;">
-        <div style=" max-width: 90%; width:500px; ">
+<div #bigBox [hidden]="loggedIn" (scroll)="flip();" >
+    <center style="display: flex; align-items: center;justify-content: center;" >
+        <div style=" max-width: 90%; width:500px; margin-top:10%; ">
             <div class="mdl-card__supporting-text" style=" Padding:0px;">
-                <div>
+                <div #mainFlip style="transition-duration:.7s;" 
+                [class.mainFlip]="scrolled" [style.position]="pos" [style.top.px]="top"
+                [style.left]="left" [style.width]="w">
                     <center>
                         <h1 class="landingHead">VSQUARE <i class="material-icons" style="font-size:40px; margin:10px">data_usage</i> </h1>
                         <hr style="border-color: rgba(250,250,250,.35)">
@@ -21,13 +21,15 @@ Create Account
 
                         <h1 class="rotate landingHead">VSQUARE<i class="material-icons" style="font-size:40px; margin:10px;">data_usage</i> </h1>
                     </center>
+                    <i class="material-icons mdl-card__supporting-text" [style.opacity]="op" style="font-size:60px; margin-top:25px;">keyboard_arrow_down</i>
                 </div>
             </div>
-            <i class="material-icons mdl-card__supporting-text" style="font-size:60px; margin-top:25px;">keyboard_arrow_down</i>
+            
         </div>
     </center>
-
-<div class="circleCard" style="margin-top:75px;">
+<div #contentBox style="transition-duration:.7s; width:100%;" [style.left.px]="contentLeft" 
+[style.top.px]="contentTop" [style.position]="contentPosition">
+<div class="circleCard" style="margin-top:55px;">
     <div class="circleCard">
         <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp" 
         [class.landingNavSelected]="one" [class.landingNav]="!one"
@@ -149,6 +151,7 @@ Create Account
             </div>
         </div>
     </div>
+</div>
 
     <dialog #loginDialog class="mdl-dialog">
         <h4 class="mdl-dialog__title">Login</h4>

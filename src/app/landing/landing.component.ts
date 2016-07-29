@@ -8,7 +8,7 @@ declare var dialogPolyfill: any;
   selector: 'my-landing',
   templateUrl: 'landing.component.html'
 })
-export class LandingComponent implements AfterViewInit, OnInit {
+export class LandingComponent implements AfterViewInit{
     provider = new firebase.auth.GoogleAuthProvider();
     email: string;
     password: string;
@@ -17,20 +17,63 @@ export class LandingComponent implements AfterViewInit, OnInit {
     one: boolean = true;
     two: boolean = false;
     three: boolean = false;
-    
+    scrolled: boolean = false;
+    pos: string = "block";
+    top: any = 0;
+    left: any = 0;
+    contentTop: number = 0;
+    contentPosition: string ="block";
+    contentLeft: number = 0;
+    cTop: number = 0;
+    cLeft: number = 0;
+    logTop: number = 0;
+    logLeft: number = 0;
+     w: any = "auto";
+     op:number = 1;
 
   @ViewChild('loginDialog') loginDialog: any;
   @ViewChild('registerDialog') registerDialog: any;
   @ViewChild('mainBox') mainBox: any;
-
-resizeMain(){
-  var height = window.innerHeight;
-  this.mainBox.nativeElement.style.height = height + "px";
+  @ViewChild('mainFlip') mainFlip: any;
+  @ViewChild('contentBox') contentBox: any;
+  @ViewChild('bigBox') bigBox: any;
+  
+flip(){
+  if(window.innerWidth > 990){
+  if( document.getElementsByClassName("mdl-layout__content")[0].scrollTop > 20){
+ this.scrolled = true;
+ this.pos ="absolute";
+ this.left = (window.innerWidth - 355) + "px";
+ this.top = -10;
+ this.contentTop = 75;
+ this.contentPosition = "absolute"
+ this.op = 0;
+  }else {
+     this.scrolled = false;
+     this.pos ="absolute";
+    this.left = this.logLeft;
+    this.top = this.logTop;
+    this.contentTop = this.cTop;
+     this.contentLeft = this.cLeft;
+     this.contentPosition = "absolute";
+     this.op = 1;
+  }
+  }
 }
-ngOnInit(){
-  this.resizeMain();
+setTheStuff(){
+ this.top = this.mainFlip.nativeElement.offsetTop;
+ this.left = this.mainFlip.nativeElement.offsetLeft + "px";
+ this.w = this.mainFlip.nativeElement.clientWidth + "px";
+ this.contentTop = this.contentBox.nativeElement.offsetTop;
+ this.contentLeft = this.contentBox.nativeElement.offsetLeft; 
+ this.cTop = this.contentTop;
+ this.cLeft = this.contentLeft;
+ this.logTop = this.top;
+ this.logLeft = this.left;
+
 }
 signInRe(){
+  var me = this;
   window.localStorage.setItem('loginMethod','current');
   window.localStorage.setItem('loggingIn','true');
   this.closeLoginDialog();
@@ -38,8 +81,10 @@ signInRe(){
 }
  ngAfterViewInit():any {
      var me = this;
-     window.onresize = function(){me.resizeMain()};
-   componentHandler.upgradeDom();
+     window.ondblclick = function(){ me.flip(); };
+     me.setTheStuff();
+     document.getElementsByClassName("mdl-layout__content")[0].addEventListener('scroll', function(){ me.flip(); });
+     componentHandler.upgradeDom();
      dialogPolyfill.registerDialog(this.loginDialog.nativeElement);    
      dialogPolyfill.registerDialog(this.registerDialog.nativeElement);
 firebase.auth().getRedirectResult().then(function(result:any) {
