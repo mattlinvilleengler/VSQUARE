@@ -1,57 +1,36 @@
-<div #bigBox [hidden]="loggedIn" (scroll)="flip();" >
-    <center style="display: flex; align-items: center;justify-content: center;" >
-        <div style=" max-width: 90%; width:500px; margin-top:10%; ">
-            <div class="mdl-card__supporting-text" style=" Padding:0px;">
-                <div #mainFlip style="transition-duration:.7s;" 
-                [class.mainFlip]="scrolled" [style.position]="pos" [style.top.px]="top"
-                [style.left]="left" [style.width]="w">
-                    <center>
-                        <h1 class="landingHead">VSQUARE <i class="material-icons" style="font-size:40px; margin:10px">data_usage</i> </h1>
-                        <hr style="border-color: rgba(250,250,250,.35)">
-
-                        <a class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp" (click)="openLogin()"
-                            style="margin:7px; color: rgba(250,250,250, .75); background-color: rgba(0,0,0, .65)">
-Login
-</a>
-                        <a class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--4dp" (click)="openRegister()"
-                            style="margin:7px; color: rgba(250,250,250, .75); background-color: rgba(0,0,0, .5)">
-Create Account
-</a>
-                        <hr style="border-color: rgba(250,250,250,.35)">
-
-                        <h1 class="rotate landingHead">VSQUARE<i class="material-icons" style="font-size:40px; margin:10px;">data_usage</i> </h1>
-                    </center>
-                    <i class="material-icons mdl-card__supporting-text" [style.opacity]="op" style="font-size:60px; margin-top:25px;">keyboard_arrow_down</i>
-                </div>
-            </div>
-            
-        </div>
-    </center>
-<div #contentBox style="transition-duration:.7s; width:100%;" [style.left.px]="contentLeft" 
+ <div #contentBox style="transition-duration:.7s;"
 [style.top.px]="contentTop" [style.position]="contentPosition">
-<div class="circleCard" style="margin-top:55px;">
-    <div class="circleCard">
-        <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp" 
-        [class.landingNavSelected]="one" [class.landingNav]="!one"
+<div class="circleCardL" style="margin-top:55px;">
+    <div class="circleCardL">
+         <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp landingNavSelected" 
+        (click)="one = true; two = false; three = false; openLogin();">
+<i class="fa fa-sign-in" aria-hidden="true" style="font-size:23px;"></i>LOGIN
+</button>
+ <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp landingNavSelected {{bc}}" 
+        (click)="one = true; two = false; three = false;openRegister();">
+<i class="fa fa-plus-square-o" aria-hidden="true" style="margin: 11px 0; font-size:23px;"></i><span style="display:inline-block; line-height:18px;">CREATE ACCOUNT</span>
+</button>
+        <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp " 
+        [class.landingNavSelectedL]="one" [class.landingNav]="!one"
         (click)="one = true; two = false; three = false;">
 <i class="material-icons"> data_usage</i>VSQUARE
 </button>
  <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp " 
- [class.landingNavSelected]="two" [class.landingNav]="!two" 
+ [class.landingNavSelectedL]="two" [class.landingNav]="!two" 
  (click)="two = true;one = false; three = false;">
 <i class="material-icons"> note</i>NEWS
 </button>
  <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp " 
- [class.landingNavSelected]="three" [class.landingNav]="!three" 
+ [class.landingNavSelectedL]="three" [class.landingNav]="!three" 
  (click)="three = true;two = false; one = false;">
 <i class="material-icons"> live_tv</i>MEDIA
 </button>
     </div></div>
-    <div class="circleCard" style="margin: 50px 0;">
+    <div class="circleCardL" style="margin: 50px 0;">
         <div>
-        <div class="circleCard" style="max-width:900px;" [hidden]="!one">
+        <div class="circleCardL"  [hidden]="!one">
 
-              <div class=" mdl-card mdl-shadow--6dp c" style=" margin:3%; height:210px; width:430px;">
+              <div class=" mdl-card mdl-shadow--2dp c" style=" margin:3% 3% 3% 0; height:210px; width:430px;">
                   <div class="mdl-card__actions mdl-card--border" style="border-bottom: 1px solid rgba(0,0,0,.1);">
                     <i class="material-icons" style="float:right;"> data_usage</i>
                     <span style="float:right; margin-top:4px; margin-right:5px;">VSQUARE</span>
@@ -65,7 +44,7 @@ Create Account
                 </div>
             </div>
 
-              <div class=" mdl-card mdl-shadow--6dp c" style=" margin:3%; height:315px; width:220px;">
+              <div class=" mdl-card mdl-shadow--2dp c" style=" margin:3% 3% 3% 0; height:315px; width:220px;">
                   <div class="mdl-card__actions mdl-card--border" style="border-bottom: 1px solid rgba(0,0,0,.1);">
                       <i class="material-icons" style="float:right;"> star_border</i>
                <span style="float:right; margin-top:4px; margin-right:5px;  ">Future Releases</span>
@@ -81,7 +60,7 @@ Create Account
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--6dp c" style=" margin:3%; height:375px">
+            <div class=" mdl-card mdl-shadow--2dp c" style=" margin:3% 3% 3% 0;  height:375px">
                 <div class="mdl-card__title mdl-card--expand card1">
                     <h2 class="mdl-card__title-text picText">Aggregate Data</h2>
                 </div>
@@ -93,7 +72,7 @@ Create Account
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--6dp c" style="  margin:3%; height:375px">
+            <div class=" mdl-card mdl-shadow--2dp c" style="  margin:3% 3% 3% 0;  height:375px">
                 <div class="mdl-card__title mdl-card--expand card2">
                     <h2 class="mdl-card__title-text picText">Interpolation</h2>
                 </div>
@@ -105,7 +84,7 @@ Create Account
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--6dp c" style=" margin:3%; height:375px">
+            <div class=" mdl-card mdl-shadow--2dp c" style=" margin:3% 3% 3% 0;  height:375px">
                 <div class="mdl-card__title mdl-card--expand card3">
                     <h2 class="mdl-card__title-text picText">Data Visualization</h2>
                 </div>
@@ -117,7 +96,7 @@ Create Account
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--6dp c" style="  margin:3%; height:375px">
+            <div class=" mdl-card mdl-shadow--2dp c" style="  margin:3% 3% 3% 0;  height:375px">
                 <div class="mdl-card__title mdl-card--expand card4">
                     <h2 class="mdl-card__title-text picText">Data Correlations</h2>
                 </div>
@@ -129,7 +108,7 @@ Create Account
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--6dp c" style="  margin:3%; height:375px">
+            <div class=" mdl-card mdl-shadow--2dp c" style="  margin:3% 3% 3% 0;  height:375px">
                 <div class="mdl-card__title mdl-card--expand card5">
                     <h2 class="mdl-card__title-text picText">AI</h2>
                 </div>
@@ -143,7 +122,7 @@ Create Account
             </div>
             </div>
 
-              <div #vid [hidden]="!three" class=" mdl-card mdl-shadow--8dp" style="margin:3%; height:254px; width:640px; padding: 0;">
+              <div #vid [hidden]="!three" class=" mdl-card mdl-shadow--8dp" style="margin:3% 3% 3% 0;  height:254px; width:640px; padding: 0;">
                 <div class="mdl-card__title mdl-card--expand" style="padding:0">
               <iframe #innerVid src="https://player.vimeo.com/video/110267377?color=ea6a47&title=0&byline=0&portrait=0" 
             width="640" height="254" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>

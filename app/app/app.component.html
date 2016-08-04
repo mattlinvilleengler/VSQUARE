@@ -1,20 +1,24 @@
 <div class=" mdl-layout mdl-js-layout ">
-    <header class="mdl-layout__header " 
-    style="background-color: #333; flex-wrap: wrap; height:auto; min-height:56px;" [hidden]="!loggedIn">
+    <header class="mdl-layout__header mdl-layout__header--waterfall-hide-top mdl-layout__header--scroll heade " 
+     >
         <!-- Top row, always visible -->
-        <div class="mdl-layout__header-row" style="flex-wrap: wrap; height:auto; min-height:56px;">
+         <div class="mdl-layout__header-row mainPadding {{bc}}" style="height:250px; ">
+      <!-- Title -->
+      <span class="mdl-layout-title" style="font-size:55px; margin-top:70px; color:rgba(250,250,250,0.7)">VSQUARE</span>
+      <div class="mdl-layout-spacer"></div>
+    </div>
+        <div class="mdl-layout__header-row mainPadding" style="flex-wrap: wrap; height:auto; min-height:56px; background-color:white; ">
             <!-- Title -->
-            <span class="mdl-layout-title" style="color:rgba(250,250,250,.75);">VSQUARE</span>
             <div class="mdl-layout-spacer"></div>
             <div>
-                <div style="float:left; min-width:200px" class="mainNav">
+                <div style="float:left; min-width:220px" class="mainNav">
                     <span [hidden]="loggedIn" style="color:rgba(0,0,0,.0)">M</span>
                     <i class="material-icons" style="float:left; margin-right:8px; margin-top:4px;" [hidden]="!loggedIn">account_circle</i>
                     <span class="mdl-layout-title accentColor" *ngIf="loggedIn" style="margin-right: 20px; margin-top:10px; font-size:14px; opacity:.95;">{{displayName}}</span>
                 </div>
                 <!-- Right aligned menu below button -->
                
-                <button id="logoutMenu" class="mdl-button mdl-js-button mdl-button--icon" >
+                <button [hidden]="!loggedIn" id="logoutMenu" class="mdl-button mdl-js-button mdl-button--icon" >
                         <i class="material-icons">more_vert</i>
                     </button>
                 <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect" for="logoutMenu">
@@ -22,7 +26,7 @@
                     <li class="mdl-menu__item " [hidden]="loggedIn">Login</li>
                 </ul>
             </div>
-                              <nav class="mdl-navigation mainNav" style= "margin-right:25px;" >
+                              <nav [hidden]="!loggedIn" class="mdl-navigation mainNav" style= "flex-wrap: wrap; flex: initial;height: auto;" >
                 <button #account class="mdl-button mdl-js-button mdl-js-ripple-effect navE" [routerLink]="['Account']" style="height:auto">
                         Account
                     </button>
@@ -74,10 +78,10 @@ $('.mdl-layout__obfuscator').click();" style="display: none;"></a>
         </nav>
     </div>
     <!----------------------------------------------------------------------------main------------------------------------->
-    <main class="mdl-layout__content loggedIn" >
+    <main class="mdl-layout__content loggedIn mainPadding" >
         <div id="mainContent" class="page-content" style="">
 
-            <div [hidden]="!loggedIn" style=min-height:1000px;>
+            <div [hidden]="!loggedIn"  style="min-height:1000px;">
                 <router-outlet></router-outlet>
             </div>
 
@@ -86,8 +90,8 @@ $('.mdl-layout__obfuscator').click();" style="display: none;"></a>
             </div>
              </main>
   
-    <footer class="mdl-mega-footer navFooter" style="position:absolute; width:100%;" >
-        <div class="mdl-mega-footer__middle-section">
+    <footer class="mdl-mega-footer navFooter mainPadding" style="position:absolute; width:100%;" >
+        <div class="mdl-mega-footer__middle-section mainPaddingI">
 
             <div class="mdl-mega-footer__drop-down-section">
                 <input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
@@ -134,7 +138,7 @@ $('.mdl-layout__obfuscator').click();" style="display: none;"></a>
 
         </div>
 
-        <div class="mdl-mega-footer__bottom-section">
+        <div class="mdl-mega-footer__bottom-section mainPaddingI">
             <div class="mdl-logo">VSQUARE</div>
             <ul class="mdl-mega-footer__link-list">
                 <li><a >Help</a></li>
@@ -160,7 +164,7 @@ $('.mdl-layout__obfuscator').click();" style="display: none;"></a>
 
             <div class="mdl-shadow--4dp" style="position:fixed; left:0; 
             z-index: 5000; top:100px; max-width:200px; background-color:white; 
-            padding: 15px; trasnsition-duration:.4s" [hidden]="!loggedIn" 
+            padding: 15px; trasnsition-duration:.4s; display:none;" [hidden]="!loggedIn" 
             [class.errorOpen]="!errorsOpen" [class.errorClosed]="errorsOpen" >
             <div [hidden]="!errorsOpen">
                 <span>VSQUARE is in development. 
