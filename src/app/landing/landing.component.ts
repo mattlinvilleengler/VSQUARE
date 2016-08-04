@@ -6,6 +6,7 @@ declare var dialogPolyfill: any;
 @Component({
   moduleId: module.id,
   selector: 'my-landing',
+  styleUrls: ['landing.component.css'],
   templateUrl: 'landing.component.html'
 })
 export class LandingComponent implements AfterViewInit{
@@ -30,48 +31,12 @@ export class LandingComponent implements AfterViewInit{
     logLeft: number = 0;
      w: any = "auto";
      op:number = 1;
+     bc: string = "";
 
   @ViewChild('loginDialog') loginDialog: any;
   @ViewChild('registerDialog') registerDialog: any;
-  @ViewChild('mainBox') mainBox: any;
-  @ViewChild('mainFlip') mainFlip: any;
-  @ViewChild('contentBox') contentBox: any;
-  @ViewChild('bigBox') bigBox: any;
   
-flip(){
-  if(window.innerWidth > 990){
-  if( document.getElementsByClassName("mdl-layout__content")[0].scrollTop > 20){
- this.scrolled = true;
- this.pos ="absolute";
- this.left = (window.innerWidth - 355) + "px";
- this.top = -10;
- this.contentTop = 75;
- this.contentPosition = "absolute"
- this.op = 0;
-  }else {
-     this.scrolled = false;
-     this.pos ="absolute";
-    this.left = this.logLeft;
-    this.top = this.logTop;
-    this.contentTop = this.cTop;
-     this.contentLeft = this.cLeft;
-     this.contentPosition = "absolute";
-     this.op = 1;
-  }
-  }
-}
-setTheStuff(){
- this.top = this.mainFlip.nativeElement.offsetTop;
- this.left = this.mainFlip.nativeElement.offsetLeft + "px";
- this.w = this.mainFlip.nativeElement.clientWidth + "px";
- this.contentTop = this.contentBox.nativeElement.offsetTop;
- this.contentLeft = this.contentBox.nativeElement.offsetLeft; 
- this.cTop = this.contentTop;
- this.cLeft = this.contentLeft;
- this.logTop = this.top;
- this.logLeft = this.left;
 
-}
 signInRe(){
   var me = this;
   window.localStorage.setItem('loginMethod','current');
@@ -81,9 +46,7 @@ signInRe(){
 }
  ngAfterViewInit():any {
      var me = this;
-     window.ondblclick = function(){ me.flip(); };
-     me.setTheStuff();
-     document.getElementsByClassName("mdl-layout__content")[0].addEventListener('scroll', function(){ me.flip(); });
+     this.color();
      componentHandler.upgradeDom();
      dialogPolyfill.registerDialog(this.loginDialog.nativeElement);    
      dialogPolyfill.registerDialog(this.registerDialog.nativeElement);
@@ -107,6 +70,13 @@ firebase.auth().getRedirectResult().then(function(result:any) {
   // ...
 });
 }
+  color(){
+    var me = this;
+    var colors = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+    setInterval(function(){
+      me.bc = colors[Math.floor(Math.random() * (colors.length - 1))];
+    },5000)
+  }
 signInFitSocial(){
   window.localStorage.setItem('loginMethod','current');
   window.localStorage.setItem('loggingIn','true');

@@ -16,16 +16,12 @@
     </div></div>
 
 
-<div class="circleCard" style="margin:5%;" >
+<div class="circleCardL" style="margin:5% 0; clear:both" >
 
     <div class="demo-card-wide mdl-card mdl-shadow--2dp ma"
- style="display:inline; vertical-align:top; margin:2%; margin-top:3%; max-width:90%; width: 275px; overflow:visible;">
+ style="display:inline; vertical-align:top; margin: 40px 40px 0 0; max-width:90%; width: 275px; overflow:visible;">
     <div class="mdl-card__title">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp" 
-       style="margin-top:-40px; width:100%; height:55px; text-align:left; 
-       background-color: #333; color:rgba(250,250,250, .5)">
             <h4 style="margin:0">Settings</h4>
-       </button>
     </div>
     <div class="mdl-card__supporting-text" style="margin-top:-40px; padding-left:25px;">
         <div class="demo-list-action mdl-list" style="padding-right:20px;">
@@ -44,13 +40,9 @@
 
 
 <div class="demo-card-wide mdl-card mdl-shadow--2dp ma" *ngFor="let settingCategory of settingsOrganized"
- style="display:inline; vertical-align:top; margin:2%; margin-top:3%; max-width:90%; width: 275px; overflow:visible;">
+ style="display:inline; vertical-align:top; margin: 40px 40px 0 0;  max-width:90%; width: 275px; overflow:visible;">
     <div class="mdl-card__title">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-shadow--6dp" 
-       style="margin-top:-40px; width:100%; height:55px; text-align:left; 
-       background-color: #333; color:rgba(250,250,250, .5)">
             <h4 style="margin:0">{{settingCategory[0] ? settingCategory[0].category : "Custom Metrics"}}</h4>
-       </button>
     </div>
     <div class="mdl-card__supporting-text" style="margin-top:-20px;">
         <div class="demo-list-action mdl-list">

@@ -54,6 +54,7 @@ export class AppComponent implements AfterViewInit {
   feedbackName: string = "";
   feedbackEmail: string = "";
   feedbackMessage: string = "";
+  bc: string = "#444";
   
 
   @ViewChild('refresh') refresh: any;
@@ -68,6 +69,7 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): any {
     var me = this;
+    this.color();
     this.url = window.location.href;
     componentHandler.upgradeDom();
     this.errorsOpen = window.localStorage.getItem('errorsOpen') == "true" ? true : false;
@@ -91,6 +93,13 @@ export class AppComponent implements AfterViewInit {
     });
     this.refresh.nativeElement.onmouseover= function(){};
       setInterval(function () { me.refreshPage() }, 200)
+  }
+  color(){
+    var me = this;
+    var colors = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+    setInterval(function(){
+      me.bc = colors[Math.floor(Math.random() * (colors.length - 1))];
+    },5000)
   }
   signOut() {
     this.hiddenLink.nativeElement.click();

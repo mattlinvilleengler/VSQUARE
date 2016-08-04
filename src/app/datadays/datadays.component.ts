@@ -49,7 +49,6 @@ export class DataDaysComponent implements AfterViewInit, OnInit {
       }
     });
   }
-
   getSettings() {
     var me = this;
     database.ref('settings/' + this.userID).on('value', function (snapshot: any) {
@@ -75,7 +74,7 @@ export class DataDaysComponent implements AfterViewInit, OnInit {
                         });
                     }
                 }
-        this.data.push(data[d].data);
+          this.data.push(data[d].data);
       }
       this.data.reverse();
     }
@@ -89,7 +88,7 @@ if (settings) {
       var yes = false;
       x.forEach(function(a){
         a.selected ? yes = true : false;
-        yes ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
+        a.selected  ? me.settingsSelected[a.measurement.toLowerCase()] = a : false;
       });
       yes ? me.settingsOrganized.push(x) : false;
     });
