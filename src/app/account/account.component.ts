@@ -78,6 +78,9 @@ export class AccountComponent implements AfterViewInit, OnInit {
       this.successDialog.nativeElement.showModal()
     }
   }
+  clearData(){
+    database.ref("data/" + this.userID).remove();
+  }
   closeNewDialog() {
     this.newDialog.nativeElement.close();
     window.localStorage.setItem('newAccount', "false");
