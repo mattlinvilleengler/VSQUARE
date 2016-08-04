@@ -386,6 +386,20 @@ transition-duration: .4s;
 .landingNavSelectedL i{
     display:block;
 }
+.landingNavSelectedHead{
+    height: 190px!important;
+    width:190px!important;
+    background-color:rgba(250,250,250, .2)!important;
+    color:rgba(0,0,0,.45)!important;
+    margin:20px 1px!important;
+    box-shadow: none !important;
+    padding-top:25px!important;
+    line-height:31px!important;
+    font-weight:600!important;
+    font-size:30px!important;
+     transition-duration: .3s!important;
+     text-align: left!important;
+}
 .dashBox{
     float:left;
     max-width:75%;
@@ -488,7 +502,7 @@ font-size:25px!important;
     flex-wrap: wrap; 
     height:auto; 
     min-height:56px;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12) !important;
     background: rgba(158,158,158,.2);
     background-image: initial;
     background-position-x: initial;
