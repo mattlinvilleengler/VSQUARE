@@ -514,3 +514,71 @@ font-size:25px!important;
     background-origin: initial;
     background-clip: initial;
 }
+
+ .wcard0{
+   background-color: white!important;
+   color: rgba(0,0,0, .7);
+   border-radius: 0;
+   padding:4%;
+ }
+ .wcard0 .mdl-card__supporting-text{
+     color: rgba(0,0,0, .7);
+ }
+  .wcard1{
+   border-radius: 0;
+   background-color: white!important;
+   color: rgba(0,0,0, .7);
+   padding-top:4%;
+ }
+  .wcard1 .mdl-card__supporting-text{
+     color: rgba(0,0,0, .7);
+ }
+  .wcard2{
+   background-color: #263238!important;
+   color: rgba(250,250,250, .7);
+   border-radius: 0;
+   padding-top:4%;
+ }
+  .wcard2 .mdl-card__supporting-text{
+     color: rgba(250,250,250, .7);
+ }
+  .wcard3{
+   background-color: #263238!important;
+   color: rgba(250,250,250, .7);
+   border-radius: 0;
+   padding-top:4%;
+   
+ }
+  .wcard3 .mdl-card__supporting-text{
+     color: rgba(250,250,250, .7);
+ }
+  .wcard4{
+  background-color: white!important;
+   color: rgba(0,0,0, .7);
+   border-radius: 0;
+   padding-top:4%;
+   
+ }
+   .wcard4 .mdl-card__supporting-text{  
+        color: rgba(0,0,0, .7);
+ }
+  .wcard5{
+  background-color: white!important;
+   color: rgba(0,0,0, .7);
+   border-radius: 0;
+   padding-top:4%;
+   
+ }
+  .wcard5 .mdl-card__supporting-text{
+     color: rgba(0,0,0, .7);
+ }
+   .wcard6{
+     background-color: #263238!important;
+   color: rgba(250,250,250, .7);
+   border-radius: 0;
+   padding:4%;
+   
+ }
+  .wcard6 .mdl-card__supporting-text{
+     color: rgba(250,250,250, .7);
+ }

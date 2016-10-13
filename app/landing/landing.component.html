@@ -1,6 +1,9 @@
  <div #contentBox style="transition-duration:.7s;"
 [style.top.px]="contentTop" [style.position]="contentPosition">
 <div class="circleCardL" style="margin-top:55px;">
+    <div class="text_drawing">
+  <canvas #text width=600></canvas>
+</div>
     <div class="circleCardL">
          <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp landingNavSelected" 
         (click)="one = true; two = false; three = false; openLogin();">
@@ -30,7 +33,7 @@
         <div>
         <div class="circleCardL"  [hidden]="!one">
 
-              <div class=" mdl-card mdl-shadow--2dp c" style=" margin:3% 3% 3% 0; height:210px; width:430px;">
+              <div class=" mdl-card wcard6 c mdl-shadow--2dp" style=" margin:2% 2% 2% 0; height:400px; width:40%;">
                   <div class="mdl-card__actions mdl-card--border" style="border-bottom: 1px solid rgba(0,0,0,.1);">
                     <i class="material-icons" style="float:right;"> data_usage</i>
                     <span style="float:right; margin-top:4px; margin-right:5px;">VSQUARE</span>
@@ -44,7 +47,7 @@
                 </div>
             </div>
 
-              <div class=" mdl-card mdl-shadow--2dp c" style=" margin:3% 3% 3% 0; height:315px; width:220px;">
+              <div class=" mdl-card wcard0 c mdl-shadow--2dp" style=" margin:2% 2% 2% 2%; height:400px; width:40%;">
                   <div class="mdl-card__actions mdl-card--border" style="border-bottom: 1px solid rgba(0,0,0,.1);">
                       <i class="material-icons" style="float:right;"> star_border</i>
                <span style="float:right; margin-top:4px; margin-right:5px;  ">Future Releases</span>
@@ -60,7 +63,7 @@
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--2dp c" style=" margin:3% 3% 3% 0;  height:375px">
+            <div class=" mdl-card c wcard1 mdl-shadow--2dp" style=" margin:2% 2% 2% 0; height:400px; width:40%;">
                 <div class="mdl-card__title mdl-card--expand card1">
                     <h2 class="mdl-card__title-text picText">Aggregate Data</h2>
                 </div>
@@ -72,7 +75,7 @@
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--2dp c" style="  margin:3% 3% 3% 0;  height:375px">
+            <div class=" mdl-card wcard2 c mdl-shadow--2dp" style="  margin:2% 2% 2% 2%; width:40%; height:400px">
                 <div class="mdl-card__title mdl-card--expand card2">
                     <h2 class="mdl-card__title-text picText">Interpolation</h2>
                 </div>
@@ -84,7 +87,7 @@
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--2dp c" style=" margin:3% 3% 3% 0;  height:375px">
+            <div class=" mdl-card wcard3 c mdl-shadow--2dp" style=" margin:2% 2% 2% 0; width:40%; height:400px">
                 <div class="mdl-card__title mdl-card--expand card3">
                     <h2 class="mdl-card__title-text picText">Data Visualization</h2>
                 </div>
@@ -96,7 +99,7 @@
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--2dp c" style="  margin:3% 3% 3% 0;  height:375px">
+            <div class=" mdl-card wcard4 c mdl-shadow--2dp" style="  margin:2% 2% 2% 2%;  width:40%; height:400px">
                 <div class="mdl-card__title mdl-card--expand card4">
                     <h2 class="mdl-card__title-text picText">Data Correlations</h2>
                 </div>
@@ -108,7 +111,7 @@
                 </div>
             </div>
 
-            <div class=" mdl-card mdl-shadow--2dp c" style="  margin:3% 3% 3% 0;  height:375px">
+            <div class=" mdl-card wcard5 c mdl-shadow--2dp" style="  margin:2% 2% 2% 0; width:40%; height:400px">
                 <div class="mdl-card__title mdl-card--expand card5">
                     <h2 class="mdl-card__title-text picText">AI</h2>
                 </div>
