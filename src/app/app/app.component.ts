@@ -3,18 +3,11 @@ import { Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angul
 import { DashboardComponent }  from '../dashboard/dashboard.component' ;
 import { SettingsComponent }     from '../settings/settings.component';
 import { DataVisualizationComponent }     from '../datavisualization/datavisualization.component';
-import { LoginComponent }     from '../login/login.component';
-import { RegisterComponent }     from '../register/register.component';
 import { AddDataComponent }     from '../adddata/adddata.component';
 import { AccountComponent }     from '../account/account.component';
 import { ProfileComponent }     from '../profile/profile.component';
 import { LandingComponent }     from '../landing/landing.component';
-
-
-declare var database: any;
-declare var componentHandler: any;
-declare var firebase: any;
-declare var dialogPolyfill: any;
+declare var vsquare: any;
 
 @Component({
   moduleId: module.id,
@@ -80,6 +73,7 @@ export class AppComponent implements AfterViewInit {
         me.loginMethod = window.localStorage.getItem('loginMethod');
         me.loggingIn = window.localStorage.getItem('loggingIn') == "true" ? true : false;
         me.newUser = me.loginMethod == "new" ? true : false;
+        //me.newUser ? me.sendVerificationEmail() : false;
         me.successMessage = me.loginMethod == "new" ? "Account Successfully Created. " :
           "Successfully signed in as " + user.displayName;
         me.successMessage += me.loginMethod == "new" ? "Now let's get started." : "";
@@ -122,6 +116,15 @@ export class AppComponent implements AfterViewInit {
       this.displayName = account.fullName ? account.fullName : "";
     }
   }
+      sendVerificationEmail(){
+      var user = firebase.auth().currentUser;
+
+user.sendEmailVerification().then(function() {
+  alert("Email Sent");
+}, function(error) {
+  alert("Error");
+});
+    }
   refreshPage() {
     this.refresh.nativeElement.onmouseover();
   }

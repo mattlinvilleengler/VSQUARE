@@ -2,11 +2,8 @@ import { Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { DataVisualizationComponent } from '../datavisualization/datavisualization.component';
 import { SingleVisualizationComponent } from '../singlevisualization/singlevisualization.component';
 import { DataDaysComponent } from '../datadays/datadays.component';
-declare var componentHandler: any;
 declare var d3: any;
-declare var database: any;
-declare var firebase: any;
-declare var dialogPolyfill: any;
+declare var vsquare: any;
 
 @Component({
   moduleId: module.id,
@@ -19,13 +16,6 @@ export class DashboardComponent implements AfterViewInit {
   newUser: boolean = false;
   loggedIn: boolean = false;
   userID: number;
-
-  financeSet: boolean = false;
-  happinessSet: boolean = false;
-  exerciseSet: boolean = false;
-  nutritionSet: boolean = false;
-  sleepSet: boolean = false;
-  alcoholSet: boolean = false;
 
   data: any[] = [];
   group: any[] = [];

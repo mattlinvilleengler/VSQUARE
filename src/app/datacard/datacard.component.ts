@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-declare var componentHandler: any;
+declare var vsquare: any;
 
 @Component({
   moduleId: module.id,

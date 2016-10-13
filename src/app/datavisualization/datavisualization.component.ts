@@ -1,8 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-declare var componentHandler: any;
 declare var d3: any;
-declare var database: any;
-declare var firebase: any;
+declare var vsquare: any;
 
 @Component({
     moduleId: module.id,

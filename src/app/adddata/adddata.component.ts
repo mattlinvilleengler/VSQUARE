@@ -1,9 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-
-declare var componentHandler: any;
-declare var database: any;
-declare var firebase: any;
-declare var dialogPolyfill: any;
+declare var vsquare: any;
 
 @Component({
   moduleId: module.id,
@@ -12,58 +8,27 @@ declare var dialogPolyfill: any;
 })
 
 export class AddDataComponent implements AfterViewInit, OnInit {
-  finance: number = 0;
-  happiness: number = 0;
-  exercise: number = 0;
-  nutrition: number = 0;
-  sleep: number = 0;
-  alcohol: number = 0;
-  loggedIn: boolean = false;
-  userID: number;
   lastData: number;
   document: any = document;
   one: boolean = true;
-
-
-  financeSet: boolean = false;
-  happinessSet: boolean = false;
-  exerciseSet: boolean = false;
-  nutritionSet: boolean = false;
-  sleepSet: boolean = false;
-  alcoholSet: boolean = false;
   settingsOrganized: any = [];
-
   newUser: boolean = false;
-
+  vsquare: any = vsquare;
 
   @ViewChild('errorDialog') dialog: any;
   @ViewChild('successDialog') successDialog: any;
   @ViewChild('newDialog') newDialog: any;
-  @ViewChild('fakeDialog') fakeDialog: any; 
-  @ViewChild('fakeDialogSuccess') fakeDialogSuccess: any; 
 
   ngAfterViewInit(): any {
-    componentHandler.upgradeDom();
-     dialogPolyfill.registerDialog(this.dialog.nativeElement);    
-     dialogPolyfill.registerDialog(this.newDialog.nativeElement);
-    dialogPolyfill.registerDialog(this.successDialog.nativeElement);
-    dialogPolyfill.registerDialog(this.fakeDialog.nativeElement);  
-    dialogPolyfill.registerDialog(this.fakeDialogSuccess.nativeElement); 
-    this.document = document; 
+    vsquare.upgrade();
+    var dialogs = [this.dialog, this.newDialog, this.successDialog]
+    vsquare.registerDialogs(dialogs);
+    this.document = document;
+    this.getSettings();
+    this.newUser = vsquare.isNew("newAddData");
+    this.newUser ? vsquare.showDelay(this.newDialog) : this.getData();
   }
   ngOnInit(): any {
-    var me = this;
-    this.newUser = window.localStorage.getItem('newAddData') == "true" ? true : false;
-    firebase.auth().onAuthStateChanged(function (user: any) {
-      if (user) {
-        me.loggedIn = true;
-        me.userID = user.uid;
-        me.getSettings();
-        me.newUser ?  me.openDialog(me.newDialog) : me.getData();
-      } else {
-        me.loggedIn = false;
-      }
-    });
   }
   getSettings() {
     var me = this;
@@ -72,20 +37,20 @@ export class AddDataComponent implements AfterViewInit, OnInit {
     });
   }
   updateSettings(settings: any) {
-    if(settings){
-    var me = this;
-    me.settingsOrganized = [];
-    var settings = settings.settings ? settings.settings : [];
-    settings.forEach(function(x){
-      var yes = false;
-      var selectedArray = [];
-      x.forEach(function(a){
-        a.selected ? (yes = true, selectedArray.push(a) ) : false;
+    if (settings) {
+      var me = this;
+      me.settingsOrganized = [];
+      var settings = settings.settings ? settings.settings : [];
+      settings.forEach(function (x) {
+        var yes = false;
+        var selectedArray = [];
+        x.forEach(function (a) {
+          a.selected ? (yes = true, selectedArray.push(a)) : false;
+        });
+        yes ? me.settingsOrganized.push(selectedArray) : false;
       });
-      yes ? me.settingsOrganized.push(selectedArray) : false;
-    });
     }
-    setTimeout(function(){componentHandler.upgradeDom();}, 500)
+    vsquare.upgradeDelay();
   }
   saveData() {
     if (this.loggedIn) {
@@ -103,41 +68,16 @@ export class AddDataComponent implements AfterViewInit, OnInit {
       }
     }
   }
-  createFakeData(){
-    this.fakeDialog.nativeElement.showModal();
-  }
-  createFakeDataProceed(){
-    this.fakeDialog.nativeElement.close();
-    database.ref("data/" + this.userID).remove();
-    var time = 86400000 * 100;
-    for (var i = 0; i < 100; i++){
-    this.settingsOrganized.forEach(function(x){ 
-      x.forEach(function(a){
-        if(a.valueType == "range"){
-          a.value = Math.floor(Math.random() * a.max);
-        } else {
-          a.value = Math.floor(Math.random() * a.max);
-        }
-      });
-    });
-    var d = new Date();
-        var date = d.getTime();
-        date = date - time;
-        this.saveD(date, true);
-        time -= 86400000;
-    }
-    this.fakeDialogSuccess.nativeElement.showModal();
-  }
   saveD(date, flag?) {
     var data = {
       "time": date
     };
-    this.settingsOrganized.forEach(function(x){ 
-      x.forEach(function(a){
+    this.settingsOrganized.forEach(function (x) {
+      x.forEach(function (a) {
         data[a.measurement] = a.value;
       });
     });
-    database.ref("data/" + this.userID + "/").push({"data": data});
+    database.ref("data/" + this.userID + "/").push({ "data": data });
     flag ? false : this.successDialog.nativeElement.showModal();
   }
   getData() {
@@ -153,37 +93,23 @@ export class AddDataComponent implements AfterViewInit, OnInit {
       }
     }
   }
-  closeDialog() {
-    this.dialog.nativeElement.close();
-  }
-  closeFakeSuccessDialog(){
-    this.fakeDialogSuccess.nativeElement.close();
-  }
-  closeFakeDialog(){
-    this.fakeDialog.nativeElement.close();
-  }
   dashboard() {
-    this.dialog.nativeElement.close();
+    vsquare.close(this.dialog);
     window.location.pathname = "my-app/dashboard";
   }
-  closeSuccessDialog() {
-    this.successDialog.nativeElement.close();
-  }
   dashboardSuccess() {
-    this.successDialog.nativeElement.close();
+    vsquare.close(this.successDialog);
     window.location.pathname = "my-app/dashboard";
   }
   dashboardFake() {
+    vsquare.close(this.newDialog);
     this.fakeDialogSuccess.nativeElement.close();
     window.location.pathname = "my-app/dashboard";
   }
   closeNewDialog() {
-    this.newDialog.nativeElement.close();
-    window.localStorage.setItem('newAddData', "false");
-    window.localStorage.setItem('newDashboard', "true");
+    vsquare.close(this.newDialog);
+    vsquare.set('newAddData', "false");
+    vsquare.set('newDashboard', "true");
     window.location.pathname = "my-app/dashboard";
-  }
-  openDialog(d) {
-    setTimeout(function () { d.nativeElement.showModal(); }, 1500);
   }
 }

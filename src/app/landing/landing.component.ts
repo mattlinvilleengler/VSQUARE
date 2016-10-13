@@ -1,7 +1,5 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
-declare var componentHandler: any;
-declare var firebase: any;
-declare var dialogPolyfill: any;
+declare var vsquare: any;
 
 @Component({
   moduleId: module.id,
@@ -12,6 +10,7 @@ declare var dialogPolyfill: any;
 export class LandingComponent implements AfterViewInit{
     provider = new firebase.auth.GoogleAuthProvider();
     email: string;
+    emailReset: string;
     password: string;
     emailRegister: string;
     passwordRegister: string;
@@ -34,11 +33,11 @@ export class LandingComponent implements AfterViewInit{
      bc: string = "";
 
   @ViewChild('loginDialog') loginDialog: any;
+  @ViewChild('resetDialog') resetDialog: any;
   @ViewChild('registerDialog') registerDialog: any;
   @ViewChild('text') text: any;
   
   
-
 signInRe(){
   var me = this;
   window.localStorage.setItem('loginMethod','current');
@@ -52,6 +51,7 @@ signInRe(){
      this.color();
      componentHandler.upgradeDom();
      dialogPolyfill.registerDialog(this.loginDialog.nativeElement);    
+     dialogPolyfill.registerDialog(this.resetDialog.nativeElement);
      dialogPolyfill.registerDialog(this.registerDialog.nativeElement);
 firebase.auth().getRedirectResult().then(function(result:any) {
   if (result.credential) {
@@ -123,7 +123,26 @@ firebase.auth().signInWithRedirect(this.provider).then(function(result:any) {
   // ...
 });
     }
-
+    resetPassword(){
+var auth = firebase.auth();
+var emailAddress = this.emailReset;
+auth.sendPasswordResetEmail(emailAddress).then(function() {
+ alert("Email Sent");
+}, function(error) {
+  alert("Error");
+});
+    }
+    reset(){
+this.closeLoginDialog();
+this.resetDialog.nativeElement.showModal();
+    }
+    resetSend(){
+      this.resetPassword();
+this.closeResetDialog();
+    }
+    closeResetDialog(){
+          this.resetDialog.nativeElement.close();
+        }
         closeRegisterDialog(){
           this.registerDialog.nativeElement.close();
         }

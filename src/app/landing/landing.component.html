@@ -149,10 +149,25 @@
             </div>
 
         </div>
-        <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+        <div class="mdl-dialog__actions ">
             <button type="button" class="mdl-button" (click)="closeLoginDialog()">Close</button>
             <button type="button" class="mdl-button" (click)="signInFitSocial()">Login</button>
-            <button type="button" class="mdl-button" (click)="signInRe()">Login with Google</button>
+            <button type="button" class="mdl-button" (click)="reset()">Account Help</button>
+        </div>
+    </dialog>
+
+        <dialog #resetDialog class="mdl-dialog">
+        <h4 class="mdl-dialog__title">Account Help</h4>
+        <div class="mdl-dialog__content">
+            <p>An email will be sent to the email provided that will assist you in reseting you password.</p>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="email" id="sample3" [(ngModel)]="emailReset">
+                <label class="mdl-textfield__label" for="sample3">Email...</label>
+            </div>
+        </div>
+        <div class="mdl-dialog__actions ">
+            <button type="button" class="mdl-button" (click)="closeResetDialog()">Close</button>
+            <button type="button" class="mdl-button" (click)="resetSend()">Send </button>
         </div>
     </dialog>
 
@@ -160,17 +175,16 @@
         <h4 class="mdl-dialog__title">Create Account</h4>
         <div class="mdl-dialog__content">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="email" id="sample3" [(ngModel)]="emailRegister">
-                <label class="mdl-textfield__label" for="sample3">Email...</label>
+                <input class="mdl-textfield__input" type="email" id="sample1" [(ngModel)]="emailRegister">
+                <label class="mdl-textfield__label" for="sample1">Email...</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="password" id="sample3" [(ngModel)]="passwordRegister">
                 <label class="mdl-textfield__label" for="sample3">Password...</label>
             </div>
         </div>
-        <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+        <div class="mdl-dialog__actions ">
             <button type="button" class="mdl-button" (click)="closeRegisterDialog()">Close</button>
             <button type="button" class="mdl-button" (click)="register()">Create Account</button>
-            <button type="button" class="mdl-button" (click)="registerGoogle()">Create Account with Google</button>
         </div>
     </dialog>

@@ -1,8 +1,5 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
-declare var componentHandler: any;
-declare var database: any;
-declare var firebase: any;
-declare var dialogPolyfill: any;
+declare var vsquare: any;
 
 @Component({
   moduleId: module.id,
@@ -138,11 +135,7 @@ export class SettingsComponent implements AfterViewInit, OnInit {
       if(this.addMetricName.length > 0){
       var metric = { measurement: this.addMetricName, category: "Custom Metrics", valueType: valueType, 
         selected: true, icon: "all_inclusive", value: valueType == "number" ? "" : "0", max: valueType == "range" ? "100" : this.customMax};
-        if(this.settingsOrganized[this.settingsOrganized.length-1][0].category == "Custom Metrics"){
            this.settingsOrganized[this.settingsOrganized.length-1].push(metric);
-        } else {
-           this.settingsOrganized.push([metric]);
-        }
       }
     }
     this.addDialog.nativeElement.close();

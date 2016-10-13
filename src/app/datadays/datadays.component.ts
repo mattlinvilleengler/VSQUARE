@@ -1,9 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DataCardComponent } from '../datacard/datacard.component';
-
-declare var componentHandler: any;
-declare var database: any;
-declare var firebase: any;
+declare var vsquare: any;
 
 @Component({
   moduleId: module.id,
