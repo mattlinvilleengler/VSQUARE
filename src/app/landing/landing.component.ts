@@ -35,6 +35,8 @@ export class LandingComponent implements AfterViewInit{
 
   @ViewChild('loginDialog') loginDialog: any;
   @ViewChild('registerDialog') registerDialog: any;
+  @ViewChild('text') text: any;
+  
   
 
 signInRe(){
@@ -46,6 +48,7 @@ signInRe(){
 }
  ngAfterViewInit():any {
      var me = this;
+     setTimeout(function(){me.writeText();}, 1200);
      this.color();
      componentHandler.upgradeDom();
      dialogPolyfill.registerDialog(this.loginDialog.nativeElement);    
@@ -133,4 +136,29 @@ firebase.auth().signInWithRedirect(this.provider).then(function(result:any) {
          openLogin(){
         this.loginDialog.nativeElement.showModal();
         }
+writeText(){
+var ctx = this.text.nativeElement.getContext("2d"),
+    dashLen = 220, dashOffset = dashLen, speed = 5,
+    txt = "VSQUARE", x = 0, i = 0;
+
+ctx.font = "90px Comic Sans MS, cursive, TSCu_Comic, sans-serif"; 
+ctx.lineWidth = 5; ctx.lineJoin = "round"; ctx.globalAlpha = 0.8;
+
+var loop = function () {
+  ctx.clearRect(x, 0, 60, 150);
+  ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
+  dashOffset -= speed;
+  ctx.strokeText(txt[i], x, 100);                          // stroke letter
+
+  if (dashOffset) requestAnimationFrame(loop);             // animate
+  else {                                                   // prep next char
+    //ctx.fillText(txt[i], x, 100);                          // fill final letter
+    dashOffset = dashLen;
+    x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
+    if (i < txt.length) requestAnimationFrame(loop);
+  }
+};
+loop();
+}
+        
 }

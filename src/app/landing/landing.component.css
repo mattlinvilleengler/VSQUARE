@@ -40,3 +40,12 @@
    background-color: #009688!important;
    transition-duration: 5s!important;
  }
+ .text_drawing{
+   text-align:center; 
+   width:100%;
+   position:absolute;
+       -ms-transform: rotate(30deg); /* IE 9 */
+    -webkit-transform: rotate(30deg); /* Chrome, Safari, Opera */
+    transform: rotate(30deg);
+    top: 250px;
+   }

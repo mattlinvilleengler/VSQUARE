@@ -344,8 +344,10 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
                     }
                 }
                 day++;
-            }
-            this.changeSet("week");
+
+            this.currentMin = this.dataForTime.length -8;
+            this.setTime("week");
+        }
         }
     updateSettings(settings: any) {
   if (settings) {
