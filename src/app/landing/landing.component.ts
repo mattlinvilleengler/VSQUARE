@@ -48,7 +48,7 @@ signInRe(){
 }
  ngAfterViewInit():any {
      var me = this;
-     setTimeout(function(){me.writeText();}, 1200);
+     //setTimeout(function(){me.writeText();}, 1200);
      this.color();
      componentHandler.upgradeDom();
      dialogPolyfill.registerDialog(this.loginDialog.nativeElement);    

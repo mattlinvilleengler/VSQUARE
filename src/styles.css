@@ -582,3 +582,28 @@ font-size:25px!important;
   .wcard6 .mdl-card__supporting-text{
      color: rgba(250,250,250, .7);
  }
+@media screen and (max-width: 900px){
+.wcard0, .wcard1,.wcard2,.wcard3,.wcard4,.wcard5, .wcard6{
+    width: 95%!important;
+    margin:2%!important;
+}
+}
+@media screen and (max-width: 475px){
+.titleHeaderx{
+    font-size:45px!important;
+}
+.landingNavSelectedHead{
+font-size:15px!important;
+height:150px!important;
+width:150px!important;
+line-height:15px!important;
+}
+}
+@media screen and (max-width: 775px){
+.navHeaderx{
+    display:none!important;
+}
+.circleCardL{
+    justify-content: center;
+}
+}

@@ -32,7 +32,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): any {
         var me = this;
         componentHandler.upgradeDom();
-        window.onresize = function(){ me.setTime(me.currentGraphTime);};
+        window.onresize = function(){ me.hasData ? me.setTime(me.currentGraphTime) : false;;};
     }
     mapping: any[] = [1, 1, 1]
     currentMin: number = 1;
@@ -47,6 +47,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     settingsOrganized: any[]= [];
     settingsSelected: any[]=[];
     mainWidth: number = 200;
+    hasData: boolean = false;
 
     changeSet(x: string, d?: number) {
         var min = 1,
@@ -317,6 +318,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
     }
     updateData(data: any) {
         if (data) {
+                this.hasData = true;
             var day = 1;
             for (var d in data) {
                 if (this.firstMili > data[d].data.time || this.firstMili == 0) {

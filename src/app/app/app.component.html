@@ -2,15 +2,15 @@
     <header class="mdl-layout__header mdl-layout__header--waterfall-hide-top mdl-layout__header--scroll heade " 
      >
         <!-- Top row, always visible -->
-         <div class="mdl-layout__header-row mainPadding {{bc}}" style="height:250px; ">
+         <div class="mdl-layout__header-row mainPadding {{bc}}" style="height:250px; flex-wrap:wrap;">
       <!-- Title -->
-      <span class="mdl-layout-title" style="font-size:55px; margin-top:70px; color:rgba(250,250,250,0.7)">VSQUARE</span>
+      <span class="mdl-layout-title titleHeaderx" style="font-size:55px; margin-top:70px; color:rgba(250,250,250,0.7)">VSQUARE</span>
       <div class="mdl-layout-spacer"></div>
           <button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp landingNavSelectedHead" 
         >Hardcore Data Analytics
 </button>
     </div>
-        <div class="mdl-layout__header-row mainPadding" style="flex-wrap: wrap; height:auto; min-height:56px; background-color:white; ">
+        <div class="mdl-layout__header-row mainPadding navHeaderx" [hidden]="!loggedIn" style="flex-wrap: wrap; height:auto; min-height:56px; background-color:white; ">
             <!-- Title -->
             <div class="mdl-layout-spacer"></div>
             <div>
