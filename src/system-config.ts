@@ -28,7 +28,6 @@ const barrels: string[] = [
   '@angular/platform-browser',
   '@angular/platform-browser-dynamic',
   '@angular/upgrade',
-  
 
   // Thirdparty barrels.
   'rxjs',
@@ -52,7 +51,8 @@ System.config({
   map: {
     '@angular': 'vendor/@angular',
     'rxjs': 'vendor/rxjs',
-    'main': 'main.js'
+    'main': 'main.js',
+    'vsquare': 'vsquareapi.js'
   },
   packages: cliSystemConfigPackages
 });
