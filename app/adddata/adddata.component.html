@@ -41,38 +41,6 @@ Save
     </div>
 </div>
 </div>
-<!--
-<button id="saveSettings" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent extend"
- (click)="createFakeData()" style="background-color: rgba(0,0,0,.9); position: fixed; right: 100px; top:177px; z-index:999;">
-  Create Fake Data
-</button>-->
-
-<dialog #fakeDialog class="mdl-dialog">
-    <h4 class="mdl-dialog__title">Create Data</h4>
-    <div class="mdl-dialog__content">
-        <p>
-            Creating fake data will clear out any of your current and historical data.
-        </p>
-    </div>
-    <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="createFakeDataProceed()">Proceed</button>
-        <button type="button" class="mdl-button" (click)="closeFakeDialog()">Close</button>
-    </div>
-</dialog>
-
-<dialog #fakeDialogSuccess class="mdl-dialog">
-    <h4 class="mdl-dialog__title">Success</h4>
-    <div class="mdl-dialog__content">
-        <p>
-            Fake data has successfully been created.
-        </p>
-    </div>
-    <div class="mdl-dialog__actions">
-        <button type="button" class="mdl-button" (click)="dashboardFake()">Go To Dashboard</button>
-        <button type="button" class="mdl-button" (click)="closeFakeSuccessDialog()">Close</button>
-    </div>
-</dialog>
-
 
 <dialog #errorDialog class="mdl-dialog">
     <h4 class="mdl-dialog__title">Error</h4>
@@ -83,7 +51,7 @@ Save
     </div>
     <div class="mdl-dialog__actions">
         <button type="button" class="mdl-button" (click)="dashboard()">Go To Dashboard</button>
-        <button type="button" class="mdl-button" (click)="closeDialog()">Close</button>
+        <button type="button" class="mdl-button" (click)="vsquare.close(dialog)">Close</button>
     </div>
 </dialog>
 
@@ -96,7 +64,7 @@ Save
     </div>
     <div class="mdl-dialog__actions">
         <button type="button" class="mdl-button" (click)="dashboardSuccess()">Go To Dashboard</button>
-        <button type="button" class="mdl-button" (click)="closeSuccessDialog()">Close</button>
+        <button type="button" class="mdl-button" (click)="vsquare.close(successDialog)">Close</button>
     </div>
 </dialog>
 
