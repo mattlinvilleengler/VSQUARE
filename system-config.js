@@ -5,9 +5,7 @@
  * User Configuration.
  **********************************************************************************************/
 /** Map relative paths to URLs. */
-var map = {
-    'vsquare': 'vsquareapi.js'
-};
+var map = {};
 /** User packages configuration. */
 var packages = {};
 ////////////////////////////////////////////////////////////////////////////////////////////////
