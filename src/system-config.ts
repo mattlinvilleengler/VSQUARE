@@ -7,7 +7,6 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-    'vsquare': 'vsquareapi.js'
 };
 
 /** User packages configuration. */

@@ -7,18 +7,16 @@ import { AddDataComponent } from '../adddata/adddata.component';
 import { AccountComponent } from '../account/account.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { LandingComponent } from '../landing/landing.component';
-declare var vsquare: any;
+import { G } from '../G.service';
 declare var firebase: any;
 
 @Component({
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css', 'https://mattlinvilleengler.github.io/my-app/vsquareapi.js'],
+  styleUrls: ['app.component.css'],
   directives: [ROUTER_DIRECTIVES, LandingComponent],
-  providers: [
-    ROUTER_PROVIDERS
-  ]
+  providers: [ ROUTER_PROVIDERS, G ]
 })
 @RouteConfig([
   { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true },
@@ -27,6 +25,7 @@ declare var firebase: any;
   { path: '/account', name: 'Account', component: AccountComponent }
 ])
 export class AppComponent implements AfterViewInit, OnInit {
+  G:G = new G;
   loggedIn: boolean = false;
   login: boolean = false;
   signUp: boolean = false;
@@ -43,7 +42,6 @@ export class AppComponent implements AfterViewInit, OnInit {
   feedbackEmail: string = "";
   feedbackMessage: string = "";
   bc: string = "#444";
-  vsquare: any = vsquare;
   fan:string = "";
   successMessage: string = " ";
 
@@ -64,24 +62,26 @@ ngOnInit(){
     var me = this;
     this.color();
     this.url = window.location.href;
-    vsquare.upgrade();
-    this.errorsOpen = vsquare.get('errorsOpen') == "true" ? true : false;
+    this.G.G.upgrade();
+    this.errorsOpen = this.G.G.get('errorsOpen') == "true" ? true : false;
     var dialogs = [this.submitErrorDialog, this.successDialog];
-    vsquare.registerDialogs(dialogs);
+    this.G.G.registerDialogs(dialogs);
     this.manageUser();
     this.refresh.nativeElement.onmouseover = function () { };
     setInterval(function () { me.refreshPage() }, 200)
   }
   manageUser() {
-    this.loginMethod = vsquare.user.LogInMethod;
-    this.loggingIn = vsquare.user.LoggingIn;
+    this.loginMethod = this.G.G.user.LogInMethod;
+    this.loggingIn = this.G.G.user.LoggingIn;
     this.newUser = this.loginMethod == "new" ? true : false;
     this.successMessage = this.newUser ? "Account Successfully Created. " :
-      "Successfully signed in as " + vsquare.user.Name;
+      "Successfully signed in as " + this.G.G.user.Name;
     this.successMessage += this.newUser ? "Now let's get started." : "";
-    this.loggingIn ? vsquare.show(this.successDialog) : this.loggedIn = true;
-    this.displayName = vsquare.user.Name;
+    this.loggingIn ? this.G.G.show(this.successDialog) : false;
+    this.loggedIn = this.G.G.user.LoggedIn;
+    this.displayName = this.G.G.user.Name;
     this.getAccount();
+    this.G.G.upgrade();
   }
   color() {
     var me = this;
@@ -92,11 +92,11 @@ ngOnInit(){
   }
   signOut() {
     this.hiddenLink.nativeElement.click();
-    vsquare.signOut();
+    this.G.G.signOut();
     this.loggedIn = false;
   }
   getAccount() {
-    var account = vsquare.getAccount();
+    var account = this.G.G.getAccount();
     this.updateAccount(account);
   }
   updateAccount(account: any) {
@@ -108,25 +108,25 @@ ngOnInit(){
     this.refresh.nativeElement.onmouseover();
   }
   closeSuccess() {
-    vsquare.set('loginMethod', "current");
-    vsquare.set('loggingIn', "false");
-    vsquare.close(this.successDialog);
+    this.G.G.set('loginMethod', "current");
+    this.G.G.set('loggingIn', "false");
+    this.G.G.close(this.successDialog);
     this.loggedIn = true;
   }
   closeSuccessNewUser() {
     this.closeSuccess();
-    vsquare.set('newAccount', "true");
+    this.G.G.set('newAccount', "true");
     window.location.pathname = "my-app/account";
   }
   dismiss() {
-    vsquare.set('errorsOpen', 'false');
+    this.G.G.set('errorsOpen', 'false');
   }
   addFeedback() {
     var me = this;
     var data = {"name": this.feedbackName, "email": this.feedbackEmail, "message": this.feedbackMessage}
-    var response = vsquare.feedback(data);
+    var response = this.G.G.feedback(data);
     this.feedbackSuccess = true;
-    setTimeout(function () { vsquare.close(me.submitErrorDialog); me.feedbackSuccess = false; }, 2250);
+    setTimeout(function () { this.G.G.close(me.submitErrorDialog); me.feedbackSuccess = false; }, 2250);
     this.feedbackName = "";
     this.feedbackEmail = "";
     this.feedbackMessage = "";

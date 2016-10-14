@@ -1,13 +1,14 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-declare var vsquare: any;
-
+import { G } from '../G.service'; 
 @Component({
   moduleId: module.id,
   selector: 'my-datacard',
-  templateUrl: 'datacard.component.html'
+  templateUrl: 'datacard.component.html',
+  providers: [ G ]
 })
 export class DataCardComponent implements AfterViewInit {
+ G: G = new G;
   ngAfterViewInit(): any {
-    vsquare.upgrade();
+    this.G.G.upgrade();
   }
 }

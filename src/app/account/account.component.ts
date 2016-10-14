@@ -1,10 +1,11 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-declare var vsquare: any;
+import { G } from '../G.service';
 
 @Component({
   moduleId: module.id,
   selector: 'my-account',
-  templateUrl: 'account.component.html'
+  templateUrl: 'account.component.html',
+  providers: [G]
 })
 export class AccountComponent implements AfterViewInit, OnInit {
   fullName: string = "";
@@ -21,7 +22,7 @@ export class AccountComponent implements AfterViewInit, OnInit {
   shareDataPub: boolean = true;
   shareDataPriv: boolean = true;
   newUser: boolean = false;
-  vsquare: any = vsquare;
+  G: G = new G;
 
   @ViewChild('newDialog') newDialog: any;
   @ViewChild('successDialog') successDialog: any;
@@ -30,17 +31,17 @@ export class AccountComponent implements AfterViewInit, OnInit {
   @ViewChild('loginDialog') loginDialog: any;
 
   ngAfterViewInit(): any {
-    vsquare.upgrade();
+    this.G.G.upgrade();
     var dialogs = [this.newDialog, this.successDialog, this.emailDialog, this.passwordDialog, this.loginDialog]
-    vsquare.registerDialogs(dialogs);
-    this.newUser = vsquare.isNew("newAccount");
-    this.fullName = vsquare.user.Name;
-    this.newUser ? vsquare.showDelay(this.newDialog) : this.getAccount();
+    this.G.G.registerDialogs(dialogs);
+    this.newUser = this.G.G.isNew("newAccount");
+    this.fullName = this.G.G.user.Name;
+    this.newUser ? this.G.G.showDelay(this.newDialog) : this.getAccount();
   }
   ngOnInit(): any {
   }
   getAccount() {
-    var account = vsquare.getAccount();
+    var account = this.G.G.getAccount();
     this.updateAccount(account);
   }
   updateAccount(account: any) {
@@ -54,7 +55,7 @@ export class AccountComponent implements AfterViewInit, OnInit {
       this.postalCode = account.postalCode || "";
       this.shareDataPriv = account.shareDataPriv || true;
     }
-    vsquare.upgradeDelay();
+    this.G.G.upgradeDelay();
   }
   saveAccount() {
     var data = {
@@ -62,21 +63,21 @@ export class AccountComponent implements AfterViewInit, OnInit {
       "city": this.city, "state": this.state, "country": this.country, "postalCode": this.postalCode,
       "shareDataPriv": this.shareDataPriv
     };
-    vsquare.saveAccount(data);
+    this.G.G.saveAccount(data);
     this.successDialog.nativeElement.showModal()
   }
   clearData() {
-    vsquare.deleteData();
+    this.G.G.deleteData();
   }
   updateEmail() {
     this.changeState = 1;
-    var update = vsquare.updateEmail(this.email);
-    update ? vsquare.close(this.emailDialog) : this.signInAgain();
+    var update = this.G.G.updateEmail(this.email);
+    update ? this.G.G.close(this.emailDialog) : this.signInAgain();
   }
   updatePassword() {
     this.changeState = 2;
-    var update = vsquare.updatePassword(this.password);
-    update ? vsquare.close(this.passwordDialog) : this.signInAgain();
+    var update = this.G.G.updatePassword(this.password);
+    update ? this.G.G.close(this.passwordDialog) : this.signInAgain();
   }
   signInAgain() {
     this.changeState == 1 ? this.emailDialog.nativeElement.close() : this.passwordDialog.nativeElement.close();
@@ -84,19 +85,19 @@ export class AccountComponent implements AfterViewInit, OnInit {
   }
   reAuthenticate() {
     var me = this;
-    var auth = vsquare.reAuth(this.loginPassword);
-    if (auth){
+    var auth = this.G.G.reAuth(this.loginPassword);
+    if (auth) {
       this.changeState == 1 ? this.updateEmail() : this.updatePassword();
     };
   }
   closeNewDialog() {
-    vsquare.close(this.newDialog);
-    vsquare.set('newAccount', "false");
-    vsquare.set('newSettings', "true");
+    this.G.G.close(this.newDialog);
+    this.G.G.set('newAccount', "false");
+    this.G.G.set('newSettings', "true");
     window.location.pathname = "my-app/settings";
   }
   dashboardSuccess() {
-    vsquare.close(this.successDialog);
+    this.G.G.close(this.successDialog);
     window.location.pathname = "my-app/dashboard";
   }
 }

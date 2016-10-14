@@ -1,10 +1,11 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
-declare var vsquare: any;
+import { G } from '../G.service'; 
 
 @Component({
   moduleId: module.id,
   selector: 'my-singlevisualization',
-  templateUrl: 'singlevisualization.component.html'
+  templateUrl: 'singlevisualization.component.html',
+  providers: [ G ]
 })
 export class SingleVisualizationComponent implements AfterViewInit {
   exercisePct: number = 570;
@@ -12,10 +13,10 @@ export class SingleVisualizationComponent implements AfterViewInit {
   avg: number = 0;
   high: number = 0;
   low: number = 0;
-  vsquare: any = vsquare;
+  G:G = new G;
 
   ngAfterViewInit(): any {
-    vsquare.upgrade();
+    this.G.G.upgrade();
     var me = this;
     var t = Math.floor(Math.random() * 1500);
     setTimeout(function () {

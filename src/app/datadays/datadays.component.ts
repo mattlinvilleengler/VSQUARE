@@ -1,12 +1,13 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DataCardComponent } from '../datacard/datacard.component';
-declare var vsquare: any;
+import { G } from '../G.service'; 
 
 @Component({
   moduleId: module.id,
   selector: 'my-datadays',
   templateUrl: 'datadays.component.html',
-  directives: [DataCardComponent]
+  directives: [DataCardComponent],
+  providers: [ G ]
 
 })
 export class DataDaysComponent implements AfterViewInit, OnInit {
@@ -14,31 +15,32 @@ export class DataDaysComponent implements AfterViewInit, OnInit {
   data: any = [];
   settingsOrganized: any[] = [];
   settingsSelected: any[] = [];
+  G:G = new G;
 
   ngAfterViewInit(): any {
-    vsquare.upgrade();
-    this.loggedIn = vsquare.user.LoggedIn;
+    this.G.G.upgrade();
+    this.loggedIn = this.G.G.user.LoggedIn;
     this.getSettings();
     this.getData();
   }
   ngOnInit(): any {
   }
   getSettings() {
-    var response = vsquare.getSettings();
+    var response = this.G.G.getSettings();
     this.updateSettings(response);
   }
   updateSettings(settings: any) {
-    var response = vsquare.organizeSettingsX(settings, this.settingsSelected);
+    var response = this.G.G.organizeSettingsX(settings, this.settingsSelected);
     this.settingsOrganized = response[0];
     this.settingsSelected = response[1];
-    vsquare.upgradeDelay();
+    this.G.G.upgradeDelay();
   }
   getData() {
-    var response = vsquare.getAllData();
+    var response = this.G.G.getAllData();
     this.updateData(response);
   }
   updateData(data: any) {
-    this.data = vsquare.organizeDataX(data, this.settingsSelected)
+    this.data = this.G.G.organizeDataX(data, this.settingsSelected)
     this.data.reverse();
   }
 }

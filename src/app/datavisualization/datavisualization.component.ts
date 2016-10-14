@@ -1,18 +1,19 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 declare var d3: any;
-declare var vsquare: any;
+import { G } from '../G.service';
 
-@Component({
+ @Component({
     moduleId: module.id,
     selector: 'my-datavisualization',
     templateUrl: 'datavisualization.component.html',
-    styleUrls: ['datavisualization.component.css']
+    styleUrls: ['datavisualization.component.css'],
+  providers: [ G ]
 })
 export class DataVisualizationComponent implements OnInit, AfterViewInit {
     loggedIn: boolean = false;
     currentGraphTime: string = "week";
     mtGraph: number = 0;
-    vsquare: any = vsquare;
+    G:G = new G;
     mapping: any[] = [1, 1, 1]
     currentMin: number = 1;
     currentMax: number = 7;
@@ -30,31 +31,31 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): any {
         var me = this;
-        vsquare.upgrade();
+        this.G.G.upgrade();
         window.onresize = function () { me.hasData ? me.changeSet(me.currentGraphTime) : false; };
     }
     ngOnInit() {
-        this.loggedIn = vsquare.LoggedIn;
+        this.loggedIn = this.G.G.user.LoggedIn;
         this.getSettings();
         this.getData();
     }
     getSettings() {
-        var response = vsquare.getSettings();
+        var response = this.G.G.getSettings();
         this.updateSettings(response);
     }
     updateSettings(settings: any) {
-        var response = vsquare.organizeSettingsX(settings, this.settingsSelected);
+        var response = this.G.G.organizeSettingsX(settings, this.settingsSelected);
         this.settingsOrganized = response[0];
         this.settingsSelected = response[1];
-        vsquare.upgradeDelay();
+        this.G.G.upgradeDelay();
     }
     getData() {
-        var response = vsquare.getAllData();
+        var response = this.G.G.getAllData();
         this.updateData(response);
     }
     updateData(data: any) {
         this.hasData = true;
-        var response = vsquare.organizeDataGraph(data, this.settingsSelected, this.firstMili);
+        var response = this.G.G.organizeDataGraph(data, this.settingsSelected, this.firstMili);
         this.data = response[0];
         this.dataNumbers = response[1];
         this.dataForTime = response[2];
@@ -207,7 +208,7 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
                 active: true
             }) : false;
         });
-        vsquare.upgradeDelay();
+        this.G.G.upgradeDelay();
     };
 }
 

@@ -1,11 +1,12 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
-declare var vsquare: any;
+import { G } from '../G.service';
 
-@Component({
+ @Component({
   moduleId: module.id,
   selector: 'my-settings',
   templateUrl: 'settings.component.html',
-  styleUrls: ['settings.component.css']
+  styleUrls: ['settings.component.css'],
+  providers: [ G ]
 })
 export class SettingsComponent implements AfterViewInit, OnInit {
   one: boolean = true;
@@ -17,7 +18,7 @@ export class SettingsComponent implements AfterViewInit, OnInit {
   addInputNumber: boolean = false;
   customMax: string = "";
   addMetricName: string = "";
-  vsquare: any = vsquare;
+  G:G = new G;
   settingsOrganized: any[] = [
     [
       //basic
@@ -76,18 +77,18 @@ export class SettingsComponent implements AfterViewInit, OnInit {
   @ViewChild('innerVid') innerVid: any;
 
   ngAfterViewInit(): any {
-    vsquare.upgrade();
+    this.G.G.upgrade();
     var dialogs = [this.newDialog, this.successDialog, this.addDialog]
-    vsquare.registerDialogs(dialogs);
+    this.G.G.registerDialogs(dialogs);
   }
   ngOnInit(): any {
     var me = this;
-    this.newUser = vsquare.isNew('newSettings');
-    this.loggedIn = vsquare.LoggedIn;
-    this.newUser ? vsquare.showDelay(me.newDialog) : this.getSettings();
+    this.newUser = this.G.G.isNew('newSettings');
+    this.loggedIn = this.G.G.user.LoggedIn;
+    this.newUser ? this.G.G.showDelay(me.newDialog) : this.getSettings();
   }
   getSettings() {
-    var response = vsquare.getSettings();
+    var response = this.G.G.getSettings();
     this.updateSettings(response);
   }
   updateSettings(settings: any) {
@@ -99,8 +100,8 @@ export class SettingsComponent implements AfterViewInit, OnInit {
   }
   saveSettings() {
     var data = { "settings": this.settingsOrganized };
-    vsquare.saveSettings(data);
-    vsquare.show(this.successDialog);
+    this.G.G.saveSettings(data);
+    this.G.G.show(this.successDialog);
   }
   addCustomMetric() {
     var valueType = this.addInputNumber ? "number" : this.addInputRange ? "range" : false;
@@ -113,16 +114,16 @@ export class SettingsComponent implements AfterViewInit, OnInit {
         this.settingsOrganized[this.settingsOrganized.length - 1].push(metric);
       }
     }
-    vsquare.close(this.addDialog);
+    this.G.G.close(this.addDialog);
   }
   dashboardSuccess() {
-    vsquare.close(this.successDialog);
+    this.G.G.close(this.successDialog);
     window.location.pathname = "my-app/dashboard";
   }
   closeNewDialog() {
-    vsquare.close(this.newDialog);
-    vsquare.set('newSettings', "false");
-    vsquare.set('newAddData', "true");
+    this.G.G.close(this.newDialog);
+    this.G.G.set('newSettings', "false");
+    this.G.G.set('newAddData', "true");
     window.location.pathname = "my-app/adddata";
   }
 }

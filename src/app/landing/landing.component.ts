@@ -1,11 +1,12 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
-declare var vsquare: any;
+import { G } from '../G.service'; 
 
 @Component({
   moduleId: module.id,
   selector: 'my-landing',
   styleUrls: ['landing.component.css'],
-  templateUrl: 'landing.component.html'
+  templateUrl: 'landing.component.html',
+  providers: [ G ]
 })
 export class LandingComponent implements AfterViewInit {
   email: string;
@@ -17,7 +18,7 @@ export class LandingComponent implements AfterViewInit {
   two: boolean = false;
   three: boolean = false;
   bc: string = "";
-  vsquare: any = vsquare;
+  G:G = new G;
 
   @ViewChild('loginDialog') loginDialog: any;
   @ViewChild('resetDialog') resetDialog: any;
@@ -27,9 +28,9 @@ export class LandingComponent implements AfterViewInit {
   ngAfterViewInit(): any {
     var me = this;
     this.color();
-    vsquare.upgrade();
+    this.G.G.upgrade();
     var dialogs = [this.loginDialog, this.resetDialog, this.registerDialog]
-    vsquare.registerDialogs(dialogs);
+    this.G.G.registerDialogs(dialogs);
   }
   color() {
     var me = this;
@@ -39,26 +40,26 @@ export class LandingComponent implements AfterViewInit {
     }, 5000)
   }
   signIn() {
-    vsquare.set('loginMethod', 'current');
-    vsquare.set('loggingIn', 'true');
-    vsquare.close(this.loginDialog);
-    vsquare.signIn(this.email, this.password);
+    this.G.G.set('loginMethod', 'current');
+    this.G.G.set('loggingIn', 'true');
+    this.G.G.close(this.loginDialog);
+    this.G.G.signIn(this.email, this.password);
   }
   register() {
-    vsquare.set('loginMethod', 'new');
-    vsquare.set('loggingIn', 'true');
-    vsquare.close(this.registerDialog);
-    vsquare.register(this.emailRegister, this.passwordRegister);
+    this.G.G.set('loginMethod', 'new');
+    this.G.G.set('loggingIn', 'true');
+    this.G.G.close(this.registerDialog);
+    this.G.G.register(this.emailRegister, this.passwordRegister);
   }
   resetPassword() {
-    vsquare.reset(this.emailReset);
+    this.G.G.reset(this.emailReset);
   }
   reset() {
-    vsquare.close(this.loginDialog);
+    this.G.G.close(this.loginDialog);
     this.resetDialog.nativeElement.showModal();
   }
   resetSend() {
     this.resetPassword();
-    vsquare.close(this.resetDialog);
+    this.G.G.close(this.resetDialog);
   }
 }

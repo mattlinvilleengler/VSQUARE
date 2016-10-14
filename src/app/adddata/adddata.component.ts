@@ -1,10 +1,11 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-declare var vsquare: any;
+import { G } from '../G.service'; 
 
 @Component({
   moduleId: module.id,
   selector: 'my-adddata',
   templateUrl: 'adddata.component.html',
+  providers: [ G ]
 })
 
 export class AddDataComponent implements AfterViewInit, OnInit {
@@ -12,40 +13,40 @@ export class AddDataComponent implements AfterViewInit, OnInit {
   document: any = document;
   settingsOrganized: any = [];
   newUser: boolean = false;
-  vsquare: any = vsquare;
+  G:G = new G;
 
   @ViewChild('errorDialog') dialog: any;
   @ViewChild('successDialog') successDialog: any;
   @ViewChild('newDialog') newDialog: any;
 
   ngAfterViewInit(): any {
-    vsquare.upgrade();
+    this.G.G.upgrade();
     var dialogs = [this.dialog, this.newDialog, this.successDialog]
-    vsquare.registerDialogs(dialogs);
+    this.G.G.registerDialogs(dialogs);
     this.document = document;
     this.getSettings();
-    this.newUser = vsquare.isNew("newAddData");
-    this.newUser ? vsquare.showDelay(this.newDialog) : this.getData();
+    this.newUser = this.G.G.isNew("newAddData");
+    this.newUser ? this.G.G.showDelay(this.newDialog) : this.getData();
   }
   ngOnInit(): any {
   }
   getSettings() {
-    var response = vsquare.getSettings();
+    var response = this.G.G.getSettings();
     if (response) {
-      this.settingsOrganized = vsquare.organizeSettings(response);
+      this.settingsOrganized = this.G.G.organizeSettings(response);
     }
-    vsquare.upgradeDelay();
+    this.G.G.upgradeDelay();
   }
   saveData() {
-    var response = vsquare.timeCheck(this.lastData);
-    response ? this.saveD(response) : vsquare.show(this.dialog);
+    var response = this.G.G.timeCheck(this.lastData);
+    response ? this.saveD(response) : this.G.G.show(this.dialog);
   }
   saveD(date, flag?) {
-    var response = vsquare.saveData(date, this.settingsOrganized)
-    flag ? false : vsquare.show( this.successDialog);
+    var response = this.G.G.saveData(date, this.settingsOrganized)
+    flag ? false : this.G.G.show( this.successDialog);
   }
   getData() {
-    var response = vsquare.getData();
+    var response: any = this.G.G.getData();
     if (response) {
       for (var d in response) {
         this.lastData = response[d].data.time ? response[d].data.time : false;
@@ -53,17 +54,17 @@ export class AddDataComponent implements AfterViewInit, OnInit {
     }
   }
   dashboard() {
-    vsquare.close(this.dialog);
+    this.G.G.close(this.dialog);
     window.location.pathname = "my-app/dashboard";
   }
   dashboardSuccess() {
-    vsquare.close(this.successDialog);
+    this.G.G.close(this.successDialog);
     window.location.pathname = "my-app/dashboard";
   }
   closeNewDialog() {
-    vsquare.close(this.newDialog);
-    vsquare.set('newAddData', "false");
-    vsquare.set('newDashboard', "true");
+    this.G.G.close(this.newDialog);
+    this.G.G.set('newAddData', "false");
+    this.G.G.set('newDashboard', "true");
     window.location.pathname = "my-app/dashboard";
   }
 }

@@ -42,10 +42,10 @@
                             <input type="checkbox" id="switch-1" class="mdl-switch__input" [(ngModel)]="shareDataPriv">
                             </label>
 					</div>
-					<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " (click)='vsquare.show(emailDialog)' style="width:90%; margin: 20px 0 10px 0;">
+					<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " (click)='G.show(emailDialog)' style="width:90%; margin: 20px 0 10px 0;">
                         Change Login Email
                          </a>
-					<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " (click)='vsquare.show(passwordDialog)' style="width:90%; margin: 10px 0;">
+					<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " (click)='G.show(passwordDialog)' style="width:90%; margin: 10px 0;">
                         Change Password
                         </a>
 					<a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " (click)='clearData()' style="width:90%; margin: 10px 0;">
@@ -80,7 +80,7 @@
 		</div>
 	</div>
 	<div class="mdl-dialog__actions">
-		<button type="button" class="mdl-button" (click)="vsquare.close(emailDialog)">Close</button>
+		<button type="button" class="mdl-button" (click)="G.close(emailDialog)">Close</button>
 		<button type="button" class="mdl-button" (click)="updateEmai()">Update</button>
 	</div>
 </dialog>
@@ -98,7 +98,7 @@
 
 	</div>
 	<div class="mdl-dialog__actions">
-		<button type="button" class="mdl-button" (click)="vsquare.close(passwordDialog)">Close</button>
+		<button type="button" class="mdl-button" (click)="G.close(passwordDialog)">Close</button>
 		<button type="button" class="mdl-button" (click)="updatePassword()">Update</button>
 	</div>
 </dialog>
@@ -128,7 +128,7 @@
 			</div>
 		</div>
 		<div class="mdl-dialog__actions ">
-			<button type="button" class="mdl-button" (click)="vsquare.close(loginDialog)">Close</button>
+			<button type="button" class="mdl-button" (click)="G.close(loginDialog)">Close</button>
 			<button type="button" class="mdl-button" (click)="reAuthenticate()">Proceed</button>
 		</div>
 	</div>
@@ -143,6 +143,6 @@
 	</div>
 	<div class="mdl-dialog__actions">
 		<button type="button" class="mdl-button" (click)="dashboardSuccess()">Go To Dashboard</button>
-		<button type="button" class="mdl-button" (click)="vsquare.close(successDialog)">Close</button>
+		<button type="button" class="mdl-button" (click)="G.close(successDialog)">Close</button>
 	</div>
 </dialog>

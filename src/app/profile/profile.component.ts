@@ -2,11 +2,13 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 declare var componentHandler: any;
 declare var database: any;
 declare var firebase: any;
+import { G } from '../G.service'; 
 
 @Component({
   moduleId: module.id,
   selector: 'my-profile',
-  templateUrl: 'profile.component.html'
+  templateUrl: 'profile.component.html',
+  providers: [ G ]
 })
 export class ProfileComponent implements AfterViewInit, OnInit {
   fullName: string = " ";
@@ -19,11 +21,9 @@ export class ProfileComponent implements AfterViewInit, OnInit {
   shareDataPub: boolean = true;
   shareDataPriv: boolean = true;
   about: string = " ";
-
-
   loggedIn: boolean = false;
   userID: number;
-  
+  G:G = new G;
 
   ngAfterViewInit():any {
     componentHandler.upgradeDom();

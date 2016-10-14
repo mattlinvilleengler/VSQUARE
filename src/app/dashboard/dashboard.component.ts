@@ -2,18 +2,19 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { DataVisualizationComponent } from '../datavisualization/datavisualization.component';
 import { SingleVisualizationComponent } from '../singlevisualization/singlevisualization.component';
 import { DataDaysComponent } from '../datadays/datadays.component';
-declare var vsquare: any;
+import { G } from '../G.service'; 
 
 @Component({
   moduleId: module.id,
   selector: 'my-dashboard',
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.css'],
-  directives: [DataVisualizationComponent, DataDaysComponent, SingleVisualizationComponent]
+  directives: [DataVisualizationComponent, DataDaysComponent, SingleVisualizationComponent],
+  providers: [ G ]
 })
 export class DashboardComponent implements AfterViewInit {
   newUser: boolean = false;
-  data: any[] = [];
+  data: any = [];
   group: any[] = [];
   measurementsAvg: any[] = [];
   settingsOrganized: any[] = [];
@@ -22,55 +23,55 @@ export class DashboardComponent implements AfterViewInit {
   two: boolean = false;
   three: boolean = false;
   loggedIn: boolean = false;
-  vsquare: any = vsquare;
+  G:G = new G;
 
   @ViewChild('newDialog') newDialog: any;
   @ViewChild('noData') noData: any;
   @ViewChild('twoRef') twoRef: any;
 
   ngAfterViewInit(): any {
-    this.newUser = vsquare.isNew('newDashboard') ? true : false;
-    this.newUser ? vsquare.showDelay(this.newDialog) : false;
-    vsquare.upgrade();
+    this.newUser = this.G.G.isNew('newDashboard') ? true : false;
+    this.newUser ? this.G.G.showDelay(this.newDialog) : false;
+    this.G.G.upgrade();
     var dialogs = [this.newDialog, this.noData, this.newDialog]
-    vsquare.registerDialogs(dialogs);
+    this.G.G.registerDialogs(dialogs);
   }
   closeNewDialog() {
-    vsquare.close(this.newDialog);
-    vsquare.set('newDashboard', "false");
+    this.G.G.close(this.newDialog);
+    this.G.G.set('newDashboard', "false");
   }
   ngOnInit() {
-    this.loggedIn = vsquare.user.LoggedIn;
+    this.loggedIn = this.G.G.user.LoggedIn;
     this.getSettings();
     this.getData();
   }
   getSettings() {
-    var response = vsquare.getSettings();
+    var response = this.G.G.getSettings();
     this.updateSettings(response);
   }
   updateSettings(settings: any) {
-    var response = vsquare.organizeSettingsX(settings, this.settingsSelected);
+    var response = this.G.G.organizeSettingsX(settings, this.settingsSelected);
     this.settingsOrganized = response[0];
     this.settingsSelected = response[1];
-    vsquare.upgradeDelay();
+    this.G.G.upgradeDelay();
   }
   getData() {
-    var response = vsquare.getAllData();
+    var response = this.G.G.getAllData();
     this.updateData(response);
   }
   updateData(data: any) {
     if (data) {
-      var response = vsquare.organizeData(data, this.settingsSelected);
-      this.data = response[0]
-      !this.newUser && this.data.length <= response[1] ? vsquare.showDelay(this.noData) : false;
+      var response = this.G.G.organizeData(data, this.settingsSelected);
+      this.data = response[0];
+      !this.newUser && this.data.length <= response[1] ? this.G.G.showDelay(this.noData) : false;
       this.calculateAvg();
     }
     else {
-      !this.newUser ? vsquare.showDelay(this.noData) : false;
+      !this.newUser ? this.G.G.showDelay(this.noData) : false;
     }
   }
   calculateAvg() {
-    this.measurementsAvg = vsquare.calculateAvg(this.data, this.settingsSelected);
+    this.measurementsAvg = this.G.G.calculateAvg(this.data, this.settingsSelected);
   }
   average() {
     var me = this;

@@ -5,11 +5,11 @@
 		</div>
 		<div class="circleCardL">
 			<button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp landingNavSelected"
-				(click)="one = true; two = false; three = false; vsquare.show(loginDialog);">
+				(click)="one = true; two = false; three = false; G.show(loginDialog);">
 <i class="fa fa-sign-in" aria-hidden="true" style="font-size:23px;"></i>LOGIN
 </button>
 			<button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp landingNavSelected {{bc}}"
-				(click)="one = true; two = false; three = false; vsquare.show(registerDialog);">
+				(click)="one = true; two = false; three = false; G.show(registerDialog);">
 <i class="fa fa-plus-square-o" aria-hidden="true" style="margin: 11px 0; font-size:23px;"></i><span style="display:inline-block; line-height:18px;">CREATE ACCOUNT</span>
 </button>
 			<button class="extend7 mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-shadow--4dp " [class.landingNavSelectedL]="one"
@@ -144,7 +144,7 @@
 
 	</div>
 	<div class="mdl-dialog__actions ">
-		<button type="button" class="mdl-button" (click)="vsquare.close(loginDialog)">Close</button>
+		<button type="button" class="mdl-button" (click)="G.close(loginDialog)">Close</button>
 		<button type="button" class="mdl-button" (click)="signIn()">Login</button>
 		<button type="button" class="mdl-button" (click)="reset()">Account Help</button>
 	</div>
@@ -160,7 +160,7 @@
 		</div>
 	</div>
 	<div class="mdl-dialog__actions ">
-		<button type="button" class="mdl-button" (click)="vsquare.close(resetDialog)">Close</button>
+		<button type="button" class="mdl-button" (click)="G.close(resetDialog)">Close</button>
 		<button type="button" class="mdl-button" (click)="resetSend()">Send </button>
 	</div>
 </dialog>
@@ -178,7 +178,7 @@
 		</div>
 	</div>
 	<div class="mdl-dialog__actions ">
-		<button type="button" class="mdl-button" (click)="vsquare.close(registerDialog)">Close</button>
+		<button type="button" class="mdl-button" (click)="G.close(registerDialog)">Close</button>
 		<button type="button" class="mdl-button" (click)="register()">Create Account</button>
 	</div>
 </dialog>
