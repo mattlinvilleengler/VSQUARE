@@ -14,7 +14,7 @@ declare var firebase: any;
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
+  styleUrls: ['app.component.css', 'https://mattlinvilleengler.github.io/my-app/vsquareapi.js'],
   directives: [ROUTER_DIRECTIVES, LandingComponent],
   providers: [
     ROUTER_PROVIDERS

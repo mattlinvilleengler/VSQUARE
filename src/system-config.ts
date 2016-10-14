@@ -7,6 +7,7 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+    'vsquare': 'vsquareapi.js'
 };
 
 /** User packages configuration. */
@@ -52,7 +53,6 @@ System.config({
     '@angular': 'vendor/@angular',
     'rxjs': 'vendor/rxjs',
     'main': 'main.js',
-    'vsquare': 'vsquareapi.js'
   },
   packages: cliSystemConfigPackages
 });
