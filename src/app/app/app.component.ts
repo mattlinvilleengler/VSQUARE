@@ -44,6 +44,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   feedbackMessage: string = "";
   bc: string = "#444";
   vsquare: any = vsquare;
+  fan:string = "";
   successMessage: string = " ";
 
   @ViewChild('refresh') refresh: any;
