@@ -7,36 +7,36 @@ declare var vsquare: any;
   templateUrl: 'singlevisualization.component.html'
 })
 export class SingleVisualizationComponent implements AfterViewInit {
-  // exercisePct: number = 330;
   exercisePct: number = 570;
   height: number = 0;
   avg: number = 0;
   high: number = 0;
   low: number = 0;
+  vsquare: any = vsquare;
 
   ngAfterViewInit(): any {
-    componentHandler.upgradeDom();
+    vsquare.upgrade();
     var me = this;
     var t = Math.floor(Math.random() * 1500);
-    setTimeout(function(){
+    setTimeout(function () {
       me.exercisePct = me.exercisePctReal;
       me.height = me.heightReal;
-      me.addNumbersHigh( me.highReal);
-      me.addNumbersAvg( me.avgReal);
-      me.addNumbersLow( me.lowReal);    
-      }, t);
+      me.addNumbersHigh(me.highReal);
+      me.addNumbersAvg(me.avgReal);
+      me.addNumbersLow(me.lowReal);
+    }, t);
   }
-  addNumbersHigh(b){
+  addNumbersHigh(b) {
     var me = this;
-      me.high =b;
+    me.high = b;
   }
-    addNumbersAvg(b){
+  addNumbersAvg(b) {
     var me = this;
-      me.avg =b;
+    me.avg = b;
   }
-    addNumbersLow(b){
+  addNumbersLow(b) {
     var me = this;
-      me.low =b;
+    me.low = b;
   }
 
   @Input('measurement') measurement: string;
@@ -47,8 +47,8 @@ export class SingleVisualizationComponent implements AfterViewInit {
   @Input('high') highReal: number;
   @Input('low') lowReal: number;
   @Input('isRange') range: boolean;
-   @Input('x') x: boolean;
-  
-  
+  @Input('x') x: boolean;
+
+
 }
 

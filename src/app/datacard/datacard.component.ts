@@ -8,6 +8,6 @@ declare var vsquare: any;
 })
 export class DataCardComponent implements AfterViewInit {
   ngAfterViewInit(): any {
-    componentHandler.upgradeDom();
+    vsquare.upgrade();
   }
 }

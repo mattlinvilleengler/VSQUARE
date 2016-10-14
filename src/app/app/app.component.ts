@@ -1,13 +1,14 @@
 import { Component, Inject, ElementRef, OnInit, Injectable, AfterViewInit, ViewChild } from '@angular/core';
 import { Router, RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import { DashboardComponent }  from '../dashboard/dashboard.component' ;
-import { SettingsComponent }     from '../settings/settings.component';
-import { DataVisualizationComponent }     from '../datavisualization/datavisualization.component';
-import { AddDataComponent }     from '../adddata/adddata.component';
-import { AccountComponent }     from '../account/account.component';
-import { ProfileComponent }     from '../profile/profile.component';
-import { LandingComponent }     from '../landing/landing.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { SettingsComponent } from '../settings/settings.component';
+import { DataVisualizationComponent } from '../datavisualization/datavisualization.component';
+import { AddDataComponent } from '../adddata/adddata.component';
+import { AccountComponent } from '../account/account.component';
+import { ProfileComponent } from '../profile/profile.component';
+import { LandingComponent } from '../landing/landing.component';
 declare var vsquare: any;
+declare var firebase: any;
 
 @Component({
   moduleId: module.id,
@@ -22,16 +23,10 @@ declare var vsquare: any;
 @RouteConfig([
   { path: '/dashboard', name: 'Dashboard', component: DashboardComponent, useAsDefault: true },
   { path: '/settings', name: 'Settings', component: SettingsComponent },
-  //{ path: '/datavisualization',     name: 'DataVisualization',     component: DataVisualizationComponent },
-  { path: '/login', name: 'Login', component: LoginComponent },
-  { path: '/signup', name: 'Register', component: RegisterComponent },
   { path: '/adddata', name: 'AddData', component: AddDataComponent },
   { path: '/account', name: 'Account', component: AccountComponent }
-  //{ path: '/profile',     name: 'Profile',     component: ProfileComponent }
-
-
 ])
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
   loggedIn: boolean = false;
   login: boolean = false;
   signUp: boolean = false;
@@ -48,7 +43,8 @@ export class AppComponent implements AfterViewInit {
   feedbackEmail: string = "";
   feedbackMessage: string = "";
   bc: string = "#444";
-  
+  vsquare: any = vsquare;
+  successMessage: string = " ";
 
   @ViewChild('refresh') refresh: any;
   @ViewChild('successDialog') successDialog: any;
@@ -56,111 +52,82 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('dashboard') dashboard: any;
   @ViewChild('hiddenLink') hiddenLink: any;
   @ViewChild('submitErrorDialog') submitErrorDialog: any;
- 
 
-  successMessage: string = " ";
-
+ngOnInit(){
+  var me = this;
+  firebase.auth().onAuthStateChanged(function (user) {
+    me.manageUser();
+  });
+}
   ngAfterViewInit(): any {
     var me = this;
     this.color();
     this.url = window.location.href;
-    componentHandler.upgradeDom();
-    this.errorsOpen = window.localStorage.getItem('errorsOpen') == "true" ? true : false;
-    dialogPolyfill.registerDialog(this.successDialog.nativeElement);  
-    dialogPolyfill.registerDialog(this.submitErrorDialog.nativeElement);  
-    firebase.auth().onAuthStateChanged(function (user: any) {
-      if (user) {
-        me.loginMethod = window.localStorage.getItem('loginMethod');
-        me.loggingIn = window.localStorage.getItem('loggingIn') == "true" ? true : false;
-        me.newUser = me.loginMethod == "new" ? true : false;
-        //me.newUser ? me.sendVerificationEmail() : false;
-        me.successMessage = me.loginMethod == "new" ? "Account Successfully Created. " :
-          "Successfully signed in as " + user.displayName;
-        me.successMessage += me.loginMethod == "new" ? "Now let's get started." : "";
-        me.loggingIn ? me.successDialog.nativeElement.showModal() : me.loggedIn = true;
-        me.userID = user.uid;
-        me.displayName = user.displayName;
-        me.getAccount();
-      } else {
-        me.loggedIn = false;
-      }
-    });
-    this.refresh.nativeElement.onmouseover= function(){};
-      setInterval(function () { me.refreshPage() }, 200)
+    vsquare.upgrade();
+    this.errorsOpen = vsquare.get('errorsOpen') == "true" ? true : false;
+    var dialogs = [this.submitErrorDialog, this.successDialog];
+    vsquare.registerDialogs(dialogs);
+    this.manageUser();
+    this.refresh.nativeElement.onmouseover = function () { };
+    setInterval(function () { me.refreshPage() }, 200)
   }
-  color(){
+  manageUser() {
+    this.loginMethod = vsquare.user.LogInMethod;
+    this.loggingIn = vsquare.user.LoggingIn;
+    this.newUser = this.loginMethod == "new" ? true : false;
+    this.successMessage = this.newUser ? "Account Successfully Created. " :
+      "Successfully signed in as " + vsquare.user.Name;
+    this.successMessage += this.newUser ? "Now let's get started." : "";
+    this.loggingIn ? vsquare.show(this.successDialog) : this.loggedIn = true;
+    this.displayName = vsquare.user.Name;
+    this.getAccount();
+  }
+  color() {
     var me = this;
     var colors = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-    setInterval(function(){
+    setInterval(function () {
       me.bc = colors[Math.floor(Math.random() * (colors.length - 1))];
-    },5000)
+    }, 5000)
   }
   signOut() {
     this.hiddenLink.nativeElement.click();
-    firebase.auth().signOut().then(function () {
-      // Sign-out successful.
-      //alert("successfuly signed out");
-    }, function (error: any) {
-      // An error happened.
-    });
-
+    vsquare.signOut();
+    this.loggedIn = false;
   }
   getAccount() {
-    var me = this;
-    database.ref('account/' + this.userID).on('value', function (snapshot: any) {
-      me.updateAccount(snapshot.val());
-    });
+    var account = vsquare.getAccount();
+    this.updateAccount(account);
   }
   updateAccount(account: any) {
     if (account) {
-      this.displayName = account.fullName ? account.fullName : "";
+      this.displayName = account.fullName || "";
     }
   }
-      sendVerificationEmail(){
-      var user = firebase.auth().currentUser;
-
-user.sendEmailVerification().then(function() {
-  alert("Email Sent");
-}, function(error) {
-  alert("Error");
-});
-    }
   refreshPage() {
     this.refresh.nativeElement.onmouseover();
   }
   closeSuccess() {
-    window.localStorage.setItem('loginMethod', "current");
-    window.localStorage.setItem('loggingIn', "false");
-    this.successDialog.nativeElement.close();
+    vsquare.set('loginMethod', "current");
+    vsquare.set('loggingIn', "false");
+    vsquare.close(this.successDialog);
     this.loggedIn = true;
   }
   closeSuccessNewUser() {
-    window.localStorage.setItem('loginMethod', "current");
-    window.localStorage.setItem('loggingIn', "false");
-    this.successDialog.nativeElement.close();
-    //this.account.nativeElement.click();
-    window.localStorage.setItem('newAccount', "true");
+    this.closeSuccess();
+    vsquare.set('newAccount', "true");
     window.location.pathname = "my-app/account";
-    this.loggedIn = true;
   }
-  openSubmit(){
-    this.submitErrorDialog.nativeElement.showModal();
+  dismiss() {
+    vsquare.set('errorsOpen', 'false');
   }
-  closeSubmitDialog(){
-    this.submitErrorDialog.nativeElement.close();
-  }
-  dismiss(){
-    window.localStorage.setItem('errorsOpen', 'false');
-  }
-  addFeedback(){
+  addFeedback() {
     var me = this;
-     database.ref("feedback/").push({
-       "name": this.feedbackName, "email": this.feedbackEmail, "message": this.feedbackMessage
-      });
-     this.feedbackSuccess = true;
-     setTimeout(function(){ me.closeSubmitDialog(); me.feedbackSuccess = false;  },2250);
-     this.feedbackName = "";
-     this.feedbackEmail = "";
-     this.feedbackMessage = "";
+    var data = {"name": this.feedbackName, "email": this.feedbackEmail, "message": this.feedbackMessage}
+    var response = vsquare.feedback(data);
+    this.feedbackSuccess = true;
+    setTimeout(function () { vsquare.close(me.submitErrorDialog); me.feedbackSuccess = false; }, 2250);
+    this.feedbackName = "";
+    this.feedbackEmail = "";
+    this.feedbackMessage = "";
   }
 }
