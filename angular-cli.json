@@ -8,7 +8,7 @@
       "main": "src/main.ts",
       "tsconfig": "src/tsconfig.json",
       "mobile": false,
-      "scripts": ["src/vsquare.api"]
+      "scripts": ["src/vsquareapi.js"]
     }
   ],
   "addons": [],
