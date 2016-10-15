@@ -2,7 +2,9 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { DataVisualizationComponent } from '../datavisualization/datavisualization.component';
 import { SingleVisualizationComponent } from '../singlevisualization/singlevisualization.component';
 import { DataDaysComponent } from '../datadays/datadays.component';
-import { G } from '../G.service'; 
+import { G } from '../G.service';
+declare var firebase: any;
+
 
 @Component({
   moduleId: module.id,
@@ -10,7 +12,7 @@ import { G } from '../G.service';
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.css'],
   directives: [DataVisualizationComponent, DataDaysComponent, SingleVisualizationComponent],
-  providers: [ G ]
+  providers: [G]
 })
 export class DashboardComponent implements AfterViewInit {
   newUser: boolean = false;
@@ -23,15 +25,13 @@ export class DashboardComponent implements AfterViewInit {
   two: boolean = false;
   three: boolean = false;
   loggedIn: boolean = false;
-  G:G = new G;
+  G: G = new G;
 
   @ViewChild('newDialog') newDialog: any;
   @ViewChild('noData') noData: any;
   @ViewChild('twoRef') twoRef: any;
 
   ngAfterViewInit(): any {
-    this.newUser = this.G.G.isNew('newDashboard') ? true : false;
-    this.newUser ? this.G.G.showDelay(this.newDialog) : false;
     this.G.G.upgrade();
     var dialogs = [this.newDialog, this.noData, this.newDialog]
     this.G.G.registerDialogs(dialogs);
@@ -41,9 +41,19 @@ export class DashboardComponent implements AfterViewInit {
     this.G.G.set('newDashboard', "false");
   }
   ngOnInit() {
+    var me = this;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        me.manageUser();
+      }
+    });
+  }
+  manageUser() {
     this.loggedIn = this.G.G.user.LoggedIn;
     this.getSettings();
     this.getData();
+    this.newUser = this.G.G.isNew('newDashboard') ? true : false;
+    this.newUser ? this.G.G.showDelay(this.newDialog) : false;
   }
   getSettings() {
     var response = this.G.G.getSettings();

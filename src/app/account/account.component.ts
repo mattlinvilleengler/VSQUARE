@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { G } from '../G.service';
+declare var firebase: any;
 
 @Component({
   moduleId: module.id,
@@ -34,11 +35,19 @@ export class AccountComponent implements AfterViewInit, OnInit {
     this.G.G.upgrade();
     var dialogs = [this.newDialog, this.successDialog, this.emailDialog, this.passwordDialog, this.loginDialog]
     this.G.G.registerDialogs(dialogs);
+  }
+  ngOnInit(): any {
+    var me = this;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        me.manageUser();
+      }
+    });
+  }
+  manageUser() {
     this.newUser = this.G.G.isNew("newAccount");
     this.fullName = this.G.G.user.Name;
     this.newUser ? this.G.G.showDelay(this.newDialog) : this.getAccount();
-  }
-  ngOnInit(): any {
   }
   getAccount() {
     var account = this.G.G.getAccount();

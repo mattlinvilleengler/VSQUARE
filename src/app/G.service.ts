@@ -107,19 +107,22 @@ export class G {
     //account
     getAccount() {
         var account = null;
-        database.ref('account/' + this.user.ID).on('value', function (snapshot) {
+        var me = this;
+        database.ref('account/' + me.user.ID).on('value', function (snapshot) {
             account = snapshot.val();
         });
         return account;
     };
     saveAccount(data) {
+        var me = this;
         if (this.user.LoggedIn) {
-            database.ref("account/" + this.user.ID + "/").set(data);
+            database.ref("account/" + me.user.ID + "/").set(data);
         }
     };
     deleteData() {
+        var me = this;
         if (this.user.LoggedIn) {
-            database.ref("data/" + this.user.ID).remove();
+            database.ref("data/" + me.user.ID).remove();
         }
     };
     updateEmail(e) {
@@ -173,6 +176,7 @@ export class G {
     };
     saveData(date, settingsOrganized) {
         var response = false;
+        var me = this;
         var data = {
             "time": date
         };
@@ -181,19 +185,21 @@ export class G {
                 data[a.measurement] = a.value;
             });
         });
-        database.ref("data/" + this.user.ID + "/").push({ "data": data });
+        database.ref("data/" + me.user.ID + "/").push({ "data": data });
         return response;
     };
     getData() {
         var response = false;
-        database.ref('data/' + this.user.ID).limitToLast(1).on('value', function (snapshot) {
+        var me = this;
+        database.ref('data/' + me.user.ID).limitToLast(1).on('value', function (snapshot) {
             response = snapshot.val();
         });
         return response;
     }
     getAllData() {
         var response = false;
-        database.ref('data/' + this.user.ID).on('value', function (snapshot) {
+        var me = this;
+        database.ref('data/' + me.user.ID).on('value', function (snapshot) {
             response = snapshot.val();
         });
         return response
@@ -301,13 +307,15 @@ export class G {
     //settings
     getSettings() {
         var response = false;
-        database.ref('settings/' + this.user.ID).on('value', function (snapshot) {
+        var me = this;
+        database.ref('settings/' + me.user.ID).on('value', function (snapshot) {
             response = snapshot.val();
         });
         return response;
     };
     saveSettings(d) {
-        database.ref("settings/" + this.user.ID + "/").set(d);
+        var me = this;
+        database.ref("settings/" + me.user.ID + "/").set(d);
     };
     organizeSettings(settings) {
         var settingsOrganized = [];

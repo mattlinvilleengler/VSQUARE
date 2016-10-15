@@ -79,10 +79,9 @@ ngOnInit(){
     this.successMessage += this.newUser ? "Now let's get started." : "";
     this.loggingIn ? this.G.G.show(this.successDialog) : false;
     this.loggedIn = this.G.G.user.LoggedIn;
-   // this.loggedIn = true;
     this.displayName = this.G.G.user.Name;
-    this.getAccount();
-   // this.G.G.upgrade();
+    this.loggedIn ? this.getAccount() : false;
+    this.G.G.upgrade();
   }
   color() {
     var me = this;

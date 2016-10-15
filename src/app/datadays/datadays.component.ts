@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DataCardComponent } from '../datacard/datacard.component';
 import { G } from '../G.service'; 
+declare var firebase: any;
 
 @Component({
   moduleId: module.id,
@@ -19,11 +20,19 @@ export class DataDaysComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): any {
     this.G.G.upgrade();
+  }
+  ngOnInit(): any {
+    var me = this;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        me.manageUser();
+      }
+    });
+  }
+  manageUser(){
     this.loggedIn = this.G.G.user.LoggedIn;
     this.getSettings();
     this.getData();
-  }
-  ngOnInit(): any {
   }
   getSettings() {
     var response = this.G.G.getSettings();

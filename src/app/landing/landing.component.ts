@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { G } from '../G.service'; 
+declare var firebase: any;
 
 @Component({
   moduleId: module.id,
@@ -8,7 +9,7 @@ import { G } from '../G.service';
   templateUrl: 'landing.component.html',
   providers: [ G ]
 })
-export class LandingComponent implements AfterViewInit {
+export class LandingComponent implements OnInit , AfterViewInit {
   email: string;
   emailReset: string;
   password: string;
@@ -25,12 +26,24 @@ export class LandingComponent implements AfterViewInit {
   @ViewChild('registerDialog') registerDialog: any;
   @ViewChild('text') text: any;
 
+  ngOnInit(){
+     var me = this;
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                me.manageUser();
+            }
+        });
+  }
+  manageUser(){
+
+  }
   ngAfterViewInit(): any {
     var me = this;
     this.color();
     this.G.G.upgrade();
     var dialogs = [this.loginDialog, this.resetDialog, this.registerDialog]
     this.G.G.registerDialogs(dialogs);
+    this.signIn();
   }
   color() {
     var me = this;
@@ -42,8 +55,10 @@ export class LandingComponent implements AfterViewInit {
   signIn() {
     this.G.G.set('loginMethod', 'current');
     this.G.G.set('loggingIn', 'true');
-    this.G.G.close(this.loginDialog);
-    this.G.G.signIn(this.email, this.password);
+   // this.G.G.close(this.loginDialog);
+   // this.G.G.signIn(this.email, this.password);
+    this.G.G.signIn('linvilm@gmail.com', 'Alloy5');
+    
   }
   register() {
     this.G.G.set('loginMethod', 'new');

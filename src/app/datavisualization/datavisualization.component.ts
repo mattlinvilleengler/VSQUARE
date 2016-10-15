@@ -1,19 +1,20 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 declare var d3: any;
 import { G } from '../G.service';
+declare var firebase: any;
 
- @Component({
+@Component({
     moduleId: module.id,
     selector: 'my-datavisualization',
     templateUrl: 'datavisualization.component.html',
     styleUrls: ['datavisualization.component.css'],
-  providers: [ G ]
+    providers: [G]
 })
 export class DataVisualizationComponent implements OnInit, AfterViewInit {
     loggedIn: boolean = false;
     currentGraphTime: string = "week";
     mtGraph: number = 0;
-    G:G = new G;
+    G: G = new G;
     mapping: any[] = [1, 1, 1]
     currentMin: number = 1;
     currentMax: number = 7;
@@ -35,6 +36,14 @@ export class DataVisualizationComponent implements OnInit, AfterViewInit {
         window.onresize = function () { me.hasData ? me.changeSet(me.currentGraphTime) : false; };
     }
     ngOnInit() {
+        var me = this;
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                me.manageUser();
+            }
+        });
+    }
+    manageUser() {
         this.loggedIn = this.G.G.user.LoggedIn;
         this.getSettings();
         this.getData();

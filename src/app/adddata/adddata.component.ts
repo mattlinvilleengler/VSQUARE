@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { G } from '../G.service'; 
+declare var firebase: any;
+
 
 @Component({
   moduleId: module.id,
@@ -24,11 +26,19 @@ export class AddDataComponent implements AfterViewInit, OnInit {
     var dialogs = [this.dialog, this.newDialog, this.successDialog]
     this.G.G.registerDialogs(dialogs);
     this.document = document;
-    this.getSettings();
-    this.newUser = this.G.G.isNew("newAddData");
-    this.newUser ? this.G.G.showDelay(this.newDialog) : this.getData();
   }
   ngOnInit(): any {
+      var me = this;
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        me.manageUser();
+      }
+    });
+  }
+  manageUser(){
+this.getSettings();
+    this.newUser = this.G.G.isNew("newAddData");
+    this.newUser ? this.G.G.showDelay(this.newDialog) : this.getData();
   }
   getSettings() {
     var response = this.G.G.getSettings();
