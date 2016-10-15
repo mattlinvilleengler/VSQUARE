@@ -43,7 +43,6 @@ export class LandingComponent implements OnInit , AfterViewInit {
     this.G.G.upgrade();
     var dialogs = [this.loginDialog, this.resetDialog, this.registerDialog]
     this.G.G.registerDialogs(dialogs);
-    this.signIn();
   }
   color() {
     var me = this;
@@ -55,9 +54,9 @@ export class LandingComponent implements OnInit , AfterViewInit {
   signIn() {
     this.G.G.set('loginMethod', 'current');
     this.G.G.set('loggingIn', 'true');
-   // this.G.G.close(this.loginDialog);
-   // this.G.G.signIn(this.email, this.password);
-    this.G.G.signIn('linvilm@gmail.com', 'Alloy5');
+    this.G.G.close(this.loginDialog);
+    this.G.G.signIn(this.email, this.password);
+    //this.G.G.signIn('linvilm@gmail.com', 'Alloy5');
     
   }
   register() {
