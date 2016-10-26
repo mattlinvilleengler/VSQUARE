@@ -1,10 +1,10 @@
 # VSQUARE
 Personal Aggregate Data Visualization Application
 
-## Angular2
-## Firebase
-## Node
-## D3.JS
+### Angular2
+### Firebase
+### Node
+### D3.JS
 
-## Deployed At
+### Deployed At
 https://mattlinvilleengler.github.io/VSQUARE/
