@@ -36,7 +36,7 @@ export class AddDataComponent implements AfterViewInit, OnInit {
     });
   }
   manageUser(){
-this.getSettings();
+    this.getSettings();
     this.newUser = this.G.G.isNew("newAddData");
     this.newUser ? this.G.G.showDelay(this.newDialog) : this.getData();
   }
@@ -46,6 +46,9 @@ this.getSettings();
       this.settingsOrganized = this.G.G.organizeSettings(response);
     }
     this.G.G.upgradeDelay();
+  }
+  createData(){
+    this.G.G.createData(this.settingsOrganized);  
   }
   saveData() {
     var response = this.G.G.timeCheck(this.lastData);
@@ -65,16 +68,16 @@ this.getSettings();
   }
   dashboard() {
     this.G.G.close(this.dialog);
-    window.location.pathname = "my-app/dashboard";
+    window.location.pathname = "VSQUARE/dashboard";
   }
   dashboardSuccess() {
     this.G.G.close(this.successDialog);
-    window.location.pathname = "my-app/dashboard";
+    window.location.pathname = "VSQUARE/dashboard";
   }
   closeNewDialog() {
     this.G.G.close(this.newDialog);
     this.G.G.set('newAddData', "false");
     this.G.G.set('newDashboard', "true");
-    window.location.pathname = "my-app/dashboard";
+    window.location.pathname = "VSQUARE/dashboard";
   }
 }

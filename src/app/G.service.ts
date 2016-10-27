@@ -174,6 +174,27 @@ export class G {
         }
         return response;
     };
+    createData(settingsOrganized) {
+        var me = this;
+        database.ref("data/" + me.user.ID).remove();
+        var time = 86400000 * 100;
+        for (var i = 0; i < 100; i++) {
+            settingsOrganized.forEach(function (x) {
+                x.forEach(function (a) {
+                    if (a.valueType == "range") {
+                        a.value = Math.floor(Math.random() * a.max);
+                    } else {
+                        a.value = Math.floor(Math.random() * a.max);
+                    }
+                });
+            });
+            var d = new Date();
+            var date = d.getTime();
+            date = date - time;
+            this.saveData(date, settingsOrganized);
+            time -= 86400000;
+        }
+    }
     saveData(date, settingsOrganized) {
         var response = false;
         var me = this;
@@ -370,6 +391,7 @@ export class G {
         reAuth: this.reAuth,
         //data
         timeCheck: this.timeCheck,
+        createData: this.createData,
         saveData: this.saveData,
         getData: this.getData,
         deleteData: this.deleteData,

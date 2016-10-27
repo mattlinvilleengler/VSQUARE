@@ -126,12 +126,12 @@ export class SettingsComponent implements AfterViewInit, OnInit {
   }
   dashboardSuccess() {
     this.G.G.close(this.successDialog);
-    window.location.pathname = "my-app/dashboard";
+    window.location.pathname = "VSQUARE/dashboard";
   }
   closeNewDialog() {
     this.G.G.close(this.newDialog);
     this.G.G.set('newSettings', "false");
     this.G.G.set('newAddData', "true");
-    window.location.pathname = "my-app/adddata";
+    window.location.pathname = "VSQUARE/adddata";
   }
 }

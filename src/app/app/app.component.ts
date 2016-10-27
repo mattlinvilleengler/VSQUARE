@@ -116,7 +116,7 @@ ngOnInit(){
   closeSuccessNewUser() {
     this.closeSuccess();
     this.G.G.set('newAccount', "true");
-    window.location.pathname = "my-app/account";
+    window.location.pathname = "VSQUARE/account";
   }
   dismiss() {
     this.G.G.set('errorsOpen', 'false');

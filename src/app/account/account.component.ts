@@ -103,10 +103,10 @@ export class AccountComponent implements AfterViewInit, OnInit {
     this.G.G.close(this.newDialog);
     this.G.G.set('newAccount', "false");
     this.G.G.set('newSettings', "true");
-    window.location.pathname = "my-app/settings";
+    window.location.pathname = "VSQUARE/settings";
   }
   dashboardSuccess() {
     this.G.G.close(this.successDialog);
-    window.location.pathname = "my-app/dashboard";
+    window.location.pathname = "VSQUARE/dashboard";
   }
 }

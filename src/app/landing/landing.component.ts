@@ -18,7 +18,10 @@ export class LandingComponent implements OnInit , AfterViewInit {
   one: boolean = true;
   two: boolean = false;
   three: boolean = false;
+  four: boolean = true;
+  
   bc: string = "";
+  bc1: string = "";
   G:G = new G;
 
   @ViewChild('loginDialog') loginDialog: any;
@@ -50,6 +53,7 @@ export class LandingComponent implements OnInit , AfterViewInit {
     setInterval(function () {
       me.bc = colors[Math.floor(Math.random() * (colors.length - 1))];
     }, 5000)
+      me.bc1 = "six";
   }
   signIn() {
     this.G.G.set('loginMethod', 'current');
@@ -57,7 +61,11 @@ export class LandingComponent implements OnInit , AfterViewInit {
     this.G.G.close(this.loginDialog);
     this.G.G.signIn(this.email, this.password);
     //this.G.G.signIn('linvilm@gmail.com', 'Alloy5');
-    
+  }
+    signInAsTest() {
+    this.G.G.set('loginMethod', 'current');
+    this.G.G.set('loggingIn', 'true');
+    this.G.G.signIn('test@gmail.com', 'test500');
   }
   register() {
     this.G.G.set('loginMethod', 'new');
